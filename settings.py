@@ -114,8 +114,10 @@ INSTALLED_APPS = (
     'south',
     'devserver',
     'django_bcrypt',
+    'compressor',
     
     # your apps here
+    'card',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -140,6 +142,10 @@ LOGGING = {
         },
     }
 }
+
+# COMPRESS_ENABLED = False # enable JS/CSS asset packaging/compression
+COMPRESS_URL = '/static/'
+COMPRESS_ROOT = STATIC_ROOT
 
 try:
     from local_settings import *
