@@ -32,7 +32,7 @@
 				
 				var isRecording = false;
 				var recordingStartTime = null;
-				var recordedNotes = [];
+				var recordedNotes = {{ song.notes_json|safe }};
 				
 				$('#record').click(function() {
 					if (!isRecording) {
@@ -43,7 +43,7 @@
 					} else {
 						$('#record').val('Record');
 						isRecording = false;
-						$('#saved_song').val(JSON.stringify(recordedNotes));
+						$('#id_notes_json').val(JSON.stringify(recordedNotes));
 					}
 				})
 				
@@ -107,10 +107,13 @@
 		
 		<div class="popups">
 			<div id="save_popup">
-				<form action="#" method="post">
+				<form action="{% url create_song %}" method="post">
+					{% csrf_token %}
 					<p>Enter a title for your song:</p>
-					<label>Title <input id="title" /></label>
-					<input type="hidden" id="saved_song" />
+					
+					<table>
+						{{ form }}
+					</table>
 					<input type="submit" value="Share it!" />
 			</div>
 		</div>
