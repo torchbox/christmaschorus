@@ -14,8 +14,11 @@
 			
 			var keysPressed = {};
 			
+			var keyboardActive = true;
+			
 			$(function() {
 				$(document).keydown(function(e) {
+					if (!keyboardActive) return;
 					if (e.shiftKey || e.metaKey || e.ctrlKey || e.altKey) return;
 					var note = NOTES_BY_KEYCODE[e.which];
 					if (note && !keysPressed[e.which]) {
@@ -72,6 +75,10 @@
 					}
 				}
 				
+				/* Disable playing by keyboard while lightbox is open */
+				$(document).bind('cbox_open', function() { keyboardActive = false; })
+				$(document).bind('cbox_closed', function() { keyboardActive = true; })
+				
 				$('#share').colorbox({'inline': true, 'href': '#save_popup'});
 			})
 		</script>
@@ -98,12 +105,30 @@
 			<video id="c3" width="166" height="100"><source src="http://localhost/~matthew/tbx/card/c3.m4v" type="video/mp4; codecs=&quot;avc1.42E01E, mp4a.40.2&quot;" /></video>
 		</div>
 		
+		<h1>{{ song.title }}</h1>
+		{% if song.id %}
+			<a href="https://twitter.com/share" class="twitter-share-button" data-text="The Torchbox trololol chorus presents: {{ song.title }}" data-count="vertical" data-via="torchbox">Tweet</a><script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
+			<!-- TODO: insert domain in facebook share link -->
+			<iframe src="https://www.facebook.com/plugins/like.php?href=http://torchbox.com{{ song.get_absolute_url }}"
+				scrolling="no" frameborder="0"
+				style="border:none; width:450px; height:80px"></iframe>
+		{% else %}
+			<a href="https://twitter.com/share" class="twitter-share-button" data-text="Torchbox wishes you a musical trololol Christmas!" data-count="vertical" data-via="torchbox">Tweet</a><script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
+		{% endif %}
+		
 		<div id="controls">
 			<input type="button" id="record" value="Record" />
 			<input type="button" id="play" value="Play" />
 		</div>
 		
 		<input type="button" id="share" value="Share" />
+		
+		<h2>Latest songs</h2>
+		<ul>
+			{% for song in latest_songs %}
+				<li><a href="{{ song.get_absolute_url }}">{{ song.title }}</a></li>
+			{% endfor %}
+		</ul>
 		
 		<div class="popups">
 			<div id="save_popup">

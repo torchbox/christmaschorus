@@ -5,6 +5,7 @@ class Song(models.Model):
 	title = models.CharField(max_length=255)
 	notes_json = models.TextField()
 	code = models.CharField(max_length = 16)
+	created_at = models.DateTimeField(auto_now_add = True)
 	
 	# TODO: validate that notes_json is valid JSON
 	
@@ -24,3 +25,7 @@ class Song(models.Model):
 	@models.permalink
 	def get_absolute_url(self):
 		return ('card.views.song', [self.code])
+	
+	@staticmethod
+	def latest():
+		return Song.objects.order_by('-created_at')[:10]

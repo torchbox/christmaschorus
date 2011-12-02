@@ -9,6 +9,7 @@ def home(request):
 	return render(request, 'index.html', {
 		'song': song,
 		'form': form,
+		'latest_songs': Song.latest,
 	})
 
 def create_song(request):
@@ -22,4 +23,5 @@ def song(request, code):
 	return render(request, 'index.html', {
 		'song': song,
 		'form': form,
+		'latest_songs': Song.latest,
 	})
