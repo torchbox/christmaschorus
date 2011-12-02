@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Sum
 import random
 
 class Song(models.Model):
@@ -26,6 +27,16 @@ class Song(models.Model):
 	def get_absolute_url(self):
 		return ('card.views.song', [self.code])
 	
+	@property
+	def score(self):
+		return self.votes.all().aggregate(Sum('score'))['score__sum'] or 0
+	
 	@staticmethod
 	def latest():
 		return Song.objects.order_by('-created_at')[:10]
+
+class Vote(models.Model):
+	song = models.ForeignKey(Song, related_name = 'votes')
+	score = models.IntegerField(choices = ((1,'+'), (-1, '-')) )
+	vote_date = models.DateField()
+	ip_address = models.IPAddressField()

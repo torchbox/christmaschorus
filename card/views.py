@@ -1,7 +1,8 @@
 from card.shortcuts import *
 from card.models import *
 from card.forms import *
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect
+import datetime
 
 def home(request):
 	form = CreateSongForm()
@@ -25,3 +26,20 @@ def song(request, code):
 		'form': form,
 		'latest_songs': Song.latest,
 	})
+
+def vote(request, code):
+	song = get_object_or_404(Song, code = code)
+	if request.POST and request.POST.get('score') in ('-1', '1'):
+		try:
+			vote = Vote.objects.get(
+				song = song,
+				vote_date = datetime.date.today(),
+				ip_address = request.META['REMOTE_ADDR'])
+		except Vote.DoesNotExist:
+			vote = Vote(
+				song = song,
+				vote_date = datetime.date.today(),
+				ip_address = request.META['REMOTE_ADDR'])
+		vote.score = request.POST['score']
+		vote.save()
+	return HttpResponse(song.score)

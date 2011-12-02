@@ -13,5 +13,6 @@ urlpatterns = patterns('',
     url(r'^$', 'card.views.home', name='home'),
     url(r'^create/$', 'card.views.create_song', name='create_song'),
     url(r'^(\w+)/$', 'card.views.song', name='song'),
+    url(r'^(\w+)/vote/$', 'card.views.vote', name='vote'),
 )
 urlpatterns += staticfiles_urlpatterns()

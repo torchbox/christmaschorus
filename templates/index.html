@@ -105,8 +105,23 @@
 			<video id="c3" width="166" height="100"><source src="http://localhost/~matthew/tbx/card/c3.m4v" type="video/mp4; codecs=&quot;avc1.42E01E, mp4a.40.2&quot;" /></video>
 		</div>
 		
-		<h1>{{ song.title }}</h1>
 		{% if song.id %}
+			<h1>{{ song.title }}</h1>
+			
+			{% with song.score as score %}
+				<p>{{ score }} vote{{ score|pluralize }}</p>
+				<form action="{% url vote song.code %}" method="POST">
+					{% csrf_token %}
+					<input type="hidden" name="score" value="1" />
+					<input type="submit" value="+" />
+				</form>
+				<form action="{% url vote song.code %}" method="POST">
+					{% csrf_token %}
+					<input type="hidden" name="score" value="-1" />
+					<input type="submit" value="-" />
+				</form>
+			{% endwith %}
+			
 			<a href="https://twitter.com/share" class="twitter-share-button" data-text="The Torchbox trololol chorus presents: {{ song.title }}" data-count="vertical" data-via="torchbox">Tweet</a><script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
 			<!-- TODO: insert domain in facebook share link -->
 			<iframe src="https://www.facebook.com/plugins/like.php?href=http://torchbox.com{{ song.get_absolute_url }}"
@@ -114,6 +129,10 @@
 				style="border:none; width:450px; height:80px"></iframe>
 		{% else %}
 			<a href="https://twitter.com/share" class="twitter-share-button" data-text="Torchbox wishes you a musical trololol Christmas!" data-count="vertical" data-via="torchbox">Tweet</a><script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
+			<!-- TODO: insert domain in facebook share link -->
+			<iframe src="https://www.facebook.com/plugins/like.php?href=http://torchbox.com/"
+				scrolling="no" frameborder="0"
+				style="border:none; width:450px; height:80px"></iframe>
 		{% endif %}
 		
 		<div id="controls">
