@@ -33,7 +33,11 @@ class Song(models.Model):
 	
 	@staticmethod
 	def latest():
-		return Song.objects.order_by('-created_at')[:10]
+		return Song.objects.order_by('-created_at')[:10].annotate(vote_score = Sum('votes__score'))
+	
+	@staticmethod
+	def highest_voted():
+		return Song.objects.annotate(vote_score = Sum('votes__score')).filter(vote_score__gt = 0).order_by('-vote_score')[:10]
 
 class Vote(models.Model):
 	song = models.ForeignKey(Song, related_name = 'votes')

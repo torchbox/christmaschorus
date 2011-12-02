@@ -10,7 +10,8 @@ def home(request):
 	return render(request, 'index.html', {
 		'song': song,
 		'form': form,
-		'latest_songs': Song.latest,
+		'latest_songs': Song.latest(),
+		'highest_voted_songs': Song.highest_voted(),
 	})
 
 def create_song(request):
@@ -24,7 +25,8 @@ def song(request, code):
 	return render(request, 'index.html', {
 		'song': song,
 		'form': form,
-		'latest_songs': Song.latest,
+		'latest_songs': Song.latest(),
+		'highest_voted_songs': Song.highest_voted(),
 	})
 
 def vote(request, code):

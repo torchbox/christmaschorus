@@ -142,10 +142,22 @@
 		
 		<input type="button" id="share" value="Share" />
 		
+		<h2>Highest voted songs</h2>
+		<ul>
+			{% for song in highest_voted_songs %}
+				<li>
+					<a href="{{ song.get_absolute_url }}">{{ song.title }}</a>
+					({{ song.vote_score|default_if_none:0 }} vote{{ song.vote_score|default_if_none:0|pluralize }})
+				</li>
+			{% endfor %}
+		</ul>
 		<h2>Latest songs</h2>
 		<ul>
 			{% for song in latest_songs %}
-				<li><a href="{{ song.get_absolute_url }}">{{ song.title }}</a></li>
+				<li>
+					<a href="{{ song.get_absolute_url }}">{{ song.title }}</a>
+					({{ song.vote_score|default_if_none:0 }} vote{{ song.vote_score|default_if_none:0|pluralize }})
+				</li>
 			{% endfor %}
 		</ul>
 		
