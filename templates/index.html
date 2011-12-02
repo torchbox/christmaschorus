@@ -16,6 +16,46 @@
 			.popups {
 				display: none;
 			}
+			#staff {
+				position: relative;
+			}
+			#staff table {
+				width: 100%;
+				border-spacing: 0;
+			}
+			#staff table td {
+				border-top: 1px solid black;
+				height: 7px;
+				padding: 0;
+			}
+			#staff ul.notes {
+				list-style-type: none;
+				margin: 0;
+				padding: 0;
+			}
+			#staff ul.notes li {
+				position: absolute;
+				margin: 0;
+				padding: 0;
+				width: 29px;
+				height: 31px;
+				background-image: url('{{ STATIC_URL }}img/quaver.png');
+				background-position: top;
+				margin-top: -21px;
+			}
+			#staff ul.notes li.c2 {top:44px;}
+			#staff ul.notes li.cs2 {top:44px;background-image: url('{{ STATIC_URL }}img/quaver_sharp.png');}
+			#staff ul.notes li.d2 {top:40px;}
+			#staff ul.notes li.ds2 {top:40px;background-image: url('{{ STATIC_URL }}img/quaver_sharp.png');}
+			#staff ul.notes li.e2 {top:36px;}
+			#staff ul.notes li.f2 {top:32px;}
+			#staff ul.notes li.fs2 {top:32px;background-image: url('{{ STATIC_URL }}img/quaver_sharp.png');}
+			#staff ul.notes li.g2 {top:28px;}
+			#staff ul.notes li.gs2 {top:28px;background-image: url('{{ STATIC_URL }}img/quaver_sharp.png');}
+			#staff ul.notes li.a2 {top:24px;}
+			#staff ul.notes li.as2 {top:24px;background-image: url('{{ STATIC_URL }}img/quaver_sharp.png');}
+			#staff ul.notes li.b2 {top:20px;}
+			#staff ul.notes li.c3 {top:16px;}
 		</style>
 	</head>
 	<body>
@@ -33,6 +73,18 @@
 			<video id="as2" width="166" height="100"><source src="http://localhost/~matthew/tbx/card/as2.m4v" type="video/mp4; codecs=&quot;avc1.42E01E, mp4a.40.2&quot;" /></video>
 			<video id="b2" width="166" height="100"><source src="http://localhost/~matthew/tbx/card/b2.m4v" type="video/mp4; codecs=&quot;avc1.42E01E, mp4a.40.2&quot;" /></video>
 			<video id="c3" width="166" height="100"><source src="http://localhost/~matthew/tbx/card/c3.m4v" type="video/mp4; codecs=&quot;avc1.42E01E, mp4a.40.2&quot;" /></video>
+		</div>
+		
+		<div id="staff">
+			<table>
+				<tr><td></td></tr>
+				<tr><td></td></tr>
+				<tr><td></td></tr>
+				<tr><td></td></tr>
+				<tr><td></td></tr>
+				<tr><td></td></tr>
+			</table>
+			<ul class="notes"></ul>
 		</div>
 		
 		{% if song.id %}

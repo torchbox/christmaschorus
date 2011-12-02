@@ -66,6 +66,17 @@
 			}
 		}
 		
+		function addNoteToStaff(note) {
+			var noteLi = $('<li></li>').addClass(note.note);
+			$('#staff ul').append(noteLi);
+			noteLi.css({
+				'left': note.time/10 + 'px'
+			});
+		}
+		for (var i = 0; i < recordedNotes.length; i++) {
+			addNoteToStaff(recordedNotes[i]);
+		}
+		
 		/* Disable playing by keyboard while lightbox is open */
 		$(document).bind('cbox_open', function() { keyboardActive = false; })
 		$(document).bind('cbox_closed', function() { keyboardActive = true; })
