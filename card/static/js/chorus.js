@@ -7,22 +7,31 @@
 	var keysPressed = {};
 	
 	var keyboardActive = true;
+	var lastMouseNote = null;
 	
 	$.chorus = function(recordedNotes) {
 		$(document).keydown(function(e) {
 			if (!keyboardActive) return;
 			if (e.shiftKey || e.metaKey || e.ctrlKey || e.altKey) return;
-			var note = NOTES_BY_KEYCODE[e.which];
-			if (note && !keysPressed[e.which]) {
-				keysPressed[e.which] = true;
-				playNote(note);
+			var noteName = NOTES_BY_KEYCODE[e.which];
+			if (noteName && !keysPressed[e.which]) {
+				var note = registerNoteOn(noteName);
+				keysPressed[e.which] = note;
 			}
 		}).keyup(function(e) {
-			var note = NOTES_BY_KEYCODE[e.which];
-			if (note) keysPressed[e.which] = false;
+			if (keysPressed[e.which]) {
+				registerNoteOff(keysPressed[e.which]);
+				keysPressed[e.which] = null;
+			}
 		})
 		$('video').mousedown(function() {
-			playNote(this.id);
+			lastMouseNote = registerNoteOn(this.id);
+		})
+		$(document).mouseup(function() {
+			if (lastMouseNote) {
+				registerNoteOff(lastMouseNote);
+				lastMouseNote = null;
+			}
 		})
 		
 		var isRecording = false;
@@ -37,6 +46,14 @@
 			} else {
 				$('#record').val('Record');
 				isRecording = false;
+				
+				noteData = [];
+				for (var i = 0; i < recordedNotes.length; i++) {
+					var note = recordedNotes[i];
+					noteData[i] = {
+						'noteName': note.noteName, 'time': note.time, 'duration': note.duration
+					};
+				}
 				$('#id_notes_json').val(JSON.stringify(recordedNotes));
 			}
 		})
@@ -45,33 +62,63 @@
 			function getPlayCallbackForNote(note) {
 				return function() {playNote(note)}
 			}
+			function getStopCallbackForNote(note) {
+				return function() {stopNote(note)}
+			}
 			for (var i = 0; i < recordedNotes.length; i++) {
-				setTimeout(getPlayCallbackForNote(recordedNotes[i].note), recordedNotes[i].time);
+				var note = recordedNotes[i];
+				setTimeout(getPlayCallbackForNote(note), note.time);
+				if (note.duration) {
+					setTimeout(getStopCallbackForNote(note), note.time + note.duration);
+				}
 			}
 		})
 		
-		function playNote(note) {
-			var video = document.getElementById(note);
-			video.currentTime = 0;
-			video.play();
+		function registerNoteOn(noteName) {
+			var note = {
+				noteName: noteName
+			}
 			if (isRecording) {
 				var currentTime = (new Date).getTime();
 				if (!recordingStartTime) {
 					recordingStartTime = currentTime;
 				}
-				recordedNotes.push({
-					time: currentTime - recordingStartTime,
-					note: note
-				});
+				note.time = currentTime - recordingStartTime;
+				recordedNotes.push(note);
+				addNoteToStaff(note);
+			}
+			playNote(note);
+			return note;
+		}
+		function registerNoteOff(note) {
+			if (note.time != null) {
+				var currentTime = (new Date).getTime();
+				note.duration = (currentTime - recordingStartTime) - note.time;
+			}
+			stopNote(note);
+		}
+		
+		function playNote(note) {
+			var video = document.getElementById(note.noteName);
+			video.currentTime = 0;
+			video.play();
+			if (note.elem) {
+				note.elem.addClass('active');
+			}
+		}
+		function stopNote(note) {
+			if (note.elem) {
+				note.elem.removeClass('active');
 			}
 		}
 		
 		function addNoteToStaff(note) {
-			var noteLi = $('<li></li>').addClass(note.note);
+			var noteLi = $('<li></li>').addClass(note.noteName);
 			$('#staff ul').append(noteLi);
 			noteLi.css({
 				'left': note.time/10 + 'px'
 			});
+			note.elem = noteLi;
 		}
 		for (var i = 0; i < recordedNotes.length; i++) {
 			addNoteToStaff(recordedNotes[i]);
