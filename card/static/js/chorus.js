@@ -54,7 +54,7 @@
 						'noteName': note.noteName, 'time': note.time, 'duration': note.duration
 					};
 				}
-				$('#id_notes_json').val(JSON.stringify(recordedNotes));
+				$('#id_notes_json').val(JSON.stringify(noteData));
 			}
 		})
 		
@@ -104,6 +104,11 @@
 			video.play();
 			if (note.elem) {
 				note.elem.addClass('active');
+				var currentX = parseInt($('#staff ul.notes').css('left'));
+				var noteX = parseInt(note.elem.css('left'));
+				if (noteX < -currentX || noteX > -currentX + $('#staff_viewport').width() - 100) {
+					$('#staff ul.notes').css({'left': -noteX});
+				}
 			}
 		}
 		function stopNote(note) {
@@ -116,7 +121,7 @@
 			var noteLi = $('<li></li>').addClass(note.noteName);
 			$('#staff ul').append(noteLi);
 			noteLi.css({
-				'left': note.time/10 + 'px'
+				'left': note.time/10 + 40 + 'px'
 			});
 			note.elem = noteLi;
 		}
@@ -129,5 +134,15 @@
 		$(document).bind('cbox_closed', function() { keyboardActive = true; })
 		
 		$('#share').colorbox({'inline': true, 'href': '#save_popup'});
+		
+		var initialDragX;
+		$('#staff').drag(function() {
+			initialDragX = parseInt($('ul.notes', this).css('left'));
+		}, function(e) {
+			var newX = initialDragX + e.offsetX;
+			newX = Math.min(0, newX);
+			$('ul.notes', this).css({'left': newX});
+		}, function() {
+		})
 	}
 })(jQuery);

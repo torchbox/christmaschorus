@@ -6,6 +6,7 @@
 		<script src="{{ STATIC_URL }}lib/colorbox/jquery.colorbox.min.js"></script>
 		<link rel="stylesheet" href="{{ STATIC_URL }}lib/colorbox/colorbox.css" />
 		<script src="{{ STATIC_URL }}js/json2.js"></script>
+		<script src="{{ STATIC_URL }}js/jquery.drag.js"></script>
 		<script src="{{ STATIC_URL }}js/chorus.js"></script>
 		<script>
 			$(function() {
@@ -16,11 +17,18 @@
 			.popups {
 				display: none;
 			}
+			
+			#staff_viewport {
+				width: 100%;
+				height: 100px;
+				overflow: hidden;
+			}
 			#staff {
 				position: relative;
 			}
 			#staff table {
 				width: 100%;
+				padding-top: 15px;
 				border-spacing: 0;
 			}
 			#staff table td {
@@ -29,9 +37,15 @@
 				padding: 0;
 			}
 			#staff ul.notes {
+				position: absolute;
+				top: 4px;
+				left: 0;
 				list-style-type: none;
 				margin: 0;
 				padding: 0;
+				background-image: url('{{ STATIC_URL }}img/clef.png');
+				width: 26px;
+				height: 68px;
 			}
 			#staff ul.notes li {
 				position: absolute;
@@ -46,19 +60,19 @@
 			#staff ul.notes li.active {
 				background-position: bottom;
 			}
-			#staff ul.notes li.c2 {top:44px;}
-			#staff ul.notes li.cs2 {top:44px;background-image: url('{{ STATIC_URL }}img/quaver_sharp.png');}
-			#staff ul.notes li.d2 {top:40px;}
-			#staff ul.notes li.ds2 {top:40px;background-image: url('{{ STATIC_URL }}img/quaver_sharp.png');}
-			#staff ul.notes li.e2 {top:36px;}
-			#staff ul.notes li.f2 {top:32px;}
-			#staff ul.notes li.fs2 {top:32px;background-image: url('{{ STATIC_URL }}img/quaver_sharp.png');}
-			#staff ul.notes li.g2 {top:28px;}
-			#staff ul.notes li.gs2 {top:28px;background-image: url('{{ STATIC_URL }}img/quaver_sharp.png');}
-			#staff ul.notes li.a2 {top:24px;}
-			#staff ul.notes li.as2 {top:24px;background-image: url('{{ STATIC_URL }}img/quaver_sharp.png');}
-			#staff ul.notes li.b2 {top:20px;}
-			#staff ul.notes li.c3 {top:16px;}
+			#staff ul.notes li.c2 {top:59px;}
+			#staff ul.notes li.cs2 {top:59px;background-image: url('{{ STATIC_URL }}img/quaver_sharp.png');}
+			#staff ul.notes li.d2 {top:55px;}
+			#staff ul.notes li.ds2 {top:55px;background-image: url('{{ STATIC_URL }}img/quaver_sharp.png');}
+			#staff ul.notes li.e2 {top:51px;}
+			#staff ul.notes li.f2 {top:47px;}
+			#staff ul.notes li.fs2 {top:47px;background-image: url('{{ STATIC_URL }}img/quaver_sharp.png');}
+			#staff ul.notes li.g2 {top:43px;}
+			#staff ul.notes li.gs2 {top:43px;background-image: url('{{ STATIC_URL }}img/quaver_sharp.png');}
+			#staff ul.notes li.a2 {top:39px;}
+			#staff ul.notes li.as2 {top:39px;background-image: url('{{ STATIC_URL }}img/quaver_sharp.png');}
+			#staff ul.notes li.b2 {top:35px;}
+			#staff ul.notes li.c3 {top:31px;}
 		</style>
 	</head>
 	<body>
@@ -78,16 +92,18 @@
 			<video id="c3" width="166" height="100"><source src="http://localhost/~matthew/tbx/card/c3.m4v" type="video/mp4; codecs=&quot;avc1.42E01E, mp4a.40.2&quot;" /></video>
 		</div>
 		
-		<div id="staff">
-			<table>
-				<tr><td></td></tr>
-				<tr><td></td></tr>
-				<tr><td></td></tr>
-				<tr><td></td></tr>
-				<tr><td></td></tr>
-				<tr><td></td></tr>
-			</table>
-			<ul class="notes"></ul>
+		<div id="staff_viewport">
+			<div id="staff">
+				<table>
+					<tr><td></td></tr>
+					<tr><td></td></tr>
+					<tr><td></td></tr>
+					<tr><td></td></tr>
+					<tr><td></td></tr>
+					<tr><td></td></tr>
+				</table>
+				<ul class="notes"></ul>
+			</div>
 		</div>
 		
 		{% if song.id %}
