@@ -36,12 +36,13 @@
 		
 		var isRecording = false;
 		var recordingStartTime = null;
+		var isPlaying = false;
 		
 		$('#record').click(function() {
 			if (!isRecording) {
 				$('#record').val('Stop recording');
 				isRecording = true;
-				recordedNotes = [];
+				recordedNotes = [[]];
 				recordingStartTime = null; /* start counting time on next note */
 			} else {
 				$('#record').val('Record');
@@ -49,28 +50,67 @@
 				
 				noteData = [];
 				for (var i = 0; i < recordedNotes.length; i++) {
-					var note = recordedNotes[i];
-					noteData[i] = {
-						'noteName': note.noteName, 'time': note.time, 'duration': note.duration
-					};
+					var track = recordedNotes[i];
+					var trackData = [];
+					for (var j = 0; j < track.length; j++) {
+						var note = track[j];
+						trackData[j] = {
+							'noteName': note.noteName, 'time': note.time, 'duration': note.duration
+						};
+					}
+					noteData[i] = trackData;
 				}
 				$('#id_notes_json').val(JSON.stringify(noteData));
 			}
 		})
 		
-		$('#play').click(function() {
+		noteTimeouts = [];
+		
+		function cancelNoteTimeouts() {
+			for (var i = 0; i < noteTimeouts.length; i++) {
+				clearTimeout(noteTimeouts[i]);
+			}
+		}
+		
+		function playRecording() {
 			function getPlayCallbackForNote(note) {
-				return function() {playNote(note)}
-			}
-			function getStopCallbackForNote(note) {
-				return function() {stopNote(note)}
-			}
-			for (var i = 0; i < recordedNotes.length; i++) {
-				var note = recordedNotes[i];
-				setTimeout(getPlayCallbackForNote(note), note.time);
-				if (note.duration) {
-					setTimeout(getStopCallbackForNote(note), note.time + note.duration);
+				return function() {
+					playNote(note)
+					if (note.duration) {
+						setTimeout(function() {stopNote(note)}, note.duration);
+					}
 				}
+			}
+			
+			cancelNoteTimeouts();
+			var songDuration = 0;
+			for (var i = 0; i < recordedNotes.length; i++) {
+				var track = recordedNotes[i];
+				for (var j = 0; j < track.length; j++) {
+					var note = track[j];
+					noteTimeouts.push(setTimeout(getPlayCallbackForNote(note), note.time));
+				}
+				if (track.length > 0) {
+					var lastNote = track[track.length - 1];
+					var trackDuration = lastNote.time + (lastNote.duration || 0);
+					songDuration = Math.max(songDuration, trackDuration);
+				}
+			}
+			noteTimeouts.push(setTimeout(function() {
+				isPlaying = false;
+				$('#play').val('Play');
+			}, songDuration));
+			isPlaying = true;
+		}
+		
+		$('#play').click(function() {
+			if (isPlaying) {
+				cancelNoteTimeouts();
+				isPlaying = false;
+				$('#play').val('Play');
+			} else {
+				playRecording();
+				$('#play').val('Stop');
 			}
 		})
 		
@@ -84,7 +124,7 @@
 					recordingStartTime = currentTime;
 				}
 				note.time = currentTime - recordingStartTime;
-				recordedNotes.push(note);
+				recordedNotes[0].push(note);
 				addNoteToStaff(note);
 			}
 			playNote(note);
@@ -107,7 +147,7 @@
 				var currentX = parseInt($('#staff ul.notes').css('left'));
 				var noteX = parseInt(note.elem.css('left'));
 				if (noteX < -currentX || noteX > -currentX + $('#staff_viewport').width() - 100) {
-					$('#staff ul.notes').css({'left': -noteX});
+					$('#staff ul.notes').css({'left': (noteX < 200 ? 0 : -noteX)});
 				}
 			}
 		}
@@ -125,8 +165,9 @@
 			});
 			note.elem = noteLi;
 		}
-		for (var i = 0; i < recordedNotes.length; i++) {
-			addNoteToStaff(recordedNotes[i]);
+		/* TODO: create one staff per track */
+		for (var i = 0; i < recordedNotes[0].length; i++) {
+			addNoteToStaff(recordedNotes[0][i]);
 		}
 		
 		/* Disable playing by keyboard while lightbox is open */
