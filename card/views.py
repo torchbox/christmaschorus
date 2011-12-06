@@ -9,6 +9,7 @@ def home(request):
 	song = Song(notes_json = '[]')
 	return render(request, 'index.html', {
 		'song': song,
+		'title': 'Merry Christmas from Torchbox!',
 		'form': form,
 		'latest_songs': Song.latest(),
 		'highest_voted_songs': Song.highest_voted(),
@@ -24,6 +25,7 @@ def song(request, code):
 	form = CreateSongForm()
 	return render(request, 'index.html', {
 		'song': song,
+		'title': song.title,
 		'form': form,
 		'latest_songs': Song.latest(),
 		'highest_voted_songs': Song.highest_voted(),

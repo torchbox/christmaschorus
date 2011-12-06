@@ -1,0 +1,65 @@
+.popups {
+	display: none;
+}
+
+#staffs {
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+}
+
+.staff_viewport {
+	width: 100%;
+	height: 100px;
+	overflow: hidden;
+}
+.staff {
+	position: relative;
+}
+.staff table {
+	width: 100%;
+	padding-top: 15px;
+	border-spacing: 0;
+}
+.staff table td {
+	border-top: 1px solid black;
+	height: 7px;
+	padding: 0;
+}
+.staff ul.notes {
+	position: absolute;
+	top: 4px;
+	left: 0;
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	background-image: url('../img/clef.png');
+	width: 26px;
+	height: 68px;
+}
+.staff ul.notes li {
+	position: absolute;
+	margin: 0;
+	padding: 0;
+	width: 29px;
+	height: 31px;
+	background-image: url('../img/quaver.png');
+	background-position: top;
+	margin-top: -21px;
+}
+.staff ul.notes li.active {
+	background-position: bottom;
+}
+.staff ul.notes li.c2 {top:59px;}
+.staff ul.notes li.cs2 {top:59px;background-image: url('../img/quaver_sharp.png');}
+.staff ul.notes li.d2 {top:55px;}
+.staff ul.notes li.ds2 {top:55px;background-image: url('../img/quaver_sharp.png');}
+.staff ul.notes li.e2 {top:51px;}
+.staff ul.notes li.f2 {top:47px;}
+.staff ul.notes li.fs2 {top:47px;background-image: url('../img/quaver_sharp.png');}
+.staff ul.notes li.g2 {top:43px;}
+.staff ul.notes li.gs2 {top:43px;background-image: url('../img/quaver_sharp.png');}
+.staff ul.notes li.a2 {top:39px;}
+.staff ul.notes li.as2 {top:39px;background-image: url('../img/quaver_sharp.png');}
+.staff ul.notes li.b2 {top:35px;}
+.staff ul.notes li.c3 {top:31px;}
