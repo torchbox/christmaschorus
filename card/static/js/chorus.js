@@ -3,6 +3,11 @@
 		90: 'c2', 83: 'cs2', 88: 'd2', 68: 'ds2', 67: 'e2',
 		86: 'f2', 71: 'fs2', 66: 'g2', 72: 'gs2', 78: 'a2', 74: 'as2', 77: 'b2', 188: 'c3'
 	}
+	VALID_NOTE_NAMES = {}
+	for (i in NOTES_BY_KEYCODE) {
+		VALID_NOTE_NAMES[NOTES_BY_KEYCODE[i]] = 1
+	}
+	
 	
 	function Event() {
 		var self = {};
@@ -41,14 +46,18 @@
 		
 		var tracks = [];
 		
-		self.onRequestRecord = Event();
-		
-		for (var i = 0; i < songData.length; i++) {
-			tracks[i] = Track(songData[i]);
-			tracks[i].onRequestRecord.bind(function(tr) {
-				self.onRequestRecord.trigger(tr);
-			})
+		self.load = function(songData) {
+			$('#staffs').empty();
+			tracks = [];
+			for (var i = 0; i < songData.length; i++) {
+				tracks[i] = Track(songData[i]);
+				tracks[i].onRequestRecord.bind(function(tr) {
+					self.onRequestRecord.trigger(tr);
+				})
+			}
 		}
+		
+		self.onRequestRecord = Event();
 		
 		self.addTrack = function() {
 			var track = Track([]);
@@ -79,6 +88,12 @@
 				tracks[i].eachNote(callback);
 			}
 		}
+		
+		self.trackCount = function() {
+			return tracks.length;
+		}
+		
+		self.load(songData);
 		
 		return self;
 	}
@@ -137,12 +152,20 @@
 			note.elem = noteLi;
 		}
 		
+		/* validate note list */
+		var validNotes = [];
+		for (var i = 0; i < notes.length; i++) {
+			if (notes[i].noteName in VALID_NOTE_NAMES) validNotes.push(notes[i]);
+		}
+		notes = validNotes;
+		
 		for (var i = 0; i < notes.length; i++) {
 			var note = notes[i];
 			addNoteToStaff(note);
 		}
 		
 		self.addNote = function(note) {
+			if (!note.noteName in VALID_NOTE_NAMES) return;
 			notes.push(note);
 			addNoteToStaff(note);
 		}
@@ -184,6 +207,10 @@
 	$.chorus = function(songData) {
 		var song = Song(songData);
 		
+		window.loadSong = function(songData) {
+			song.load(songData);
+		}
+		
 		$(document).keydown(function(e) {
 			if (!keyboardActive) return;
 			if (e.shiftKey || e.metaKey || e.ctrlKey || e.altKey) return;
@@ -217,6 +244,8 @@
 				/* stop recording */
 				currentRecordingTrack = null;
 				$('#id_notes_json').val(JSON.stringify(song.getData()));
+				cancelNoteTimeouts();
+				isPlaying = false;
 				/* TODO: change label to 'Record' */
 			} else {
 				if (currentRecordingTrack) {
@@ -224,7 +253,14 @@
 				}
 				track.clear();
 				currentRecordingTrack = track;
-				recordingStartTime = null; /* start counting time on next note */
+				if (song.trackCount() > 1) {
+					/* start timing and playing existing tracks immediately */
+					recordingStartTime = (new Date).getTime();
+					playRecording();
+				} else {
+					recordingStartTime = null; /* start counting time on next note */
+				}
+				isPlaying = true;
 				/* TODO: change label to 'Stop recording' */
 			}
 		})

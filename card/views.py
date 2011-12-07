@@ -6,7 +6,7 @@ import datetime
 
 def home(request):
 	form = CreateSongForm()
-	song = Song(notes_json = '[]')
+	song = Song(notes_json = '[[]]')
 	return render(request, 'index.html', {
 		'song': song,
 		'title': 'Merry Christmas from Torchbox!',
