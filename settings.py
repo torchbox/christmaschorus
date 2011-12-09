@@ -114,7 +114,7 @@ INSTALLED_APPS = (
     'south',
     'devserver',
     'django_bcrypt',
-    'compressor',
+    #'compressor',
     
     # your apps here
     'card',
