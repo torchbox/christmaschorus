@@ -211,13 +211,16 @@
 	$.chorus = function(songData) {
 		var song = Song(songData);
 		
-		for (note in VALID_NOTE_NAMES) {
-			var audio = $('<audio width="166" height="100" controls="true"></audio>').attr('id', note);
-			audio.append(
-				$('<source type="audio/ogg; codecs=vorbis" />').attr('src', 'http://christmascard.s3.amazonaws.com/ogg/' + note + '_2.ogg'),
-				$('<source type="audio/mpeg; codecs=mp3" />').attr('src', 'http://christmascard.s3.amazonaws.com/mp3/' + note + '_2.mp3')
-			);
-			$('#samples').append(audio);
+		for (var note in VALID_NOTE_NAMES) {
+			for (var len = 1; len <= 3; len++) {
+				var sampleName = note + '_' + len;
+				var audio = $('<audio width="166" height="100" controls="true"></audio>').attr('id', sampleName);
+				audio.append(
+					$('<source type="audio/ogg; codecs=vorbis" />').attr('src', 'http://christmascard.s3.amazonaws.com/ogg/' + sampleName + '.ogg'),
+					$('<source type="audio/mpeg; codecs=mp3" />').attr('src', 'http://christmascard.s3.amazonaws.com/mp3/' + sampleName + '.mp3')
+				);
+				$('#samples').append(audio);
+			}
 		}
 		
 		window.loadSong = function(songData) {
@@ -347,10 +350,20 @@
 			stopNote(note);
 		}
 		
+		function sampleElementForNote(note) {
+			var noteLength = 2;
+			if (note.duration < 200) {
+				noteLength = 1;
+			} else if (note.duration > 500) {
+				noteLength = 3;
+			}
+			return document.getElementById(note.noteName + '_' + noteLength);
+		}
+		
 		function playNote(note) {
-			var video = document.getElementById(note.noteName);
-			video.currentTime = 0;
-			video.play();
+			var sample = sampleElementForNote(note);
+			sample.currentTime = 0;
+			sample.play();
 			if (note.elem) {
 				note.elem.addClass('active');
 				var currentX = parseInt($('#staffs ul.notes').css('left'));
@@ -361,6 +374,10 @@
 			}
 		}
 		function stopNote(note) {
+			if (note.duration > 500) {
+				var sample = sampleElementForNote(note);
+				sample.pause();
+			}
 			if (note.elem) {
 				note.elem.removeClass('active');
 			}
