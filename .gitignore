@@ -1,1 +1,3 @@
 local_settings.py
+data/mp3/*
+data/ogg/*
