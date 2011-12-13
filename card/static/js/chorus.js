@@ -207,6 +207,14 @@
 	$.chorus = function(songData) {
 		var song = Song(songData);
 		
+		for (note in VALID_NOTE_NAMES) {
+			var video = $('<video width="166" height="100"></video>').attr('id', note);
+			video.append(
+				$('<source type="video/mp4; codecs=&quot;avc1.42E01E, mp4a.40.2&quot;" />').attr('src', 'http://matthew-tbx.s3.amazonaws.com/trololo/' + note + '.m4v')
+			);
+			$('#singers').append(video);
+		}
+		
 		window.loadSong = function(songData) {
 			song.load(songData);
 		}
