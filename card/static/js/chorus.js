@@ -1,7 +1,11 @@
 (function($) {
 	NOTES_BY_KEYCODE = {
-		90: 'c2', 83: 'cs2', 88: 'd2', 68: 'ds2', 67: 'e2',
-		86: 'f2', 71: 'fs2', 66: 'g2', 72: 'gs2', 78: 'a2', 74: 'as2', 77: 'b2', 188: 'c3'
+		90: 'e2', 88: 'f2', 68: 'fs2', 67: 'g2', 70: 'gs2', 86: 'a2',
+		71: 'as2', 66: 'b2', 78: 'c3', 74: 'cs3', 77: 'd3', 75: 'ds3', 188: 'e3',
+		190: 'f3', 186: 'fs3', 191: 'g3',
+		
+		81: 'e3', 87: 'f3', 51: 'fs3', 69: 'g3', 52: 'gs3', 82: 'a3', 53: 'as3', 84: 'b3',
+		89: 'c4', 55: 'cs4', 85: 'd4', 56: 'ds4', 73: 'e4', 79: 'f4', 48: 'fs4', 80: 'g4'
 	}
 	VALID_NOTE_NAMES = {}
 	for (i in NOTES_BY_KEYCODE) {
@@ -208,11 +212,12 @@
 		var song = Song(songData);
 		
 		for (note in VALID_NOTE_NAMES) {
-			var video = $('<video width="166" height="100"></video>').attr('id', note);
-			video.append(
-				$('<source type="video/mp4; codecs=&quot;avc1.42E01E, mp4a.40.2&quot;" />').attr('src', 'http://matthew-tbx.s3.amazonaws.com/trololo/' + note + '.m4v')
+			var audio = $('<audio width="166" height="100" controls="true"></audio>').attr('id', note);
+			audio.append(
+				$('<source type="audio/ogg; codecs=vorbis" />').attr('src', 'http://christmascard.s3.amazonaws.com/ogg/' + note + '_2.ogg'),
+				$('<source type="audio/mpeg; codecs=mp3" />').attr('src', 'http://christmascard.s3.amazonaws.com/mp3/' + note + '_2.mp3')
 			);
-			$('#singers').append(video);
+			$('#samples').append(audio);
 		}
 		
 		window.loadSong = function(songData) {
