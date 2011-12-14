@@ -13,12 +13,14 @@
 		<script src="{{ STATIC_URL }}js/chorus.js"></script>
 		<script src="{{ STATIC_URL }}js/audio.js"></script>
 		<script src="{{ STATIC_URL }}js/keyboard.js"></script>
+		<script src="{{ STATIC_URL }}js/faces.js"></script>
 		<script src="{{ STATIC_URL }}js/visuals.js"></script>
 		<script>
 			$(function() {
 				chorus = ChorusController({{ song.notes_json|safe }});
 				audio = ChorusAudio(chorus);
 				keyboard = ChorusKeyboard(chorus);
+				faces = ChorusFaces(chorus);
 			})
 		</script>
 	</head>

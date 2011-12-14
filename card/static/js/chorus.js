@@ -39,8 +39,6 @@
 		return self;
 	}
 	
-	var lastMouseNote = null;
-	
 	Song = function(songData) {
 		var self = {};
 		
@@ -218,16 +216,6 @@
 			song.load(songData);
 		}
 		
-		$('video').mousedown(function() {
-			lastMouseNote = self.registerNoteOn(this.id);
-		})
-		$(document).mouseup(function() {
-			if (lastMouseNote) {
-				self.registerNoteOff(lastMouseNote);
-				lastMouseNote = null;
-			}
-		})
-		
 		var currentRecordingTrack = null;
 		var recordingStartTime = null;
 		var isPlaying = false;
@@ -337,14 +325,12 @@
 					setStaffPosition(noteX < 200 ? 0 : -noteX);
 				}
 			}
-			FACES_BY_NOTE_ID['face_' + note.noteName].open();
 		}
 		function stopNote(note) {
 			self.onStopNote.trigger(note);
 			if (note.elem) {
 				note.elem.removeClass('active');
 			}
-			FACES_BY_NOTE_ID['face_' + note.noteName].close();
 		}
 		
 		/* Disable playing by keyboard while lightbox is open */
