@@ -39,9 +39,6 @@
 		return self;
 	}
 	
-	var keysPressed = {};
-	
-	var keyboardActive = true;
 	var lastMouseNote = null;
 	
 	Song = function(songData) {
@@ -213,32 +210,20 @@
 		self.onPlayNote = Event();
 		self.onStopNote = Event();
 		
+		self.keyboardActive = true;
+		
 		var song = Song(songData);
 		
 		self.loadSong = function(songData) {
 			song.load(songData);
 		}
 		
-		$(document).keydown(function(e) {
-			if (!keyboardActive) return;
-			if (e.shiftKey || e.metaKey || e.ctrlKey || e.altKey) return;
-			var noteName = NOTES_BY_KEYCODE[e.which];
-			if (noteName && !keysPressed[e.which]) {
-				var note = registerNoteOn(noteName);
-				keysPressed[e.which] = note;
-			}
-		}).keyup(function(e) {
-			if (keysPressed[e.which]) {
-				registerNoteOff(keysPressed[e.which]);
-				keysPressed[e.which] = null;
-			}
-		})
 		$('video').mousedown(function() {
-			lastMouseNote = registerNoteOn(this.id);
+			lastMouseNote = self.registerNoteOn(this.id);
 		})
 		$(document).mouseup(function() {
 			if (lastMouseNote) {
-				registerNoteOff(lastMouseNote);
+				self.registerNoteOff(lastMouseNote);
 				lastMouseNote = null;
 			}
 		})
@@ -319,7 +304,7 @@
 			}
 		})
 		
-		function registerNoteOn(noteName) {
+		self.registerNoteOn = function(noteName) {
 			var note = {
 				noteName: noteName
 			}
@@ -334,7 +319,7 @@
 			playNote(note);
 			return note;
 		}
-		function registerNoteOff(note) {
+		self.registerNoteOff = function(note) {
 			if (note.time != null) {
 				var currentTime = (new Date).getTime();
 				note.duration = (currentTime - recordingStartTime) - note.time;
@@ -363,8 +348,8 @@
 		}
 		
 		/* Disable playing by keyboard while lightbox is open */
-		$(document).bind('cbox_open', function() { keyboardActive = false; })
-		$(document).bind('cbox_closed', function() { keyboardActive = true; })
+		$(document).bind('cbox_open', function() { self.keyboardActive = false; })
+		$(document).bind('cbox_closed', function() { self.keyboardActive = true; })
 		
 		$('#share').colorbox({'inline': true, 'href': '#save_popup'});
 		
