@@ -1,3 +1,99 @@
+body {
+	color: white;
+	background-color: black;
+	padding: 0;
+	margin: 0;
+}
+#title h1 {
+	padding: 0;
+	margin: 0;
+}
+#choir {
+	/* background-color: #444; */
+	margin: auto;
+	position: relative;
+}
+ul#singers {
+	margin: 0; padding: 0;
+}
+ul#singers li {
+	height: 25%;
+	width: 10%;
+	overflow: hidden;
+	position: absolute;
+	padding: 0;
+	margin: 0;
+}
+ul#singers li img {
+	height: 400%;
+	position: absolute;
+	width: auto;
+}
+
+li#face_e2 {left: 10%; top: 75%;}
+li#face_f2 {left: 20%; top: 75%;}
+li#face_fs2 {left: 25%; top: 50%;}
+li#face_g2 {left: 30%; top: 75%;}
+li#face_gs2 {left: 35%; top: 50%;}
+li#face_a2 {left: 40%; top: 75%;}
+li#face_as2 {left: 45%; top: 50%;}
+li#face_b2 {left: 50%; top: 75%;}
+li#face_c3 {left: 60%; top: 75%;}
+li#face_cs3 {left: 65%; top: 50%;}
+li#face_d3 {left: 70%; top: 75%;}
+li#face_ds3 {left: 75%; top: 50%;}
+li#face_e3 {left: 0%; top: 25%;}
+li#face_f3 {left: 10%; top: 25%;}
+li#face_fs3 {left: 15%; top: 0%;}
+li#face_g3 {left: 20%; top: 25%;}
+li#face_gs3 {left: 25%; top: 0%;}
+li#face_a3 {left: 30%; top: 25%;}
+li#face_as3 {left: 35%; top: 0%;}
+li#face_b3 {left: 40%; top: 25%;}
+li#face_c4 {left: 50%; top: 25%;}
+li#face_cs4 {left: 55%; top: 0%;}
+li#face_d4 {left: 60%; top: 25%;}
+li#face_ds4 {left: 65%; top: 0%;}
+li#face_e4 {left: 70%; top: 25%;}
+li#face_f4 {left: 80%; top: 25%;}
+li#face_fs4 {left: 85%; top: 0%;}
+li#face_g4 {left: 90%; top: 25%;}
+
+#current_song {
+	position: fixed;
+	bottom: 0;
+	margin: auto;
+	text-align: center;
+	width: 100%;
+}
+#current_song h2 {
+	width: 300px;
+	background-color: #222;
+	margin: auto;
+	line-height: 40px;
+	padding: 0;
+}
+#editor {
+	position: fixed;
+	bottom: -260px;
+	height: 300px;
+	width: 100%;
+	background-color: #222;
+	display: none;
+}
+#editor h2 {
+	margin: 0;
+	text-align: center;
+	line-height: 40px;
+}
+#editor_close {
+	position: absolute;
+	top: -15px;
+	left: 80%;
+}
+
+/* old stuff */
+
 .popups {
 	display: none;
 }

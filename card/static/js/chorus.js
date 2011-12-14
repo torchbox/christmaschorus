@@ -392,6 +392,7 @@
 					setStaffPosition(noteX < 200 ? 0 : -noteX);
 				}
 			}
+			FACES_BY_NOTE_ID['face_' + note.noteName].open();
 		}
 		function stopNote(note) {
 			if (note.duration > 500) {
@@ -401,6 +402,7 @@
 			if (note.elem) {
 				note.elem.removeClass('active');
 			}
+			FACES_BY_NOTE_ID['face_' + note.noteName].close();
 		}
 		
 		/* Disable playing by keyboard while lightbox is open */

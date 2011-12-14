@@ -11,6 +11,7 @@
 		<script src="{{ STATIC_URL }}js/json2.js"></script>
 		<script src="{{ STATIC_URL }}js/jquery.drag.js"></script>
 		<script src="{{ STATIC_URL }}js/chorus.js"></script>
+		<script src="{{ STATIC_URL }}js/visuals.js"></script>
 		<script>
 			$(function() {
 				$.chorus({{ song.notes_json|safe }});
@@ -18,15 +19,49 @@
 		</script>
 	</head>
 	<body>
-		<h1>
-			{{ song.title }}
+		<div id="title">
+			<h1>The Torchbox Christmas Choir!</h1>
+		</div>
+		<div id="songsheet">
+			Choose from our carols | Choose from our friends' carols
+		</div>
+		<div id="choir">
+			<ul id="singers">
+				<li id="face_e2"><img src="{{ STATIC_URL }}img/faces/matthew.jpg" alt="" /></li>
+				<li id="face_f2"><img src="{{ STATIC_URL }}img/faces/matthew.jpg" alt="" /></li>
+				<li id="face_fs2"><img src="{{ STATIC_URL }}img/faces/matthew.jpg" alt="" /></li>
+				<li id="face_g2"><img src="{{ STATIC_URL }}img/faces/matthew.jpg" alt="" /></li>
+				<li id="face_gs2"><img src="{{ STATIC_URL }}img/faces/matthew.jpg" alt="" /></li>
+				<li id="face_a2"><img src="{{ STATIC_URL }}img/faces/matthew.jpg" alt="" /></li>
+				<li id="face_as2"><img src="{{ STATIC_URL }}img/faces/matthew.jpg" alt="" /></li>
+				<li id="face_b2"><img src="{{ STATIC_URL }}img/faces/matthew.jpg" alt="" /></li>
+				<li id="face_c3"><img src="{{ STATIC_URL }}img/faces/matthew.jpg" alt="" /></li>
+				<li id="face_cs3"><img src="{{ STATIC_URL }}img/faces/matthew.jpg" alt="" /></li>
+				<li id="face_d3"><img src="{{ STATIC_URL }}img/faces/matthew.jpg" alt="" /></li>
+				<li id="face_ds3"><img src="{{ STATIC_URL }}img/faces/matthew.jpg" alt="" /></li>
+				<li id="face_e3"><img src="{{ STATIC_URL }}img/faces/matthew.jpg" alt="" /></li>
+				<li id="face_f3"><img src="{{ STATIC_URL }}img/faces/matthew.jpg" alt="" /></li>
+				<li id="face_fs3"><img src="{{ STATIC_URL }}img/faces/matthew.jpg" alt="" /></li>
+				<li id="face_g3"><img src="{{ STATIC_URL }}img/faces/matthew.jpg" alt="" /></li>
+				<li id="face_gs3"><img src="{{ STATIC_URL }}img/faces/matthew.jpg" alt="" /></li>
+				<li id="face_a3"><img src="{{ STATIC_URL }}img/faces/matthew.jpg" alt="" /></li>
+				<li id="face_as3"><img src="{{ STATIC_URL }}img/faces/matthew.jpg" alt="" /></li>
+				<li id="face_b3"><img src="{{ STATIC_URL }}img/faces/matthew.jpg" alt="" /></li>
+				<li id="face_c4"><img src="{{ STATIC_URL }}img/faces/matthew.jpg" alt="" /></li>
+				<li id="face_cs4"><img src="{{ STATIC_URL }}img/faces/matthew.jpg" alt="" /></li>
+				<li id="face_d4"><img src="{{ STATIC_URL }}img/faces/matthew.jpg" alt="" /></li>
+				<li id="face_ds4"><img src="{{ STATIC_URL }}img/faces/matthew.jpg" alt="" /></li>
+				<li id="face_e4"><img src="{{ STATIC_URL }}img/faces/matthew.jpg" alt="" /></li>
+				<li id="face_f4"><img src="{{ STATIC_URL }}img/faces/matthew.jpg" alt="" /></li>
+				<li id="face_fs4"><img src="{{ STATIC_URL }}img/faces/matthew.jpg" alt="" /></li>
+				<li id="face_g4"><img src="{{ STATIC_URL }}img/faces/matthew.jpg" alt="" /></li>
+			</ul>
+		</div>
+
+		<div id="current_song">
+			<h3>{{ song.title }}</h3>
 			<input type="button" id="play" value="Play" />
-		</h1>
-		
-		<ul id="staffs"><li></li></ul>
-		<input type="button" id="add_track" value="Add another part" />
-		
-		{% if song.id %}
+			<p>Oh yes | Oh no</p>
 			{% with song.score as score %}
 				<p>{{ score }} vote{{ score|pluralize }}</p>
 				<form action="{% url vote song.code %}" method="POST">
@@ -40,40 +75,50 @@
 					<input type="submit" value="-" />
 				</form>
 			{% endwith %}
+			<h2>Record your carol</h2>
+		</div>
+		<div id="editor">
+			<div id="editor_close">Close</div>
+			<h2>Record your carol</h2>
 			
-			<a href="https://twitter.com/share" class="twitter-share-button" data-text="The Torchbox trololol chorus presents: {{ song.title }}" data-count="vertical" data-via="torchbox">Tweet</a><script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
-			<!-- TODO: insert domain in facebook share link -->
-			<iframe src="https://www.facebook.com/plugins/like.php?href=http://torchbox.com{{ song.get_absolute_url }}"
-				scrolling="no" frameborder="0"
-				style="border:none; width:450px; height:80px"></iframe>
-		{% else %}
-			<a href="https://twitter.com/share" class="twitter-share-button" data-text="Torchbox wishes you a musical trololol Christmas!" data-count="vertical" data-via="torchbox">Tweet</a><script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
-			<!-- TODO: insert domain in facebook share link -->
-			<iframe src="https://www.facebook.com/plugins/like.php?href=http://torchbox.com/"
-				scrolling="no" frameborder="0"
-				style="border:none; width:450px; height:80px"></iframe>
-		{% endif %}
-		
-		<input type="button" id="share" value="Share" />
-		
-		<h2>Highest voted songs</h2>
-		<ul>
-			{% for song in highest_voted_songs %}
-				<li>
-					<a href="{{ song.get_absolute_url }}">{{ song.title }}</a>
-					({{ song.vote_score|default_if_none:0 }} vote{{ song.vote_score|default_if_none:0|pluralize }})
-				</li>
-			{% endfor %}
-		</ul>
-		<h2>Latest songs</h2>
-		<ul>
-			{% for song in latest_songs %}
-				<li>
-					<a href="{{ song.get_absolute_url }}">{{ song.title }}</a>
-					({{ song.vote_score|default_if_none:0 }} vote{{ song.vote_score|default_if_none:0|pluralize }})
-				</li>
-			{% endfor %}
-		</ul>
+			<ul id="staffs"><li></li></ul>
+			<input type="button" id="add_track" value="Add another part" />
+			
+			{% if song.id %}
+				<a href="https://twitter.com/share" class="twitter-share-button" data-text="The Torchbox trololol chorus presents: {{ song.title }}" data-count="vertical" data-via="torchbox">Tweet</a><script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
+				<!-- TODO: insert domain in facebook share link -->
+				<iframe src="https://www.facebook.com/plugins/like.php?href=http://torchbox.com{{ song.get_absolute_url }}"
+					scrolling="no" frameborder="0"
+					style="border:none; width:450px; height:80px"></iframe>
+			{% else %}
+				<a href="https://twitter.com/share" class="twitter-share-button" data-text="Torchbox wishes you a musical trololol Christmas!" data-count="vertical" data-via="torchbox">Tweet</a><script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
+				<!-- TODO: insert domain in facebook share link -->
+				<iframe src="https://www.facebook.com/plugins/like.php?href=http://torchbox.com/"
+					scrolling="no" frameborder="0"
+					style="border:none; width:450px; height:80px"></iframe>
+			{% endif %}
+			
+			<input type="button" id="share" value="Share" />
+			
+			<h2>Highest voted songs</h2>
+			<ul>
+				{% for song in highest_voted_songs %}
+					<li>
+						<a href="{{ song.get_absolute_url }}">{{ song.title }}</a>
+						({{ song.vote_score|default_if_none:0 }} vote{{ song.vote_score|default_if_none:0|pluralize }})
+					</li>
+				{% endfor %}
+			</ul>
+			<h2>Latest songs</h2>
+			<ul>
+				{% for song in latest_songs %}
+					<li>
+						<a href="{{ song.get_absolute_url }}">{{ song.title }}</a>
+						({{ song.vote_score|default_if_none:0 }} vote{{ song.vote_score|default_if_none:0|pluralize }})
+					</li>
+				{% endfor %}
+			</ul>
+		</div>
 		
 		<div class="popups">
 			<div id="save_popup">
