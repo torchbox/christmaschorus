@@ -1,4 +1,3 @@
-(function($) {
 	NOTES_BY_KEYCODE = {
 		90: 'e2', 88: 'f2', 68: 'fs2', 67: 'g2', 70: 'gs2', 86: 'a2',
 		71: 'as2', 66: 'b2', 78: 'c3', 74: 'cs3', 77: 'd3', 75: 'ds3', 188: 'e3',
@@ -208,43 +207,15 @@
 		return self;
 	}
 	
-	$.chorus = function(songData) {
+	window.ChorusController = function(songData) {
+		self = {};
+		
+		self.onPlayNote = Event();
+		self.onStopNote = Event();
+		
 		var song = Song(songData);
 		
-		var samples = {};
-		samplesToLoad = 0;
-		samplesLoaded = 0;
-		
-		loadingProgress = $('<span></span>');
-		loadingPopup = $('<div class="loading">Loading...</div>').append(loadingProgress);
-		$('body').prepend(loadingPopup);
-		
-		function loadSample(note, len) {
-			var sampleName = note + '_' + len;
-			samplesToLoad++;
-			simplesample.create(
-				'http://christmascard.s3.amazonaws.com/ogg/' + sampleName + '.ogg',
-				'http://christmascard.s3.amazonaws.com/mp3/' + sampleName + '.mp3',
-				function(sample) {
-					samples[note][len] = sample;
-					samplesLoaded++;
-					if (samplesLoaded == samplesToLoad) {
-						loadingPopup.remove();
-					} else {
-						loadingProgress.text(Math.round(samplesLoaded * 100 / samplesToLoad) + '%');
-					}
-				}
-			)
-		}
-		
-		for (var note in VALID_NOTE_NAMES) {
-			samples[note] = {};
-			for (var len = 1; len <= 3; len++) {
-				loadSample(note, len);
-			}
-		}
-		
-		window.loadSong = function(songData) {
+		self.loadSong = function(songData) {
 			song.load(songData);
 		}
 		
@@ -371,19 +342,8 @@
 			stopNote(note);
 		}
 		
-		function sampleElementForNote(note) {
-			var noteLength = 2;
-			if (note.duration < 200) {
-				noteLength = 1;
-			} else if (note.duration > 500) {
-				noteLength = 3;
-			}
-			return samples[note.noteName][noteLength];
-		}
-		
 		function playNote(note) {
-			var sample = sampleElementForNote(note);
-			sample.play();
+			self.onPlayNote.trigger(note);
 			if (note.elem) {
 				note.elem.addClass('active');
 				var currentX = parseInt($('#staffs ul.notes').css('left'));
@@ -395,10 +355,7 @@
 			FACES_BY_NOTE_ID['face_' + note.noteName].open();
 		}
 		function stopNote(note) {
-			if (note.duration > 500) {
-				var sample = sampleElementForNote(note);
-				sample.stop();
-			}
+			self.onStopNote.trigger(note);
 			if (note.elem) {
 				note.elem.removeClass('active');
 			}
@@ -414,5 +371,6 @@
 		$('#add_track').click(function() {
 			song.addTrack();
 		});
+		
+		return self;
 	}
-})(jQuery);

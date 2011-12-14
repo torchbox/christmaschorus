@@ -11,10 +11,12 @@
 		<script src="{{ STATIC_URL }}js/json2.js"></script>
 		<script src="{{ STATIC_URL }}js/jquery.drag.js"></script>
 		<script src="{{ STATIC_URL }}js/chorus.js"></script>
+		<script src="{{ STATIC_URL }}js/audio.js"></script>
 		<script src="{{ STATIC_URL }}js/visuals.js"></script>
 		<script>
 			$(function() {
-				$.chorus({{ song.notes_json|safe }});
+				chorus = ChorusController({{ song.notes_json|safe }});
+				audio = ChorusAudio(chorus);
 			})
 		</script>
 	</head>
