@@ -50,16 +50,32 @@
 .staff ul.notes li.active {
 	background-position: bottom;
 }
-.staff ul.notes li.c2 {top:59px;}
-.staff ul.notes li.cs2 {top:59px;background-image: url('../img/quaver_sharp.png');}
-.staff ul.notes li.d2 {top:55px;}
-.staff ul.notes li.ds2 {top:55px;background-image: url('../img/quaver_sharp.png');}
-.staff ul.notes li.e2 {top:51px;}
-.staff ul.notes li.f2 {top:47px;}
-.staff ul.notes li.fs2 {top:47px;background-image: url('../img/quaver_sharp.png');}
-.staff ul.notes li.g2 {top:43px;}
-.staff ul.notes li.gs2 {top:43px;background-image: url('../img/quaver_sharp.png');}
-.staff ul.notes li.a2 {top:39px;}
-.staff ul.notes li.as2 {top:39px;background-image: url('../img/quaver_sharp.png');}
-.staff ul.notes li.b2 {top:35px;}
-.staff ul.notes li.c3 {top:31px;}
+.staff ul.notes li.e2 {top:79px;}
+.staff ul.notes li.f2 {top:75px;}
+.staff ul.notes li.fs2 {top:75px;background-image: url('../img/quaver_sharp.png');}
+.staff ul.notes li.g2 {top:71px;}
+.staff ul.notes li.gs2 {top:71px;background-image: url('../img/quaver_sharp.png');}
+.staff ul.notes li.a2 {top:67px;}
+.staff ul.notes li.as2 {top:67px;background-image: url('../img/quaver_sharp.png');}
+.staff ul.notes li.b2 {top:63px;}
+.staff ul.notes li.c3 {top:59px;}
+.staff ul.notes li.cs3 {top:59px;background-image: url('../img/quaver_sharp.png');}
+.staff ul.notes li.d3 {top:55px;}
+.staff ul.notes li.ds3 {top:55px;background-image: url('../img/quaver_sharp.png');}
+.staff ul.notes li.e3 {top:51px;}
+.staff ul.notes li.f3 {top:47px;}
+.staff ul.notes li.fs3 {top:47px;background-image: url('../img/quaver_sharp.png');}
+.staff ul.notes li.g3 {top:43px;}
+.staff ul.notes li.gs3 {top:43px;background-image: url('../img/quaver_sharp.png');}
+.staff ul.notes li.a3 {top:39px;}
+.staff ul.notes li.as3 {top:39px;background-image: url('../img/quaver_sharp.png');}
+.staff ul.notes li.b3 {top:35px;}
+.staff ul.notes li.c4 {top:31px;}
+
+.staff ul.notes li.cs4 {top:31px;background-image: url('../img/quaver_sharp.png');}
+.staff ul.notes li.d4 {top:27px;}
+.staff ul.notes li.ds4 {top:27px;background-image: url('../img/quaver_sharp.png');}
+.staff ul.notes li.e4 {top:23px;}
+.staff ul.notes li.f4 {top:19px;}
+.staff ul.notes li.fs4 {top:19px;background-image: url('../img/quaver_sharp.png');}
+.staff ul.notes li.g4 {top:15px;}

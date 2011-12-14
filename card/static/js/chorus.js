@@ -211,15 +211,36 @@
 	$.chorus = function(songData) {
 		var song = Song(songData);
 		
+		var samples = {};
+		samplesToLoad = 0;
+		samplesLoaded = 0;
+		
+		loadingProgress = $('<span></span>');
+		loadingPopup = $('<div class="loading">Loading...</div>').append(loadingProgress);
+		$('body').prepend(loadingPopup);
+		
+		function loadSample(note, len) {
+			var sampleName = note + '_' + len;
+			samplesToLoad++;
+			simplesample.create(
+				'http://christmascard.s3.amazonaws.com/ogg/' + sampleName + '.ogg',
+				'http://christmascard.s3.amazonaws.com/mp3/' + sampleName + '.mp3',
+				function(sample) {
+					samples[note][len] = sample;
+					samplesLoaded++;
+					if (samplesLoaded == samplesToLoad) {
+						loadingPopup.remove();
+					} else {
+						loadingProgress.text(Math.round(samplesLoaded * 100 / samplesToLoad) + '%');
+					}
+				}
+			)
+		}
+		
 		for (var note in VALID_NOTE_NAMES) {
+			samples[note] = {};
 			for (var len = 1; len <= 3; len++) {
-				var sampleName = note + '_' + len;
-				var audio = $('<audio width="166" height="100" controls="true"></audio>').attr('id', sampleName);
-				audio.append(
-					$('<source type="audio/ogg; codecs=vorbis" />').attr('src', 'http://christmascard.s3.amazonaws.com/ogg/' + sampleName + '.ogg'),
-					$('<source type="audio/mpeg; codecs=mp3" />').attr('src', 'http://christmascard.s3.amazonaws.com/mp3/' + sampleName + '.mp3')
-				);
-				$('#samples').append(audio);
+				loadSample(note, len);
 			}
 		}
 		
@@ -357,12 +378,11 @@
 			} else if (note.duration > 500) {
 				noteLength = 3;
 			}
-			return document.getElementById(note.noteName + '_' + noteLength);
+			return samples[note.noteName][noteLength];
 		}
 		
 		function playNote(note) {
 			var sample = sampleElementForNote(note);
-			sample.currentTime = 0;
 			sample.play();
 			if (note.elem) {
 				note.elem.addClass('active');
@@ -376,7 +396,7 @@
 		function stopNote(note) {
 			if (note.duration > 500) {
 				var sample = sampleElementForNote(note);
-				sample.pause();
+				sample.stop();
 			}
 			if (note.elem) {
 				note.elem.removeClass('active');
