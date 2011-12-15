@@ -3,6 +3,7 @@ from card.models import *
 from card.forms import *
 from django.http import HttpResponse, HttpResponseRedirect
 import datetime
+from django.conf import settings
 
 def home(request):
 	form = CreateSongForm()
@@ -14,6 +15,7 @@ def home(request):
 		'songs_by_torchbox': Song.by_torchbox(),
 		'latest_songs': Song.latest(),
 		'highest_voted_songs': Song.highest_voted(),
+		'full_url': settings.PUBLIC_ROOT_URL + '/',
 	})
 
 def create_song(request):
@@ -31,6 +33,7 @@ def song(request, code):
 		'songs_by_torchbox': Song.by_torchbox(),
 		'latest_songs': Song.latest(),
 		'highest_voted_songs': Song.highest_voted(),
+		'full_url': settings.PUBLIC_ROOT_URL + song.get_absolute_url(),
 	})
 
 def vote(request, code):

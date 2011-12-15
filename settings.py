@@ -147,6 +147,9 @@ LOGGING = {
 COMPRESS_URL = '/static/'
 COMPRESS_ROOT = STATIC_ROOT
 
+# public URL of site, for share links etc - no trailing slash
+PUBLIC_ROOT_URL = 'http://sing.torchbox.com'
+
 try:
     from local_settings import *
 except ImportError:
