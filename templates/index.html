@@ -15,7 +15,7 @@
 		<script src="{{ STATIC_URL }}js/keyboard.js"></script>
 		<script src="{{ STATIC_URL }}js/faces.js"></script>
 		<script src="{{ STATIC_URL }}js/staffs.js"></script>
-		<script src="{{ STATIC_URL }}js/visuals.js"></script>
+		<script src="{{ STATIC_URL }}js/ui.js"></script>
 		<script>
 			$(function() {
 				chorus = ChorusController({{ song.notes_json|safe }});
@@ -29,6 +29,14 @@
 	<body>
 		<div id="title">
 			<h1>The Torchbox Christmas Choir!</h1>
+			<div id="share_twitter">
+				<!-- TODO: escape url param in twitter link; add default twitter text -->
+				<a href="https://twitter.com/share?url={{ full_url }}" target="_blank">Share on Twitter</a>
+			</div>
+			<div id="share_facebook">
+				<!-- TODO: escape url param in facebook link; add share text -->
+				<a href="http://www.facebook.com/sharer.php?u={{ full_url }}" target="_blank">Share on Facebook</a>
+			</div>
 		</div>
 		<div id="songsheet">
 			Choose from our carols | Choose from our friends' carols
@@ -91,20 +99,6 @@
 			
 			<ul id="staffs"><li></li></ul>
 			<input type="button" id="add_track" value="Add another part" />
-			
-			{% if song.id %}
-				<a href="https://twitter.com/share" class="twitter-share-button" data-text="The Torchbox trololol chorus presents: {{ song.title }}" data-count="vertical" data-via="torchbox">Tweet</a><script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
-				<!-- TODO: insert domain in facebook share link -->
-				<iframe src="https://www.facebook.com/plugins/like.php?href=http://torchbox.com{{ song.get_absolute_url }}"
-					scrolling="no" frameborder="0"
-					style="border:none; width:450px; height:80px"></iframe>
-			{% else %}
-				<a href="https://twitter.com/share" class="twitter-share-button" data-text="Torchbox wishes you a musical trololol Christmas!" data-count="vertical" data-via="torchbox">Tweet</a><script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
-				<!-- TODO: insert domain in facebook share link -->
-				<iframe src="https://www.facebook.com/plugins/like.php?href=http://torchbox.com/"
-					scrolling="no" frameborder="0"
-					style="border:none; width:450px; height:80px"></iframe>
-			{% endif %}
 			
 			<input type="button" id="share" value="Share" />
 			
