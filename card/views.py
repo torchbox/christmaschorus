@@ -7,7 +7,13 @@ from django.conf import settings
 
 def home(request):
 	form = CreateSongForm()
-	song = Song(notes_json = '[[]]')
+	
+	# choose a random Torchbox song
+	try:
+		song = Song.objects.filter(is_by_torchbox=True).order_by('?')[0]
+	except IndexError:
+		song = Song(notes_json = '[[]]')
+	
 	return render(request, 'index.html', {
 		'song': song,
 		'title': 'Merry Christmas from Torchbox!',
