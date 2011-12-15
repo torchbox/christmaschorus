@@ -62,7 +62,7 @@
 			track.onRequestRecord.bind(function(tr) {
 				self.onRequestRecord.trigger(tr);
 			})
-			self.onAddTrack.fire(track);
+			self.onAddTrack.trigger(track);
 		}
 		
 		self.duration = function() {
