@@ -1,4 +1,5 @@
-	VALID_NOTE_NAMES = {
+(function() {
+	window.VALID_NOTE_NAMES = {
 		'e2':1, 'f2':1, 'fs2':1, 'g2':1, 'gs2':1,
 		'a2':1, 'as2':1, 'b2':1, 'c3':1, 'cs3':1,
 		'd3':1, 'ds3':1, 'e3':1, 'f3':1, 'fs3':1,
@@ -37,53 +38,57 @@
 	Song = function(songData) {
 		var self = {};
 		
-		var tracks = [];
+		self.tracks = [];
+		
+		self.onLoad = Event();
+		self.onAddTrack = Event();
 		
 		self.load = function(songData) {
-			$('#staffs').empty();
-			tracks = [];
+			self.tracks = [];
 			for (var i = 0; i < songData.length; i++) {
-				tracks[i] = Track(songData[i]);
-				tracks[i].onRequestRecord.bind(function(tr) {
+				self.tracks[i] = Track(songData[i]);
+				self.tracks[i].onRequestRecord.bind(function(tr) {
 					self.onRequestRecord.trigger(tr);
 				})
 			}
+			self.onLoad.trigger();
 		}
 		
 		self.onRequestRecord = Event();
 		
 		self.addTrack = function() {
 			var track = Track([]);
-			tracks.push(track);
+			self.tracks.push(track);
 			track.onRequestRecord.bind(function(tr) {
 				self.onRequestRecord.trigger(tr);
 			})
+			self.onAddTrack.fire(track);
 		}
 		
 		self.duration = function() {
 			var duration = 0;
-			for (var i = 0; i < tracks.length; i++) {
-				duration = Math.max(duration, tracks[i].duration());
+			for (var i = 0; i < self.tracks.length; i++) {
+				duration = Math.max(duration, self.tracks[i].duration());
 			}
 			return duration;
 		}
 		
 		self.getData = function() {
 			var data = [];
-			for (var i = 0; i < tracks.length; i++) {
-				data[i] = tracks[i].getData();
+			for (var i = 0; i < self.tracks.length; i++) {
+				data[i] = self.tracks[i].getData();
 			}
 			return data;
 		}
 		
 		self.eachNote = function(callback) {
-			for (var i = 0; i < tracks.length; i++) {
-				tracks[i].eachNote(callback);
+			for (var i = 0; i < self.tracks.length; i++) {
+				self.tracks[i].eachNote(callback);
 			}
 		}
 		
 		self.trackCount = function() {
-			return tracks.length;
+			return self.tracks.length;
 		}
 		
 		self.load(songData);
@@ -91,59 +96,12 @@
 		return self;
 	}
 	
-	var initialDragX;
-	function setStaffPosition(x) {
-		x = Math.min(0, x);
-		$('#staffs ul.notes').css({'left': x});
-	}
-	
 	Track = function(notes) {
 		var self = {};
 		
 		self.onRequestRecord = Event();
-		
-		function createStaff(container) {
-			var staff = $('<div class="staff_viewport">\
-				<div class="staff">\
-					<table>\
-						<tr><td></td></tr>\
-						<tr><td></td></tr>\
-						<tr><td></td></tr>\
-						<tr><td></td></tr>\
-						<tr><td></td></tr>\
-						<tr><td></td></tr>\
-					</table>\
-					<ul class="notes"></ul>\
-				</div>\
-			</div>');
-			container.append(staff);
-			setStaffPosition(0);
-			staff.drag(function() {
-				initialDragX = parseInt($('ul.notes', this).css('left'));
-			}, function(e) {
-				setStaffPosition(initialDragX + e.offsetX);
-			}, function() {
-			})
-			return staff;
-		}
-		
-		var staffLi = $('<li></li>');
-		var recordButton = $('<input type="button" value="Record" />');
-		$('#staffs').append(staffLi);
-		staffLi.append(recordButton);
-		recordButton.click(function() {
-			self.onRequestRecord.trigger(self);
-		})
-		var staff = createStaff(staffLi);
-		
-		function addNoteToStaff(note) {
-			var noteLi = $('<li></li>').addClass(note.noteName);
-			$('ul.notes', staff).append(noteLi);
-			noteLi.css({
-				'left': note.time/10 + 40 + 'px'
-			});
-			note.elem = noteLi;
-		}
+		self.onAddNote = Event();
+		self.onClear = Event();
 		
 		/* validate note list */
 		var validNotes = [];
@@ -152,15 +110,10 @@
 		}
 		notes = validNotes;
 		
-		for (var i = 0; i < notes.length; i++) {
-			var note = notes[i];
-			addNoteToStaff(note);
-		}
-		
 		self.addNote = function(note) {
 			if (!note.noteName in VALID_NOTE_NAMES) return;
 			notes.push(note);
-			addNoteToStaff(note);
+			self.onAddNote.trigger(note);
 		}
 		
 		self.duration = function() {
@@ -190,8 +143,8 @@
 		}
 		
 		self.clear = function() {
-			$('ul.notes', staff).empty();
 			notes = [];
+			self.onClear.trigger();
 		}
 		
 		return self;
@@ -205,21 +158,21 @@
 		
 		self.keyboardActive = true;
 		
-		var song = Song(songData);
+		self.song = Song(songData);
 		
 		self.loadSong = function(songData) {
-			song.load(songData);
+			self.song.load(songData);
 		}
 		
 		var currentRecordingTrack = null;
 		var recordingStartTime = null;
 		var isPlaying = false;
 		
-		song.onRequestRecord.bind(function(track) {
+		self.song.onRequestRecord.bind(function(track) {
 			if (currentRecordingTrack == track) {
 				/* stop recording */
 				currentRecordingTrack = null;
-				$('#id_notes_json').val(JSON.stringify(song.getData()));
+				$('#id_notes_json').val(JSON.stringify(self.song.getData()));
 				cancelNoteTimeouts();
 				isPlaying = false;
 				/* TODO: change label to 'Record' */
@@ -229,7 +182,7 @@
 				}
 				track.clear();
 				currentRecordingTrack = track;
-				if (song.trackCount() > 1) {
+				if (self.song.trackCount() > 1) {
 					/* start timing and playing existing tracks immediately */
 					recordingStartTime = (new Date).getTime();
 					playRecording();
@@ -260,7 +213,7 @@
 			}
 			
 			cancelNoteTimeouts();
-			song.eachNote(function(note) {
+			self.song.eachNote(function(note) {
 				var timeout = setTimeout(function() {
 					playNote(note);
 					if (note.duration) {
@@ -272,7 +225,7 @@
 			noteTimeouts.push(setTimeout(function() {
 				isPlaying = false;
 				$('#play').val('Play');
-			}, song.duration() ));
+			}, self.song.duration() ));
 			isPlaying = true;
 		}
 		
@@ -312,20 +265,9 @@
 		
 		function playNote(note) {
 			self.onPlayNote.trigger(note);
-			if (note.elem) {
-				note.elem.addClass('active');
-				var currentX = parseInt($('#staffs ul.notes').css('left'));
-				var noteX = parseInt(note.elem.css('left'));
-				if (noteX < -currentX || noteX > -currentX + $('#staffs .staff_viewport').width() - 100) {
-					setStaffPosition(noteX < 200 ? 0 : -noteX);
-				}
-			}
 		}
 		function stopNote(note) {
 			self.onStopNote.trigger(note);
-			if (note.elem) {
-				note.elem.removeClass('active');
-			}
 		}
 		
 		/* Disable playing by keyboard while lightbox is open */
@@ -335,8 +277,9 @@
 		$('#share').colorbox({'inline': true, 'href': '#save_popup'});
 		
 		$('#add_track').click(function() {
-			song.addTrack();
+			self.song.addTrack();
 		});
 		
 		return self;
 	}
+})()
