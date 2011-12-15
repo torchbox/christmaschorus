@@ -50,13 +50,4 @@ $(function() {
 	$('#editor_close').css({'cursor': 'pointer'}).click(function() {
 		hideEditor();
 	})
-	
-	$('#share_twitter a').click(function() {
-		window.open(this.href, '_blank', 'width=550,height=450');
-		return false;
-	})
-	$('#share_facebook a').click(function() {
-		window.open(this.href, '_blank', 'width=550,height=450');
-		return false;
-	})
 })
