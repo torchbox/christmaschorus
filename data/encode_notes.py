@@ -31,4 +31,4 @@ for (infile_root, outfile_root) in NOTES:
 		outfile_ogg = "ogg/%s_%d.ogg" % (outfile_root, length)
 		outfile_mp3 = "mp3/%s_%d.mp3" % (outfile_root, length)
 		subprocess.check_call(["oggenc", "-q5", infile, "-o", outfile_ogg])
-		subprocess.check_call(["lame", "--alt-preset", "standard", infile, outfile_mp3])
+		subprocess.check_call(["lame", "--alt-preset", "medium", infile, outfile_mp3])
