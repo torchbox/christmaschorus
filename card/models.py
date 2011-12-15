@@ -7,6 +7,7 @@ class Song(models.Model):
 	notes_json = models.TextField()
 	code = models.CharField(max_length = 16)
 	created_at = models.DateTimeField(auto_now_add = True)
+	is_by_torchbox = models.BooleanField(default=False)
 	
 	# TODO: validate that notes_json is valid JSON
 	
@@ -34,6 +35,10 @@ class Song(models.Model):
 	@staticmethod
 	def latest():
 		return Song.objects.order_by('-created_at')[:10].annotate(vote_score = Sum('votes__score'))
+	
+	@staticmethod
+	def by_torchbox():
+		return Song.objects.annotate(vote_score = Sum('votes__score')).filter(is_by_torchbox=True).order_by('-vote_score')
 	
 	@staticmethod
 	def highest_voted():
