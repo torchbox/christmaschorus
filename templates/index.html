@@ -29,17 +29,40 @@
 	<body>
 		<div id="title">
 			<h1>The Torchbox Christmas Choir!</h1>
-			<div id="share_twitter">
-				<!-- TODO: escape url param in twitter link; add default twitter text -->
-				<a href="https://twitter.com/share?url={{ full_url }}" target="_blank">Share on Twitter</a>
-			</div>
-			<div id="share_facebook">
-				<!-- TODO: escape url param in facebook link; add share text -->
-				<a href="http://www.facebook.com/sharer.php?u={{ full_url }}" target="_blank">Share on Facebook</a>
-			</div>
+			<!-- TODO: add default twitter text -->
+			<a id="share_twitter" href="https://twitter.com/share?url={{ full_url|urlencode }}" target="_blank">Share on Twitter</a>
+			<!-- TODO: add share text -->
+			<a id="share_facebook" href="http://www.facebook.com/sharer.php?u={{ full_url|urlencode }}" target="_blank">Share on Facebook</a>
+			<div style="clear: both;"></div>
 		</div>
 		<div id="songsheet">
-			Choose from our carols | Choose from our friends' carols
+			<div class="songs">
+				<h2>Choose from our carols</h2>
+				<ul>
+					{% for song in songs_by_torchbox %}
+						<li>
+							<a href="{{ song.get_absolute_url }}">
+								<span class="song_title">{{ song.title }}</span>
+								<span class="votes">({{ song.vote_score|default_if_none:0 }} vote{{ song.vote_score|default_if_none:0|pluralize }})</span>
+							</a>
+						</li>
+					{% endfor %}
+				</ul>
+			</div>
+			<div class="songs">
+				<h2>Choose from our friends' carols</h2>
+				<ul>
+					{% for song in songs_by_others %}
+						<li>
+							<a href="{{ song.get_absolute_url }}">
+								<span class="song_title">{{ song.title }}</span>
+								<span class="votes">({{ song.vote_score|default_if_none:0 }} vote{{ song.vote_score|default_if_none:0|pluralize }})</span>
+							</a>
+						</li>
+					{% endfor %}
+				</ul>
+			</div>
+			<div style="clear: both;"></div>
 		</div>
 		<div id="choir">
 			<ul id="singers">
@@ -101,25 +124,6 @@
 			<input type="button" id="add_track" value="Add another part" />
 			
 			<input type="button" id="share" value="Share" />
-			
-			<h2>Highest voted songs</h2>
-			<ul>
-				{% for song in highest_voted_songs %}
-					<li>
-						<a href="{{ song.get_absolute_url }}">{{ song.title }}</a>
-						({{ song.vote_score|default_if_none:0 }} vote{{ song.vote_score|default_if_none:0|pluralize }})
-					</li>
-				{% endfor %}
-			</ul>
-			<h2>Latest songs</h2>
-			<ul>
-				{% for song in latest_songs %}
-					<li>
-						<a href="{{ song.get_absolute_url }}">{{ song.title }}</a>
-						({{ song.vote_score|default_if_none:0 }} vote{{ song.vote_score|default_if_none:0|pluralize }})
-					</li>
-				{% endfor %}
-			</ul>
 		</div>
 		
 		<div class="popups">

@@ -13,8 +13,7 @@ def home(request):
 		'title': 'Merry Christmas from Torchbox!',
 		'form': form,
 		'songs_by_torchbox': Song.by_torchbox(),
-		'latest_songs': Song.latest(),
-		'highest_voted_songs': Song.highest_voted(),
+		'songs_by_others': Song.by_others(),
 		'full_url': settings.PUBLIC_ROOT_URL + '/',
 	})
 
@@ -31,8 +30,7 @@ def song(request, code):
 		'title': song.title,
 		'form': form,
 		'songs_by_torchbox': Song.by_torchbox(),
-		'latest_songs': Song.latest(),
-		'highest_voted_songs': Song.highest_voted(),
+		'songs_by_others': Song.by_others(),
 		'full_url': settings.PUBLIC_ROOT_URL + song.get_absolute_url(),
 	})
 

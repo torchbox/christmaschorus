@@ -4,10 +4,93 @@ body {
 	padding: 0;
 	margin: 0;
 }
+#title {
+	width: 860px;
+	margin: auto;
+}
 #title h1 {
 	padding: 0;
 	margin: 0;
+	width: 716px;
+	height: 60px;
+	line-height: 60px;
+	text-indent: -5000px;
+	background-image: url('../img/title.png');
+	float: left;
 }
+#title #share_twitter {
+	float:left;
+	width: 37px;
+	height: 37px;
+	line-height: 60px;
+	text-indent: -5000px;
+	background-image: url('../img/twitter_share.png');
+	margin-left: 40px;
+	margin-top: 11px;
+}
+#title #share_facebook {
+	float:left;
+	width: 37px;
+	height: 37px;
+	line-height: 60px;
+	text-indent: -5000px;
+	background-image: url('../img/facebook_share.png');
+	margin-left: 5px;
+	margin-top: 11px;
+}
+
+#songsheet {
+	width: 600px;
+	margin: auto;
+}
+
+#songsheet .songs {
+	width: 280px;
+	float: left;
+	margin-left: 5px;
+	margin-right: 5px;
+	background-color: #292929;
+	position: relative;
+}
+
+#songsheet .songs h2 {
+	margin: 0;
+	padding: 0;
+	font-size: 12pt;
+	line-height: 30px;
+}
+#songsheet .songs ul {
+	position: absolute;
+	width: 260px;
+	z-index: 100;
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	background-color: #292929;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+#songsheet .songs ul li {
+	border-top: 1px solid #3f3f3f;
+	line-height: 39px;
+}
+#songsheet .songs ul li a {
+	display: block;
+	color: white;
+	text-decoration: none;
+	padding-left: 25px;
+	background-image: url(../img/play_bullet.png);
+	background-repeat: no-repeat;
+	background-position: left center;
+}
+#songsheet .songs ul li a .song_title {
+	font-weight: bold;
+	font-size: 10pt;
+}
+#songsheet .songs ul li a .votes {
+	font-size: 8pt;
+}
+
 #choir {
 	/* background-color: #444; */
 	margin: auto;

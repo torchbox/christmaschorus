@@ -51,12 +51,27 @@ $(function() {
 		hideEditor();
 	})
 	
-	$('#share_twitter a').click(function() {
-		window.open(this.href, '_blank', 'width=550,height=450');
-		return false;
-	})
-	$('#share_facebook a').click(function() {
-		window.open(this.href, '_blank', 'width=550,height=450');
-		return false;
+	$('#songsheet .songs').each(function() {
+		var songSelector = this;
+		var isOpen = false;
+		
+		function openSelector() {
+			$('ul', songSelector).show();
+			isOpen = true;
+		}
+		function closeSelector() {
+			$('ul', songSelector).hide();
+			isOpen = false;
+		}
+		
+		$('ul', songSelector).hide();
+		$('h2', songSelector).css('cursor', 'pointer');
+		$(document).click(function(event) {
+			if ($.contains(songSelector, event.target) && !isOpen) {
+				openSelector();
+			} else {
+				closeSelector();
+			}
+		})
 	})
 })
