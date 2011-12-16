@@ -39,6 +39,19 @@ body {
 	margin-top: 11px;
 }
 
+#work_for_us_ah_go_on a {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 130px;
+	height: 130px;
+	background-image: url('../img/were_hiring.png');
+	text-indent: -5000px;
+}
+#work_for_us_ah_go_on a:active {
+	outline: none;
+}
+
 #songsheet {
 	width: 600px;
 	margin: auto;
