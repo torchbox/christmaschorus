@@ -17,7 +17,7 @@ function fitChoirInDimensions(availableWidth, availableHeight, animate) {
 
 function setChoirSize(animate) {
 	if (editorActive) {
-		var availableHeight = $(window).height() - $('#title').height() - $('#songsheet').height() - $('#editor').height();
+		var availableHeight = $(window).height() - $('#title').height() - $('#editor').height();
 	} else {
 		var availableHeight = $(window).height() - $('#title').height() - $('#songsheet').height() - $('#current_song').height();
 	}
@@ -28,6 +28,7 @@ function setChoirSize(animate) {
 function showEditor() {
 	$('#current_song').hide();
 	$('#editor').show().animate({'bottom': '0px'});
+	$('#songsheet').slideUp();
 	editorActive = true;
 	setChoirSize(true);
 }
@@ -36,6 +37,7 @@ function hideEditor() {
 		$('#editor').hide();
 		$('#current_song').show();
 	});
+	$('#songsheet').slideDown();
 	editorActive = false;
 	setChoirSize(true);
 }
