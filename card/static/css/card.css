@@ -422,6 +422,19 @@ li#face_g4 {left: 90%; top: 25%;}
 .staff ul.notes li.fs4 {top:19px;background-image: url('../img/quaver_sharp.png');}
 .staff ul.notes li.g4 {top:15px;}
 
+#torchbox a {
+	position: fixed;
+	bottom: 0;
+	right: 0;
+	width: 97px;
+	height: 35px;
+	background-image: url('../img/torchbox.png');
+	text-indent: -5000px;
+}
+#torchbox a:active {
+	outline: none;
+}
+
 .popups {
 	display: none;
 }
