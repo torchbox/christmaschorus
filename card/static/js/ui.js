@@ -21,6 +21,7 @@ function setChoirSize(animate) {
 	} else {
 		var availableHeight = $(window).height() - $('#title').height() - $('#songsheet').height() - $('#current_song').height();
 	}
+	availableHeight -= 30; /* enforce margin */
 	var availableWidth = $(window).width();
 	fitChoirInDimensions(availableWidth, availableHeight, animate);
 }
