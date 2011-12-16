@@ -324,12 +324,6 @@ li#face_g4 {left: 90%; top: 25%;}
 	cursor: pointer;
 }
 
-/* old stuff */
-
-.popups {
-	display: none;
-}
-
 #staffs {
 	margin: 0;
 	padding: 0;
@@ -366,9 +360,13 @@ li#face_g4 {left: 90%; top: 25%;}
 	border-spacing: 0;
 }
 .staff table td {
-	border-top: 1px solid black;
+	border-top: 1px solid #7d7d7d;
+	border-left: 1px solid #7d7d7d;
 	height: 7px;
 	padding: 0;
+}
+.staff table td.last {
+	border-left: none;
 }
 .staff ul.notes {
 	position: absolute;
@@ -423,3 +421,7 @@ li#face_g4 {left: 90%; top: 25%;}
 .staff ul.notes li.f4 {top:19px;}
 .staff ul.notes li.fs4 {top:19px;background-image: url('../img/quaver_sharp.png');}
 .staff ul.notes li.g4 {top:15px;}
+
+.popups {
+	display: none;
+}

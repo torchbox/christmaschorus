@@ -22,8 +22,7 @@ function ChorusStaffs(controller) {
 					<tr><td></td></tr>\
 					<tr><td></td></tr>\
 					<tr><td></td></tr>\
-					<tr><td></td></tr>\
-					<tr><td></td></tr>\
+					<tr><td class="last"></td></tr>\
 				</table>\
 				<ul class="notes"></ul>\
 			</div>\
