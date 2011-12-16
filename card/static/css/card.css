@@ -292,11 +292,36 @@ li#face_g4 {left: 90%; top: 25%;}
 #editor_close {
 	position: absolute;
 	top: -29px;
-	left: 80%;
+	right: 15%;
 	width: 80px;
 	height: 29px;
 	text-indent: -5000px;
 	background-image: url('../img/close_tab.png');
+}
+
+#editor_buttons {
+	position: absolute;
+	right: 15%;
+	top: 10px;
+}
+
+#playback {
+	text-indent: -5000px;
+	width: 119px;
+	height: 36px;
+	background: none;
+	background-image: url('../img/playback_btn.png');
+	border: none;
+	cursor: pointer;
+}
+#save {
+	text-indent: -5000px;
+	width: 77px;
+	height: 36px;
+	background: none;
+	background-image: url('../img/save_btn.png');
+	border: none;
+	cursor: pointer;
 }
 
 /* old stuff */

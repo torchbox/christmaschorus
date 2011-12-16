@@ -276,7 +276,7 @@
 		$(document).bind('cbox_open', function() { self.keyboardActive = false; })
 		$(document).bind('cbox_closed', function() { self.keyboardActive = true; })
 		
-		$('#share').colorbox({'inline': true, 'href': '#save_popup'});
+		$('#save').colorbox({'inline': true, 'href': '#save_popup'});
 		
 		$('#add_track').click(function() {
 			self.song.addTrack();
