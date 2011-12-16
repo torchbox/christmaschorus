@@ -34,7 +34,7 @@ function showEditor() {
 	setChoirSize(true);
 }
 function hideEditor() {
-	$('#editor').animate({'bottom': '-260px'}, function() {
+	$('#editor').animate({'bottom': '-244px'}, function() {
 		$('#editor').hide();
 		$('#current_song').show();
 	});
