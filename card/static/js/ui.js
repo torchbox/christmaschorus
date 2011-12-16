@@ -90,3 +90,25 @@ $(function() {
 		)
 	})
 });
+
+function ChorusUi(controller) {
+	var self = {};
+	
+	$('#play,#playback').click(function() {
+		if (controller.isPlaying) {
+			controller.stopPlayback();
+		} else {
+			controller.startPlayback();
+		}
+	})
+	controller.onStopPlayback.bind(function() {
+		$('#play').val('Play');
+		$('#playback').val('Playback');
+	})
+	controller.onStartPlayback.bind(function() {
+		$('#play').val('Stop');
+		$('#playback').val('Stop');
+	})
+	
+	return self;
+};

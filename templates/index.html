@@ -27,6 +27,7 @@
 				keyboard = ChorusKeyboard(chorus);
 				faces = ChorusFaces(chorus);
 				staffs = ChorusStaffs(chorus);
+				ui = ChorusUi(chorus);
 			})
 		</script>
 		{% compress css %}
@@ -132,6 +133,7 @@
 		<div id="editor">
 			<div id="editor_close">Close</div>
 			<h2>Record your carol</h2>
+			<input type="button" id="playback" value="Playback" />
 			
 			<ul id="staffs"><li></li></ul>
 			<input type="button" id="add_track" value="Add another part" />

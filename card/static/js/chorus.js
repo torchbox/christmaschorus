@@ -153,6 +153,8 @@
 	window.ChorusController = function(songData) {
 		self = {};
 		
+		self.onStartPlayback = Event();
+		self.onStopPlayback = Event();
 		self.onPlayNote = Event();
 		self.onStopNote = Event();
 		
@@ -166,7 +168,7 @@
 		
 		var currentRecordingTrack = null;
 		var recordingStartTime = null;
-		var isPlaying = false;
+		self.isPlaying = false;
 		
 		self.song.onRequestRecord.bind(function(track) {
 			if (currentRecordingTrack == track) {
@@ -174,7 +176,8 @@
 				currentRecordingTrack = null;
 				$('#id_notes_json').val(JSON.stringify(self.song.getData()));
 				cancelNoteTimeouts();
-				isPlaying = false;
+				self.isPlaying = false;
+				self.onStopPlayback.trigger();
 				/* TODO: change label to 'Record' */
 			} else {
 				if (currentRecordingTrack) {
@@ -185,11 +188,12 @@
 				if (self.song.trackCount() > 1) {
 					/* start timing and playing existing tracks immediately */
 					recordingStartTime = (new Date).getTime();
-					playRecording();
+					self.startPlayback();
 				} else {
 					recordingStartTime = null; /* start counting time on next note */
+					self.onStartPlayback.trigger();
 				}
-				isPlaying = true;
+				self.isPlaying = true;
 				/* TODO: change label to 'Stop recording' */
 			}
 		})
@@ -202,7 +206,7 @@
 			}
 		}
 		
-		function playRecording() {
+		self.startPlayback = function() {
 			function getPlayCallbackForNote(note) {
 				return function() {
 					playNote(note)
@@ -213,6 +217,9 @@
 			}
 			
 			cancelNoteTimeouts();
+			
+			self.onStartPlayback.trigger();
+			
 			self.song.eachNote(function(note) {
 				var timeout = setTimeout(function() {
 					playNote(note);
@@ -223,22 +230,17 @@
 				noteTimeouts.push(timeout);
 			})
 			noteTimeouts.push(setTimeout(function() {
-				isPlaying = false;
-				$('#play').val('Play');
+				self.isPlaying = false;
+				self.onStopPlayback.trigger();
 			}, self.song.duration() ));
-			isPlaying = true;
+			self.isPlaying = true;
 		}
 		
-		$('#play').click(function() {
-			if (isPlaying) {
-				cancelNoteTimeouts();
-				isPlaying = false;
-				$('#play').val('Play');
-			} else {
-				playRecording();
-				$('#play').val('Stop');
-			}
-		})
+		self.stopPlayback = function() {
+			cancelNoteTimeouts();
+			self.isPlaying = false;
+			self.onStopPlayback.trigger();
+		}
 		
 		self.registerNoteOn = function(noteName) {
 			var note = {
