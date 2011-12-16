@@ -176,6 +176,7 @@ ul#singers li {
 ul#singers li img {
 	height: 400%;
 	position: absolute;
+	left: -20%;
 	width: auto;
 }
 
@@ -207,6 +208,9 @@ li#face_e4 {left: 70%; top: 25%;}
 li#face_f4 {left: 80%; top: 25%;}
 li#face_fs4 {left: 85%; top: 0%;}
 li#face_g4 {left: 90%; top: 25%;}
+
+li#face_woof {left: 80%; top: 75%;}
+ul#singers li#face_woof img {height: 100%;}
 
 #current_song {
 	position: fixed;
@@ -356,13 +360,13 @@ li#face_g4 {left: 90%; top: 25%;}
 }
 .staff table {
 	width: 100%;
-	padding-top: 15px;
+	padding-top: 13px;
 	border-spacing: 0;
 }
 .staff table td {
 	border-top: 1px solid #7d7d7d;
 	border-left: 1px solid #7d7d7d;
-	height: 7px;
+	height: 8px;
 	padding: 0;
 }
 .staff table td.last {
@@ -370,7 +374,7 @@ li#face_g4 {left: 90%; top: 25%;}
 }
 .staff ul.notes {
 	position: absolute;
-	top: 4px;
+	top: -6px;
 	left: 0;
 	list-style-type: none;
 	margin: 0;
@@ -383,44 +387,69 @@ li#face_g4 {left: 90%; top: 25%;}
 	position: absolute;
 	margin: 0;
 	padding: 0;
-	width: 29px;
-	height: 31px;
-	background-image: url('../img/quaver.png');
-	background-position: top;
+	width: 44px;
+	height: 74px;
+	background-image: url('../img/note_sprite.png');
+	background-position: left top;
 	margin-top: -21px;
 }
-.staff ul.notes li.active {
-	background-position: bottom;
-}
-.staff ul.notes li.e2 {top:79px;}
-.staff ul.notes li.f2 {top:75px;}
-.staff ul.notes li.fs2 {top:75px;background-image: url('../img/quaver_sharp.png');}
-.staff ul.notes li.g2 {top:71px;}
-.staff ul.notes li.gs2 {top:71px;background-image: url('../img/quaver_sharp.png');}
-.staff ul.notes li.a2 {top:67px;}
-.staff ul.notes li.as2 {top:67px;background-image: url('../img/quaver_sharp.png');}
-.staff ul.notes li.b2 {top:63px;}
-.staff ul.notes li.c3 {top:59px;}
-.staff ul.notes li.cs3 {top:59px;background-image: url('../img/quaver_sharp.png');}
-.staff ul.notes li.d3 {top:55px;}
-.staff ul.notes li.ds3 {top:55px;background-image: url('../img/quaver_sharp.png');}
-.staff ul.notes li.e3 {top:51px;}
-.staff ul.notes li.f3 {top:47px;}
-.staff ul.notes li.fs3 {top:47px;background-image: url('../img/quaver_sharp.png');}
-.staff ul.notes li.g3 {top:43px;}
-.staff ul.notes li.gs3 {top:43px;background-image: url('../img/quaver_sharp.png');}
-.staff ul.notes li.a3 {top:39px;}
-.staff ul.notes li.as3 {top:39px;background-image: url('../img/quaver_sharp.png');}
-.staff ul.notes li.b3 {top:35px;}
-.staff ul.notes li.c4 {top:31px;}
+.staff ul.notes li.e2  {top:64px; background-position: -88px 0px;}
+.staff ul.notes li.f2  {top:60px; background-position:  -0px 0px;}
+.staff ul.notes li.fs2 {top:60px; background-position: -44px 0px;}
+.staff ul.notes li.g2  {top:56px; background-position: -88px 0px;}
+.staff ul.notes li.gs2 {top:56px; background-position:-132px 0px;}
+.staff ul.notes li.a2  {top:52px; background-position:  -0px 0px;}
+.staff ul.notes li.as2 {top:52px; background-position: -44px 0px;}
+.staff ul.notes li.b2  {top:48px; background-position: -88px 0px;}
+.staff ul.notes li.c3  {top:44px; background-position:  -0px 0px;}
+.staff ul.notes li.cs3 {top:44px; background-position: -44px 0px;}
+.staff ul.notes li.d3  {top:40px; background-position: -88px 0px;}
+.staff ul.notes li.ds3 {top:40px; background-position:-132px 0px;}
+.staff ul.notes li.e3  {top:36px; background-position:  -0px 0px;}
+.staff ul.notes li.f3  {top:32px; background-position: -88px 0px;}
+.staff ul.notes li.fs3 {top:32px; background-position:-132px 0px;}
+.staff ul.notes li.g3  {top:28px; background-position:  -0px 0px;}
+.staff ul.notes li.gs3 {top:28px; background-position: -44px 0px;}
+.staff ul.notes li.a3  {top:24px; background-position: -88px 0px;}
+.staff ul.notes li.as3 {top:24px; background-position:-132px 0px;}
+.staff ul.notes li.b3  {top:20px; background-position:-176px 0px;}
+.staff ul.notes li.c4  {top:16px; background-position:-176px 0px;}
+.staff ul.notes li.cs4 {top:16px; background-position:-220px 0px;}
+.staff ul.notes li.d4  {top:12px; background-position:-176px 0px;}
+.staff ul.notes li.ds4 {top:12px; background-position:-220px 0px;}
+.staff ul.notes li.e4  {top:8px;  background-position:-176px 0px;}
+.staff ul.notes li.f4  {top:4px;  background-position:-176px 0px;}
+.staff ul.notes li.fs4 {top:4px;  background-position:-220px 0px;}
+.staff ul.notes li.g4  {top:0px;  background-position:-176px 0px;}
 
-.staff ul.notes li.cs4 {top:31px;background-image: url('../img/quaver_sharp.png');}
-.staff ul.notes li.d4 {top:27px;}
-.staff ul.notes li.ds4 {top:27px;background-image: url('../img/quaver_sharp.png');}
-.staff ul.notes li.e4 {top:23px;}
-.staff ul.notes li.f4 {top:19px;}
-.staff ul.notes li.fs4 {top:19px;background-image: url('../img/quaver_sharp.png');}
-.staff ul.notes li.g4 {top:15px;}
+.staff ul.notes li.e2.active  {top:64px; background-position: -88px -74px;}
+.staff ul.notes li.f2.active  {top:60px; background-position:  -0px -74px;}
+.staff ul.notes li.fs2.active {top:60px; background-position: -44px -74px;}
+.staff ul.notes li.g2.active  {top:56px; background-position: -88px -74px;}
+.staff ul.notes li.gs2.active {top:56px; background-position:-132px -74px;}
+.staff ul.notes li.a2.active  {top:52px; background-position:  -0px -74px;}
+.staff ul.notes li.as2.active {top:52px; background-position: -44px -74px;}
+.staff ul.notes li.b2.active  {top:48px; background-position: -88px -74px;}
+.staff ul.notes li.c3.active  {top:44px; background-position:  -0px -74px;}
+.staff ul.notes li.cs3.active {top:44px; background-position: -44px -74px;}
+.staff ul.notes li.d3.active  {top:40px; background-position: -88px -74px;}
+.staff ul.notes li.ds3.active {top:40px; background-position:-132px -74px;}
+.staff ul.notes li.e3.active  {top:36px; background-position:  -0px -74px;}
+.staff ul.notes li.f3.active  {top:32px; background-position: -88px -74px;}
+.staff ul.notes li.fs3.active {top:32px; background-position:-132px -74px;}
+.staff ul.notes li.g3.active  {top:28px; background-position:  -0px -74px;}
+.staff ul.notes li.gs3.active {top:28px; background-position: -44px -74px;}
+.staff ul.notes li.a3.active  {top:24px; background-position: -88px -74px;}
+.staff ul.notes li.as3.active {top:24px; background-position:-132px -74px;}
+.staff ul.notes li.b3.active  {top:20px; background-position:-176px -74px;}
+.staff ul.notes li.c4.active  {top:16px; background-position:-176px -74px;}
+.staff ul.notes li.cs4.active {top:16px; background-position:-220px -74px;}
+.staff ul.notes li.d4.active  {top:12px; background-position:-176px -74px;}
+.staff ul.notes li.ds4.active {top:12px; background-position:-220px -74px;}
+.staff ul.notes li.e4.active  {top:8px;  background-position:-176px -74px;}
+.staff ul.notes li.f4.active  {top:4px;  background-position:-176px -74px;}
+.staff ul.notes li.fs4.active {top:4px;  background-position:-220px -74px;}
+.staff ul.notes li.g4.active  {top:0px;  background-position:-176px -74px;}
 
 #torchbox a {
 	position: fixed;

@@ -33,19 +33,27 @@ function ChorusAudio(controller) {
 	
 	for (var note in VALID_NOTE_NAMES) {
 		samples[note] = {};
-		for (var len = 1; len <= 3; len++) {
-			loadSample(note, len);
+		if (note == 'woof') {
+			loadSample('woof', 1);
+		} else {
+			for (var len = 1; len <= 3; len++) {
+				loadSample(note, len);
+			}
 		}
 	}
 	
 	function sampleElementForNote(note) {
-		var noteLength = 2;
-		if (note.duration < 200) {
-			noteLength = 1;
-		} else if (note.duration > 500) {
-			noteLength = 3;
+		if (note.noteName == 'woof') {
+			return samples['woof'][1];
+		} else {
+			var noteLength = 2;
+			if (note.duration < 200) {
+				noteLength = 1;
+			} else if (note.duration > 500) {
+				noteLength = 3;
+			}
+			return samples[note.noteName][noteLength];
 		}
-		return samples[note.noteName][noteLength];
 	}
 	
 	controller.onPlayNote.bind(function(note) {

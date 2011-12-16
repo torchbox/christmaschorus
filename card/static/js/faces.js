@@ -6,16 +6,32 @@ function ChorusFaces(controller) {
 	function Face(li) {
 		var img = $(li).find('img');
 		img.css('opacity', 0.7);
-		return {
-			'open': function() {
-				img.css({'top': '-100%', 'opacity': 0.8});
-				setTimeout(function() {img.css({'top': '-200%', 'opacity': 0.9})}, ANIM_SPEED);
-				setTimeout(function() {img.css({'top': '-300%', 'opacity': 1})}, ANIM_SPEED*2);
-			},
-			'close': function() {
-				img.css({'top': '-200%', 'opacity': 0.9});
-				setTimeout(function() {img.css({'top': '-100%', 'opacity': 0.8})}, ANIM_SPEED);
-				setTimeout(function() {img.css({'top': '0%', 'opacity': 0.7})}, ANIM_SPEED*2);
+		
+		if (li.id == 'face_woof') {
+			return {
+				'open': function() {
+					img.css({'opacity': 0.8});
+					setTimeout(function() {img.css({'opacity': 0.9})}, ANIM_SPEED);
+					setTimeout(function() {img.css({'opacity': 1})}, ANIM_SPEED*2);
+				},
+				'close': function() {
+					img.css({'opacity': 0.9});
+					setTimeout(function() {img.css({'opacity': 0.8})}, ANIM_SPEED);
+					setTimeout(function() {img.css({'opacity': 0.7})}, ANIM_SPEED*2);
+				}
+			}
+		} else {
+			return {
+				'open': function() {
+					img.css({'top': '-100%', 'opacity': 0.8});
+					setTimeout(function() {img.css({'top': '-200%', 'opacity': 0.9})}, ANIM_SPEED);
+					setTimeout(function() {img.css({'top': '-300%', 'opacity': 1})}, ANIM_SPEED*2);
+				},
+				'close': function() {
+					img.css({'top': '-200%', 'opacity': 0.9});
+					setTimeout(function() {img.css({'top': '-100%', 'opacity': 0.8})}, ANIM_SPEED);
+					setTimeout(function() {img.css({'top': '0%', 'opacity': 0.7})}, ANIM_SPEED*2);
+				}
 			}
 		}
 	}

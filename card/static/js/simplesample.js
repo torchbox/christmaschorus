@@ -35,7 +35,10 @@
 				audio.find('source:last').get(0).addEventListener('error', function() {
 					useFlashFallback();
 				}, false)
+				var hasLoaded = false;
 				audioElem.addEventListener('canplaythrough', function() {
+					if (hasLoaded) return;
+					hasLoaded = true;
 					loadedCallback({
 						'play': function() {
 							audioElem.currentTime = 0;

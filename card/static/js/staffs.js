@@ -40,7 +40,7 @@ function ChorusStaffs(controller) {
 			var noteLi = $('<li></li>').addClass(note.noteName);
 			$('ul.notes', staff).append(noteLi);
 			noteLi.css({
-				'left': note.time/10 + 40 + 'px'
+				'left': note.time/6 + 40 + 'px'
 			});
 			note.elem = noteLi;
 		}
