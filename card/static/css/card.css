@@ -187,7 +187,7 @@ li#face_g4 {left: 90%; top: 25%;}
 
 #current_song h2 {
 	width: 300px;
-	background-color: #222;
+	background-color: #292929;
 	margin: auto;
 	line-height: 40px;
 	padding: 0;
@@ -197,7 +197,7 @@ li#face_g4 {left: 90%; top: 25%;}
 	bottom: -260px;
 	height: 300px;
 	width: 100%;
-	background-color: #222;
+	background-color: #292929;
 	display: none;
 }
 #editor h2 {
@@ -223,8 +223,24 @@ li#face_g4 {left: 90%; top: 25%;}
 	list-style-type: none;
 }
 
+#staffs li {
+	clear: both;
+}
+#staffs li .staff_controls {
+	float: left;
+	width: 10%;
+}
+#staffs li .staff_controls a.record_button {
+	float: right;
+	width: 74px;
+	height: 41px;
+	text-indent: -5000px;
+	background-image: url('../img/record.png');
+	margin: 10px;
+}
+
 .staff_viewport {
-	width: 100%;
+	width: 90%;
 	height: 100px;
 	overflow: hidden;
 }

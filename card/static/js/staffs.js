@@ -9,9 +9,9 @@ function ChorusStaffs(controller) {
 	
 	function Staff(track) {
 		var staffLi = $('<li></li>');
-		var recordButton = $('<input type="button" value="Record" />');
+		var recordButton = $('<a href="javascript:void(0)" class="record_button">Record</a>');
 		$('#staffs').append(staffLi);
-		staffLi.append(recordButton);
+		staffLi.append($('<div class="staff_controls"></div>').append(recordButton));
 		recordButton.click(function() {
 			track.onRequestRecord.trigger(track);
 		})
