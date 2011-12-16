@@ -55,4 +55,10 @@ def vote(request, code):
 				ip_address = request.META['REMOTE_ADDR'])
 		vote.score = request.POST['score']
 		vote.save()
-	return HttpResponse(song.score)
+	if request.is_ajax():
+		if song.score == 1:
+			return HttpResponse("(1 vote)")
+		else:
+			return HttpResponse("(%s votes)" % song.score)
+	else:
+		return HttpResponseRedirect(song.get_absolute_url())

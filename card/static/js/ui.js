@@ -73,5 +73,20 @@ $(function() {
 				closeSelector();
 			}
 		})
+		
+	})
+	
+	$('#vote_controls form').each(function() {
+		var form = this;
+		$(form).submit(function() {
+			$.post(form.action, $(form).serialize(), function(response) {
+				$('#current_song .votes').text(response).css({'opacity': 0}).animate({'opacity': 1});
+			})
+			return false;
+		})
+		var submit = $('input[type=submit]', form);
+		submit.replaceWith(
+			$('<a href="javascript:void(0)"></a>').text(submit.val()).click(function() {$(form).submit()})
+		)
 	})
 })

@@ -149,6 +149,42 @@ li#face_g4 {left: 90%; top: 25%;}
 	text-align: center;
 	width: 100%;
 }
+#current_song h3 {
+	font-weight: normal;
+	font-size: 18pt;
+	padding-top: 20px;
+	margin: 0;
+}
+#current_song h3 .votes {
+	font-size: 10pt;
+	color: #5e5e5e;
+}
+
+#current_song #vote_controls {
+	height: 24px;
+}
+#current_song #vote_controls form {
+	display: inline;
+}
+#current_song #vote_controls form a {
+	color: white;
+	text-decoration: none;
+	font-size: 8pt;
+	padding-left: 19px;
+	margin-left: 8px;
+	margin-right: 8px;
+	padding-top: 8px;
+	padding-bottom: 8px;
+	background-repeat: no-repeat;
+	background-position: left center;
+}
+#current_song #vote_controls form#vote_up a {
+	background-image: url('../img/love.png');
+}
+#current_song #vote_controls form#vote_down a {
+	background-image: url('../img/hate.png');
+}
+
 #current_song h2 {
 	width: 300px;
 	background-color: #222;

@@ -98,24 +98,27 @@
 		</div>
 
 		<div id="current_song">
-			<h3>{{ song.title }}</h3>
-			<input type="button" id="play" value="Play" />
-			{% if song.code %}
-				<p>Oh yes | Oh no</p>
+			<h3>
+				{{ song.title }}
 				{% with song.score as score %}
-					<p>{{ score }} vote{{ score|pluralize }}</p>
-					<form action="{% url vote song.code %}" method="POST">
+					<span class="votes">({{ score }} vote{{ score|pluralize }})</span>
+				{% endwith %}
+			</h3>
+			<input type="button" id="play" value="Play" />
+			<div id="vote_controls">
+				{% if song.code %}
+					<form id="vote_up" action="{% url vote song.code %}" method="POST">
 						{% csrf_token %}
 						<input type="hidden" name="score" value="1" />
-						<input type="submit" value="+" />
+						<input type="submit" value="Oh yes" />
 					</form>
-					<form action="{% url vote song.code %}" method="POST">
+					<form id="vote_down" action="{% url vote song.code %}" method="POST">
 						{% csrf_token %}
 						<input type="hidden" name="score" value="-1" />
-						<input type="submit" value="-" />
+						<input type="submit" value="Oh no" />
 					</form>
-				{% endwith %}
-			{% endif %}
+				{% endif %}
+			</div>
 			<h2>Record your carol</h2>
 		</div>
 		<div id="editor">
