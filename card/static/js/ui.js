@@ -89,4 +89,4 @@ $(function() {
 			$('<a href="javascript:void(0)"></a>').text(submit.val()).click(function() {$(form).submit()})
 		)
 	})
-})
+});

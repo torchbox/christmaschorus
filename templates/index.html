@@ -1,15 +1,18 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-		<title>Trolololthesizer</title>
+		{% load compress %}
+		<title>The Torchbox Christmas Choir!</title>
+		{% compress js %}
 		<script src="{{ STATIC_URL }}js/jquery-1.6.2.min.js"></script>
 		<script src="{{ STATIC_URL }}js/simplesample.js"></script>
-		<script>simplesample.swfPath = "{{ STATIC_URL }}swf/mp3.swf"</script>
-		<script src="{{ STATIC_URL }}lib/colorbox/jquery.colorbox.min.js"></script>
-		<link rel="stylesheet" href="{{ STATIC_URL }}lib/colorbox/colorbox.css" />
-		<link rel="stylesheet" href="{{ STATIC_URL }}css/card.css" />
-		<script src="{{ STATIC_URL }}js/json2.js"></script>
+		<script>
+			simplesample.swfPath = "{{ STATIC_URL }}swf/mp3.swf"; '\
+			';
+		</script>
+		<script src="{{ STATIC_URL }}lib/colorbox/jquery.colorbox.js"></script>
 		<script src="{{ STATIC_URL }}js/jquery.drag.js"></script>
+		<script src="{{ STATIC_URL }}js/json2.js"></script>
 		<script src="{{ STATIC_URL }}js/chorus.js"></script>
 		<script src="{{ STATIC_URL }}js/audio.js"></script>
 		<script src="{{ STATIC_URL }}js/keyboard.js"></script>
@@ -25,6 +28,11 @@
 				staffs = ChorusStaffs(chorus);
 			})
 		</script>
+		{% endcompress %}
+		{% compress css %}
+		<link rel="stylesheet" href="{{ STATIC_URL }}lib/colorbox/colorbox.css" />
+		<link rel="stylesheet" href="{{ STATIC_URL }}css/card.css" />
+		{% endcompress %}
 	</head>
 	<body>
 		<div id="title">

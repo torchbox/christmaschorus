@@ -76,6 +76,7 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    'compressor.finders.CompressorFinder',
 )
 
 # List of callables that know how to import templates from various sources.
@@ -114,7 +115,7 @@ INSTALLED_APPS = (
     'south',
     'devserver',
     'django_bcrypt',
-    #'compressor',
+    'compressor',
     
     # your apps here
     'card',
@@ -143,7 +144,7 @@ LOGGING = {
     }
 }
 
-# COMPRESS_ENABLED = False # enable JS/CSS asset packaging/compression
+COMPRESS_ENABLED = True # enable JS/CSS asset packaging/compression
 COMPRESS_URL = '/static/'
 COMPRESS_ROOT = STATIC_ROOT
 
