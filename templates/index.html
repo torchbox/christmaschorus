@@ -19,6 +19,7 @@
 		<script src="{{ STATIC_URL }}js/faces.js"></script>
 		<script src="{{ STATIC_URL }}js/staffs.js"></script>
 		<script src="{{ STATIC_URL }}js/ui.js"></script>
+		{% endcompress %}
 		<script>
 			$(function() {
 				chorus = ChorusController({{ song.notes_json|safe }});
@@ -28,7 +29,6 @@
 				staffs = ChorusStaffs(chorus);
 			})
 		</script>
-		{% endcompress %}
 		{% compress css %}
 		<link rel="stylesheet" href="{{ STATIC_URL }}lib/colorbox/colorbox.css" />
 		<link rel="stylesheet" href="{{ STATIC_URL }}css/card.css" />
