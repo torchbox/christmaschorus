@@ -6,8 +6,10 @@ function ChorusAudio(controller) {
 	samplesLoaded = 0;
 	
 	loadingProgress = $('<span></span>');
-	loadingPopup = $('<div class="loading">Loading...</div>').append(loadingProgress);
-	$('body').prepend(loadingPopup);
+	loadingPopup = $('<div class="loading">Loading... </div>').append(loadingProgress, '<div class="loading_bar"></div>');
+	loadingBarProgress = $('<div class="progress"></div>');
+	loadingPopup.find('.loading_bar').append(loadingBarProgress);
+	$('body').append(loadingPopup);
 	
 	function loadSample(note, len) {
 		var sampleName = note + '_' + len;
@@ -21,7 +23,9 @@ function ChorusAudio(controller) {
 				if (samplesLoaded == samplesToLoad) {
 					loadingPopup.remove();
 				} else {
-					loadingProgress.text(Math.round(samplesLoaded * 100 / samplesToLoad) + '%');
+					var progress = samplesLoaded * 100 / samplesToLoad;
+					loadingProgress.text(Math.round(progress) + '%');
+					loadingBarProgress.css('width', progress + '%');
 				}
 			}
 		)
