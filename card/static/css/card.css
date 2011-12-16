@@ -47,41 +47,67 @@ body {
 #songsheet .songs {
 	width: 280px;
 	float: left;
-	margin-left: 5px;
-	margin-right: 5px;
+	margin-left: 7px;
+	margin-right: 7px;
 	background-color: #292929;
 	position: relative;
+	border: 1px solid #343434;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
 }
 
 #songsheet .songs h2 {
 	margin: 0;
 	padding: 0;
+	margin-left: 12px;
+	margin-right: 12px;
+	font-weight: normal;
 	font-size: 12pt;
 	line-height: 30px;
+	background-image: url('../img/chevron_down.png');
+	background-repeat: no-repeat;
+	background-position: right center;
 }
 #songsheet .songs ul {
 	position: absolute;
 	width: 260px;
 	z-index: 100;
 	list-style-type: none;
-	margin: 0;
+	margin: -1px;
+	margin-top: -2px;
 	padding: 0;
+	border-left: 1px solid #343434;
+	border-right: 1px solid #343434;
+	border-bottom: 1px solid #343434;
+	-webkit-border-bottom-right-radius: 4px;
+	-webkit-border-bottom-left-radius: 4px;
+	-moz-border-radius-bottomright: 4px;
+	-moz-border-radius-bottomleft: 4px;
+	border-bottom-right-radius: 4px;
+	border-bottom-left-radius: 4px;
 	background-color: #292929;
 	padding-left: 10px;
 	padding-right: 10px;
+	padding-bottom: 5px;
 }
 #songsheet .songs ul li {
 	border-top: 1px solid #3f3f3f;
-	line-height: 39px;
+	line-height: 19px;
 }
 #songsheet .songs ul li a {
 	display: block;
 	color: white;
 	text-decoration: none;
-	padding-left: 25px;
+	padding-left: 27px;
+	padding-top: 10px;
+	padding-bottom: 10px;
 	background-image: url(../img/play_bullet.png);
 	background-repeat: no-repeat;
-	background-position: left center;
+	background-position: 2px center;
+}
+#songsheet .songs ul li a:hover {
+	background-color: #454545;
 }
 #songsheet .songs ul li a .song_title {
 	font-weight: bold;

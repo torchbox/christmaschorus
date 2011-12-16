@@ -58,7 +58,7 @@ $(function() {
 		var isOpen = false;
 		
 		function openSelector() {
-			$('ul', songSelector).show();
+			$('ul', songSelector).slideDown('fast');
 			isOpen = true;
 		}
 		function closeSelector() {
