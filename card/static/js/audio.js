@@ -42,29 +42,28 @@ function ChorusAudio(controller) {
 		}
 	}
 	
-	function sampleElementForNote(note) {
+	function sampleNumberForNote(note) {
 		if (note.noteName == 'woof') {
-			return samples['woof'][1];
+			return 1;
 		} else {
-			var noteLength = 2;
 			if (note.duration < 200) {
-				noteLength = 1;
-			} else if (note.duration > 500) {
-				noteLength = 3;
+				return 1;
+			} else if (note.duration < 500) {
+				return 2;
+			} else {
+				return 3;
 			}
-			return samples[note.noteName][noteLength];
 		}
 	}
 	
 	controller.onPlayNote.bind(function(note) {
-		var sample = sampleElementForNote(note);
-		sample.play();
+		note.sampleNumber = sampleNumberForNote(note);
+		samples[note.noteName][note.sampleNumber].play();
 	})
 	
 	controller.onStopNote.bind(function(note) {
-		if (note.duration > 500) {
-			var sample = sampleElementForNote(note);
-			sample.stop();
+		if (note.sampleNumber == 3) {
+			samples[note.noteName][note.sampleNumber].stop();
 		}
 	})
 	
