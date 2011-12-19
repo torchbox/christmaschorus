@@ -29,7 +29,7 @@ function ChorusAudio(controller) {
 				}
 			},
 			'onFailure': function() {
-				console.log('loading failed for sample: ' + sampleName);
+				if (console && console.log) console.log('loading failed for sample: ' + sampleName);
 			}
 		})
 	}

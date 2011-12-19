@@ -15,7 +15,6 @@ function ChorusKeyboard(controller) {
 	}
 	
 	$(document).keydown(function(e) {
-	console.log(e.which);
 		if (!controller.keyboardActive) return;
 		if (e.shiftKey || e.metaKey || e.ctrlKey || e.altKey) return;
 		var noteName = NOTES_BY_KEYCODE[e.which];
