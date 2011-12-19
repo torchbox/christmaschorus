@@ -45,7 +45,8 @@ function hideEditor() {
 
 $(function() {
 	setChoirSize();
-	$(window).resize(setChoirSize);
+	$(window).resize(function() {setChoirSize()});
+	setTimeout(function() {setChoirSize()}, 1000);
 	
 	$('#current_song h2').css({'cursor': 'pointer'}).click(function() {
 		showEditor();
