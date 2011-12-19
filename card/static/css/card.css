@@ -479,16 +479,17 @@ ul#piano li.white {
 ul#piano li.black {
 	position: absolute;
 	top: 0px;
-	width: 34px;
-	height: 32px;
+	width: 29px;
+	height: 27px;
 	background-color: black;
 	color: #818181;
+	border: 2.5px solid black;
 	-webkit-border-radius: 8px;
 	-moz-border-radius: 8px;
 	border-radius: 8px;
 	font-weight: bold;
-	padding-left: 3px;
-	padding-top: 5px;
+	padding-left: 1px;
+	padding-top: 3px;
 	z-index: 51;
 }
 ul#piano li#piano_e2 {left: 17px;}
@@ -521,6 +522,10 @@ ul#piano li#piano_as3 {left: 418px;}
 ul#piano li#piano_cs4 {left: 494px;}
 ul#piano li#piano_ds4 {left: 532px;}
 ul#piano li#piano_fs4 {left: 608px;}
+
+ul#piano li.active {
+	background-color: #db0d38;
+}
 
 #torchbox a {
 	position: fixed;
