@@ -17,6 +17,7 @@ function ChorusAudio(controller) {
 		Ample.openSound({
 			'oggPath': 'http://christmascard.s3.amazonaws.com/ogg/' + sampleName + '.ogg',
 			'mp3Path': 'http://christmascard.s3.amazonaws.com/mp3/' + sampleName + '.mp3',
+			'volume': 0.5,
 			'onSuccess': function(sample) {
 				samples[note][len] = sample;
 				samplesLoaded++;

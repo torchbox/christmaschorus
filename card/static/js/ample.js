@@ -108,6 +108,7 @@
 					onFailure();
 				}
 			}, false)
+			if (soundSpec.volume) audioElem.volume = soundSpec.volume;
 			
 			audioElem.addEventListener('canplaythrough', function() {
 				if (!hasReturned) {
@@ -176,7 +177,7 @@
 		}
 		
 		self.openSoundAsInitialised = function(soundSpec, onSuccess, onFailure) {
-			var soundId = flashElem.openSound(soundSpec.mp3Path);
+			var soundId = flashElem.openSound(soundSpec.mp3Path, soundSpec.volume || 1);
 			/* store the success callback to be called when the swf
 			pings Ample.flashMp3DriverSoundLoaded */
 			successCallbacksBySoundId[soundId] = onSuccess;
