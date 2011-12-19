@@ -66,7 +66,7 @@
 			}
 		},
 		'create': function(oggPath, mp3Path, loadedCallback) {
-			if ($.browser.mozilla || $.browser.safari) {
+			if ($.browser.mozilla || ($.browser.safari && !navigator.userAgent.match(/Chrome/))) {
 				/* trust these browsers to do html audio better than flash... */
 				var drivers = [simplesample.drivers.html, simplesample.drivers.flash];
 			} else {
