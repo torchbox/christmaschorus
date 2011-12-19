@@ -66,7 +66,12 @@
 			}
 		},
 		'create': function(oggPath, mp3Path, loadedCallback) {
-			var drivers = [simplesample.drivers.flash, simplesample.drivers.html];
+			if ($.browser.mozilla || $.browser.safari) {
+				/* trust these browsers to do html audio better than flash... */
+				var drivers = [simplesample.drivers.html, simplesample.drivers.flash];
+			} else {
+				var drivers = [simplesample.drivers.flash, simplesample.drivers.html];
+			}
 			var driverIndex = 0;
 			function tryDriver() {
 				drivers[driverIndex].load(oggPath, mp3Path, loadedCallback, function() {

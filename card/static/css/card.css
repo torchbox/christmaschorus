@@ -451,6 +451,77 @@ ul#singers li#face_woof img {height: 100%;}
 .staff ul.notes li.fs4.active {top:4px;  background-position:-220px -74px;}
 .staff ul.notes li.g4.active  {top:0px;  background-position:-176px -74px;}
 
+ul#piano {
+	width: 690px;
+	margin: auto;
+	height: 90px;
+	position: relative;
+	list-style-type: none;
+	padding: 0;
+}
+ul#piano li.white {
+	position: absolute;
+	top: 25px;
+	width: 33px;
+	height: 28px;
+	border: 2.5px solid black;
+	background-color: white;
+	color: black;
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	border-radius: 8px;
+	padding-left: 2px;
+	padding-top: 30px;
+	font-weight: bold;
+	font-size: 13pt;
+	z-index: 50;
+}
+ul#piano li.black {
+	position: absolute;
+	top: 0px;
+	width: 34px;
+	height: 32px;
+	background-color: black;
+	color: #818181;
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	border-radius: 8px;
+	font-weight: bold;
+	padding-left: 3px;
+	padding-top: 5px;
+	z-index: 51;
+}
+ul#piano li#piano_e2 {left: 17px;}
+ul#piano li#piano_f2 {left: 55px;}
+ul#piano li#piano_g2 {left: 93px;}
+ul#piano li#piano_a2 {left: 131px;}
+ul#piano li#piano_b2 {left: 169px;}
+ul#piano li#piano_c3 {left: 207px;}
+ul#piano li#piano_d3 {left: 245px;}
+
+ul#piano li#piano_e3 {left: 283px;}
+ul#piano li#piano_f3 {left: 321px;}
+ul#piano li#piano_g3 {left: 359px;}
+ul#piano li#piano_a3 {left: 397px;}
+ul#piano li#piano_b3 {left: 435px;}
+ul#piano li#piano_c4 {left: 473px;}
+ul#piano li#piano_d4 {left: 511px;}
+ul#piano li#piano_e4 {left: 549px;}
+ul#piano li#piano_f4 {left: 587px;}
+ul#piano li#piano_g4 {left: 625px;}
+
+ul#piano li#piano_fs2 {left: 76px;}
+ul#piano li#piano_gs2 {left: 114px;}
+ul#piano li#piano_as2 {left: 152px;}
+ul#piano li#piano_cs3 {left: 228px;}
+ul#piano li#piano_ds3 {left: 266px;}
+ul#piano li#piano_fs3 {left: 342px;}
+ul#piano li#piano_gs3 {left: 380px;}
+ul#piano li#piano_as3 {left: 418px;}
+ul#piano li#piano_cs4 {left: 494px;}
+ul#piano li#piano_ds4 {left: 532px;}
+ul#piano li#piano_fs4 {left: 608px;}
+
 #torchbox a {
 	position: fixed;
 	bottom: 0;
