@@ -14,10 +14,10 @@ function ChorusAudio(controller) {
 	function loadSample(note, len) {
 		var sampleName = note + '_' + len;
 		samplesToLoad++;
-		simplesample.create(
-			'http://christmascard.s3.amazonaws.com/ogg/' + sampleName + '.ogg',
-			'http://christmascard.s3.amazonaws.com/mp3/' + sampleName + '.mp3',
-			function(sample) {
+		Ample.openSound({
+			'oggPath': 'http://christmascard.s3.amazonaws.com/ogg/' + sampleName + '.ogg',
+			'mp3Path': 'http://christmascard.s3.amazonaws.com/mp3/' + sampleName + '.mp3',
+			'onSuccess': function(sample) {
 				samples[note][len] = sample;
 				samplesLoaded++;
 				if (samplesLoaded == samplesToLoad) {
@@ -27,8 +27,11 @@ function ChorusAudio(controller) {
 					loadingProgress.text(Math.round(progress) + '%');
 					loadingBarProgress.css('width', progress + '%');
 				}
+			},
+			'onFailure': function() {
+				console.log('loading failed for sample: ' + sampleName);
 			}
-		)
+		})
 	}
 	
 	for (var note in VALID_NOTE_NAMES) {
