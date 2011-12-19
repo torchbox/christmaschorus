@@ -358,23 +358,15 @@ ul#singers li#face_woof img {height: 100%;}
 .staff {
 	position: relative;
 }
-.staff table {
+.staff .staff_bg {
 	width: 100%;
-	padding-top: 13px;
-	border-spacing: 0;
-}
-.staff table td {
-	border-top: 1px solid #7d7d7d;
-	border-left: 1px solid #7d7d7d;
-	height: 8px;
-	padding: 0;
-}
-.staff table td.last {
-	border-left: none;
+	background-image: url('../img/staff.png');
+	margin-top: 13px;
+	height: 33px;
 }
 .staff ul.notes {
 	position: absolute;
-	top: -6px;
+	top: -19px;
 	left: 0;
 	list-style-type: none;
 	margin: 0;

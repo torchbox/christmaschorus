@@ -17,13 +17,7 @@ function ChorusStaffs(controller) {
 		})
 		var staff = $('<div class="staff_viewport">\
 			<div class="staff">\
-				<table>\
-					<tr><td></td></tr>\
-					<tr><td></td></tr>\
-					<tr><td></td></tr>\
-					<tr><td></td></tr>\
-					<tr><td class="last"></td></tr>\
-				</table>\
+				<div class="staff_bg"></div>\
 				<ul class="notes"></ul>\
 			</div>\
 		</div>');
