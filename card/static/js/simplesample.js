@@ -41,27 +41,32 @@
 			'flash': {
 				'load': function(oggPath, mp3Path, successCallback, failureCallback) {
 					swfSuffix += 1;
-					var flashObject = $('<object id="mp3swf'+swfSuffix+'" name="mp3swf'+swfSuffix+'" width="16" height="16" style="position: absolute; top: -100px;" type="application/x-shockwave-flash" data="' + simplesample.swfPath + '"><param name="movie" value="' + simplesample.swfPath + '" /><param name="flashvars" value="file=' + mp3Path + '" /></object>');
-					$('body').append(flashObject);
-					var flashElem = flashObject.get(0);
 					
-					/* check every 100ms whether flash methods have appeared */
-					function ping() {
-						if (flashElem.playMedia) {
-							successCallback({
-								'play': function() {flashElem.playMedia()},
-								'stop': function() {flashElem.stopMedia()}
-							});
+					elemId = 'mp3swf'+swfSuffix;
+					$('body').append('<div id="'+elemId+'" style="position: absolute; top: -100px;"></div>');
+					swfobject.embedSWF(simplesample.swfPath, elemId, '16', '16', '9', false, {'file': mp3Path}, false, {'style': 'position: absolute; top: -100px'}, function(e) {
+						if (e.success) {
+							/* check every 100ms whether flash methods have appeared */
+							function ping() {
+								if (e.ref.playMedia) {
+									successCallback({
+										'play': function() {e.ref.playMedia()},
+										'stop': function() {e.ref.stopMedia()}
+									});
+								} else {
+									setTimeout(ping, 100);
+								}
+							}
+							ping();
 						} else {
-							setTimeout(ping, 100);
+							failureCallback();
 						}
-					}
-					ping();
+					})
 				}
 			}
 		},
 		'create': function(oggPath, mp3Path, loadedCallback) {
-			var drivers = [simplesample.drivers.html, simplesample.drivers.flash];
+			var drivers = [simplesample.drivers.flash, simplesample.drivers.html];
 			var driverIndex = 0;
 			function tryDriver() {
 				drivers[driverIndex].load(oggPath, mp3Path, loadedCallback, function() {
