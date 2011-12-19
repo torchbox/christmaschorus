@@ -153,7 +153,7 @@
 	}
 	
 	window.ChorusController = function(songData) {
-		self = {};
+		var self = {};
 		
 		self.onStartPlayback = Event();
 		self.onStopPlayback = Event();

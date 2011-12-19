@@ -4,7 +4,7 @@
 		{% load compress %}
 		<title>The Torchbox Christmas Choir!</title>
 		{% compress js %}
-		<script src="{{ STATIC_URL }}js/jquery-1.6.2.min.js"></script>
+		<script src="{{ STATIC_URL }}js/jquery-1.7.1.min.js"></script>
 		<script src="{{ STATIC_URL }}js/simplesample.js"></script>
 		<script>
 			simplesample.swfPath = "{{ STATIC_URL }}swf/mp3.swf"; '\
@@ -22,12 +22,12 @@
 		{% endcompress %}
 		<script>
 			$(function() {
-				chorus = ChorusController({{ song.notes_json|safe }});
-				audio = ChorusAudio(chorus);
-				keyboard = ChorusKeyboard(chorus);
-				faces = ChorusFaces(chorus);
-				staffs = ChorusStaffs(chorus);
-				ui = ChorusUi(chorus);
+				var chorus = ChorusController({{ song.notes_json|safe }});
+				var audio = ChorusAudio(chorus);
+				var keyboard = ChorusKeyboard(chorus);
+				var faces = ChorusFaces(chorus);
+				var staffs = ChorusStaffs(chorus);
+				var ui = ChorusUi(chorus);
 			})
 		</script>
 		{% compress css %}
