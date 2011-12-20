@@ -8,6 +8,7 @@ body {
 	-o-background-size: cover;
 	background-size: cover;
 	font-family:arial, sans-serif;
+	overflow-x: hidden;
 }
 
 a {
