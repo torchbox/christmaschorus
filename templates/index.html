@@ -34,6 +34,7 @@
 		<link rel="stylesheet" href="{{ STATIC_URL }}lib/colorbox/colorbox.css" />
 		<link rel="stylesheet" href="{{ STATIC_URL }}css/card.css" />
 		{% endcompress %}
+        <link rel="shortcut icon" href="{{ STATIC_URL }}img/Sing_Torchbox_favicons_16x16.ico" />
 	</head>
 	<body>
 		<div id="title">
@@ -44,9 +45,9 @@
 			<a id="share_facebook" href="http://www.facebook.com/sharer.php?u={{ full_url|urlencode }}" target="_blank">Share on Facebook</a>
 			<div style="clear: both;"></div>
 		</div>
-		
+
 		<div id="work_for_us_ah_go_on"><a href="http://www.torchbox.com/about/jobs">We're hiring!</a></div>
-		
+
 		<div id="songsheet">
 			<div class="songs">
 				<h2>Choose from our carols</h2>
@@ -141,10 +142,10 @@
 				<button id="playback">Playback</button>
 				<button id="save">Save</button>
 			</div>
-			
+
 			<ul id="staffs"><li></li></ul>
 			<input type="button" id="add_track" value="Add another part" />
-			
+
 			<ul id="piano">
 				<li id="piano_e2" class="white">Z</li>
 				<li id="piano_f2" class="white">X</li>
@@ -158,7 +159,7 @@
 				<li id="piano_cs3" class="black">J</li>
 				<li id="piano_d3" class="white">M</li>
 				<li id="piano_ds3" class="black">K</li>
-				
+
 				<li id="piano_e3" class="white">Q</li>
 				<li id="piano_f3" class="white">W</li>
 				<li id="piano_fs3" class="black">3</li>
@@ -177,15 +178,15 @@
 				<li id="piano_g4" class="white">P</li>
 			</ul>
 		</div>
-		
+
 		<div id="torchbox"><a href="http://torchbox.com/">Site by Torchbox</a></div>
-		
+
 		<div class="popups">
 			<div id="save_popup">
 				<form action="{% url create_song %}" method="post">
 					{% csrf_token %}
 					<p>Enter a title for your song:</p>
-					
+
 					<table>
 						{{ form }}
 					</table>
