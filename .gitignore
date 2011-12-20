@@ -3,3 +3,4 @@ data/mp3/*
 data/ogg/*
 data/wav/*
 static/CACHE
+*.pyc
