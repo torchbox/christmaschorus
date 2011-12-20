@@ -10,6 +10,10 @@ body {
     font-family:arial, sans-serif;
 }
 
+a {
+   outline: 0;
+}
+
 .loading {
 	position: fixed;
 	width: 40%;
