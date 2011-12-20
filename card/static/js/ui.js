@@ -114,5 +114,14 @@ function ChorusUi(controller) {
 		$('#playback').val('Stop');
 	})
 	
+	$('a#share_twitter').click(function() {
+		window.open(this.href, '_blank', 'width=550,height=450');
+		return false;
+	})
+	$('a#share_facebook').click(function() {
+		window.open(this.href, '_blank', 'width=550,height=450');
+		return false;
+	})
+	
 	return self;
 };

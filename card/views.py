@@ -20,7 +20,7 @@ def home(request):
 		'form': form,
 		'songs_by_torchbox': Song.by_torchbox(),
 		'songs_by_others': Song.by_others(),
-		'full_url': settings.PUBLIC_ROOT_URL + '/',
+		'share_url': settings.PUBLIC_ROOT_URL + '/',
 		'editor_enabled': settings.SONG_EDITOR_ENABLED,
 	})
 
@@ -38,7 +38,9 @@ def song(request, code):
 		'form': form,
 		'songs_by_torchbox': Song.by_torchbox(),
 		'songs_by_others': Song.by_others(),
-		'full_url': settings.PUBLIC_ROOT_URL + song.get_absolute_url(),
+		# for now just share the site root, rather than specific songs
+		#'share_url': settings.PUBLIC_ROOT_URL + song.get_absolute_url(),
+		'share_url': settings.PUBLIC_ROOT_URL +'/',
 		'editor_enabled': settings.SONG_EDITOR_ENABLED,
 	})
 
