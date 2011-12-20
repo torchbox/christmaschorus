@@ -114,13 +114,15 @@
 		</div>
 
 		<div id="current_song">
-			<input type="button" id="play" value="Play" />
-            <h3>
-                <span class="title">{{ song.title }}</span>
-                {% with song.score as score %}
-                    <span class="votes">({{ score }} vote{{ score|pluralize }})</span>
-                {% endwith %}
-            </h3>
+            <div id="song_title_layout">
+                <input type="button" id="play" value="Play" />
+                <h3>
+                    <span class="title">{{ song.title }}</span>
+                    {% with song.score as score %}
+                        <span class="votes">({{ score }} vote{{ score|pluralize }})</span>
+                    {% endwith %}
+                </h3>
+            </div>
 			<div id="vote_controls">
 				{% if song.code %}
 					<form id="vote_up" action="{% url vote song.code %}" method="POST">
