@@ -151,6 +151,8 @@ COMPRESS_ROOT = STATIC_ROOT
 # public URL of site, for share links etc - no trailing slash
 PUBLIC_ROOT_URL = 'http://sing.torchbox.com'
 
+SONG_EDITOR_ENABLED = False
+
 try:
     from local_settings import *
 except ImportError:
