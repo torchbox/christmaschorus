@@ -137,5 +137,14 @@ function ChorusUi(controller) {
 		return false;
 	})
 	
+	controller.onLoadSong.bind(function(songWithMeta) {
+		if (songWithMeta.code) {
+			var twitterUrl = 'https://twitter.com/share?url=' + encodeURIComponent('http://sing.torchbox.com/#' + songWithMeta.code);
+			var facebookUrl = 'http://www.facebook.com/sharer.php?u=' + encodeURIComponent('http://sing.torchbox.com/#' + songWithMeta.code);
+			$('a#share_twitter').attr('href', twitterUrl);
+			$('a#share_facebook').attr('href', facebookUrl);
+		}
+	})
+	
 	return self;
 };
