@@ -21,6 +21,7 @@ a {
 	height: 100%;
 	opacity: 0.8;
 	background-color: black;
+	z-index: 500;
 }
 .loading {
 	position: fixed;
@@ -36,6 +37,7 @@ a {
 	-moz-border-radius: 8px;
 	border-radius: 8px;
 	padding: 20px;
+	z-index: 501;
 }
 .loading .loading_bar {
 	height: 8px;
@@ -257,14 +259,25 @@ a {
 }
 ul#singers {
 	margin: 0; padding: 0;
+	list-style-type: none;
 }
 ul#singers li {
 	height: 25%;
 	width: 10%;
+	position: absolute;
+	padding: 0;
+	margin: 0;
+}
+ul#singers li .face {
 	overflow: hidden;
 	position: absolute;
 	padding: 0;
 	margin: 0;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	z-index: 30;
 }
 ul#singers li img {
 	height: 400%;
@@ -275,6 +288,38 @@ ul#singers li img {
 
 ul#singers li img:hover {
 	cursor:pointer;
+}
+ul#singers li .bio {
+	position: absolute;
+	height: 60px;
+	width: 192px;
+	bottom: -49px;
+	left: 50%;
+	margin-left: -100px;
+	padding-left: 4px;
+	padding-right: 4px;
+	background: black;
+	background: rgba(0, 0, 0, 0.8);
+	border: 1px solid #232323;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	border-radius: 2px;
+	z-index: 31;
+	display: none;
+}
+ul#singers li .bio h3 {
+	text-align: center;
+	margin: 0;
+	padding-top: 10px;
+	font-size: 10pt;
+	font-weight: bold;
+}
+ul#singers li .bio h4 {
+	text-align: center;
+	margin: 0;
+	padding-top: 4px;
+	font-size: 10pt;
+	font-weight: normal;
 }
 
 li#face_e2 {left: 10%; top: 75%;}
@@ -343,7 +388,7 @@ ul#singers li#face_woof img {height: 100%;}
 	font-weight:normal;
 	position:absolute;
 	top:10px;
-	right:-50px;
+	right:-60px;
 }
 
 #play {

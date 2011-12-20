@@ -159,6 +159,7 @@
 		self.onStopPlayback = Event();
 		self.onPlayNote = Event();
 		self.onStopNote = Event();
+		self.onLoadSong = Event();
 		
 		self.keyboardActive = true;
 		
@@ -174,6 +175,7 @@
 			} else {
 				$('#vote_controls').hide();
 			}
+			self.onLoadSong.trigger(songWithMeta);
 		}
 		window.loadSong = self.loadSong;
 		

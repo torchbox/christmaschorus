@@ -30,6 +30,13 @@
 				var ui = ChorusUi(chorus);
 
                 $("#faq a").colorbox({inline: true, href:"#faq-text"});
+
+				if (location.hash) {
+					var code = location.hash.replace(/^#/,'');
+					$.getJSON('/'+code, function(response) {
+						chorus.loadSong(response);
+					})
+				}
 			})
 		</script>
 		{% compress css %}
@@ -87,35 +94,35 @@
 		</div>
 		<div id="choir">
 			<ul id="singers">
-				<li id="face_e2"><img src="{{ STATIC_URL }}img/faces/tom.jpg" alt="" /></li>
-				<li id="face_f2"><img src="{{ STATIC_URL }}img/faces/johann.jpg" alt="" /></li>
-				<li id="face_fs2"><img src="{{ STATIC_URL }}img/faces/james.jpg" alt="" /></li>
-				<li id="face_g2"><img src="{{ STATIC_URL }}img/faces/pete.jpg" alt="" /></li>
-				<li id="face_gs2"><img src="{{ STATIC_URL }}img/faces/ian.jpg" alt="" /></li>
-				<li id="face_a2"><img src="{{ STATIC_URL }}img/faces/neal.jpg" alt="" /></li>
-				<li id="face_as2"><img src="{{ STATIC_URL }}img/faces/ed.jpg" alt="" /></li>
-				<li id="face_b2"><img src="{{ STATIC_URL }}img/faces/andy.jpg" alt="" /></li>
-				<li id="face_c3"><img src="{{ STATIC_URL }}img/faces/olly.jpg" alt="" /></li>
-				<li id="face_cs3"><img src="{{ STATIC_URL }}img/faces/jonny.jpg" alt="" /></li>
-				<li id="face_d3"><img src="{{ STATIC_URL }}img/faces/neil.jpg" alt="" /></li>
-				<li id="face_ds3"><img src="{{ STATIC_URL }}img/faces/chris.jpg" alt="" /></li>
-				<li id="face_e3"><img src="{{ STATIC_URL }}img/faces/steve.jpg" alt="" /></li>
-				<li id="face_f3"><img src="{{ STATIC_URL }}img/faces/dave.jpg" alt="" /></li>
-				<li id="face_fs3"><img src="{{ STATIC_URL }}img/faces/jp.jpg" alt="" /></li>
-				<li id="face_g3"><img src="{{ STATIC_URL }}img/faces/paul.jpg" alt="" /></li>
-				<li id="face_gs3"><img src="{{ STATIC_URL }}img/faces/robbie.jpg" alt="" /></li>
-				<li id="face_a3"><img src="{{ STATIC_URL }}img/faces/stewart.jpg" alt="" /></li>
-				<li id="face_as3"><img src="{{ STATIC_URL }}img/faces/wes.jpg" alt="" /></li>
-				<li id="face_b3"><img src="{{ STATIC_URL }}img/faces/nick.jpg" alt="" /></li>
-				<li id="face_c4"><img src="{{ STATIC_URL }}img/faces/alice.jpg" alt="" /></li>
-				<li id="face_cs4"><img src="{{ STATIC_URL }}img/faces/victoria.jpg" alt="" /></li>
-				<li id="face_d4"><img src="{{ STATIC_URL }}img/faces/susan.jpg" alt="" /></li>
-				<li id="face_ds4"><img src="{{ STATIC_URL }}img/faces/sally.jpg" alt="" /></li>
-				<li id="face_e4"><img src="{{ STATIC_URL }}img/faces/helen.jpg" alt="" /></li>
-				<li id="face_f4"><img src="{{ STATIC_URL }}img/faces/rob.jpg" alt="" /></li>
-				<li id="face_fs4"><img src="{{ STATIC_URL }}img/faces/joe.jpg" alt="" /></li>
-				<li id="face_g4"><img src="{{ STATIC_URL }}img/faces/matthew.jpg" alt="" /></li>
-				<li id="face_woof"><img src="{{ STATIC_URL }}img/faces/stanley.jpg" alt="" /></li>
+				<li id="face_e2"><div class="face"><img src="{{ STATIC_URL }}img/faces/tom.jpg" alt="" /></div><div class="bio"><h3>Tom Dyson</h3><h4>Technical Director</h4></div></li>
+				<li id="face_f2"><div class="face"><img src="{{ STATIC_URL }}img/faces/johann.jpg" alt="" /></div><div class="bio"><h3>Johan Gant</h3><h4>Senior Drupal Developer</h4></div></li>
+				<li id="face_fs2"><div class="face"><img src="{{ STATIC_URL }}img/faces/james.jpg" alt="" /></div><div class="bio"><h3>James Morris</h3><h4>Developer</h4></div></li>
+				<li id="face_g2"><div class="face"><img src="{{ STATIC_URL }}img/faces/pete.jpg" alt="" /></div><div class="bio"><h3>Pete Martin</h3><h4>Digital Marketing Executive</h4></div></li>
+				<li id="face_gs2"><div class="face"><img src="{{ STATIC_URL }}img/faces/ian.jpg" alt="" /></div><div class="bio"><h3>Ian Bellchambers</h3><h4>Business Development Director</h4></div></li>
+				<li id="face_a2"><div class="face"><img src="{{ STATIC_URL }}img/faces/neal.jpg" alt="" /></div><div class="bio"><h3>Neal Todd</h3><h4>Senior Developer</h4></div></li>
+				<li id="face_as2"><div class="face"><img src="{{ STATIC_URL }}img/faces/ed.jpg" alt="" /></div><div class="bio"><h3>Edward Kay</h3><h4>Head of Production</h4></div></li>
+				<li id="face_b2"><div class="face"><img src="{{ STATIC_URL }}img/faces/andy.jpg" alt="" /></div><div class="bio"><h3>Andy Footner</h3><h4>Drupal Developer</h4></div></li>
+				<li id="face_c3"><div class="face"><img src="{{ STATIC_URL }}img/faces/olly.jpg" alt="" /></div><div class="bio"><h3>Olly Willans</h3><h4>Creative Director</h4></div></li>
+				<li id="face_cs3"><div class="face"><img src="{{ STATIC_URL }}img/faces/jonny.jpg" alt="" /></div><div class="bio"><h3>Jonny Grum</h3><h4>Digital Marketing Manager</h4></div></li>
+				<li id="face_d3"><div class="face"><img src="{{ STATIC_URL }}img/faces/neil.jpg" alt="" /></div><div class="bio"><h3>Neil Lyons</h3><h4>Developer</h4></div></li>
+				<li id="face_ds3"><div class="face"><img src="{{ STATIC_URL }}img/faces/chris.jpg" alt="" /></div><div class="bio"><h3>Chris Whalen</h3><h4>Search Marketing Executive</h4></div></li>
+				<li id="face_e3"><div class="face"><img src="{{ STATIC_URL }}img/faces/steve.jpg" alt="" /></div><div class="bio"><h3>Steve Jalim</h3><h4>Developer</h4></div></li>
+				<li id="face_f3"><div class="face"><img src="{{ STATIC_URL }}img/faces/dave.jpg" alt="" /></div><div class="bio"><h3>Dave Cranwell</h3><h4>Developer</h4></div></li>
+				<li id="face_fs3"><div class="face"><img src="{{ STATIC_URL }}img/faces/jp.jpg" alt="" /></div><div class="bio"><h3>J-P Stacey</h3><h4>Drupal Architect</h4></div></li>
+				<li id="face_g3"><div class="face"><img src="{{ STATIC_URL }}img/faces/paul.jpg" alt="" /></div><div class="bio"><h3>Paul Gill</h3><h4>Account Director</h4></div></li>
+				<li id="face_gs3"><div class="face"><img src="{{ STATIC_URL }}img/faces/robbie.jpg" alt="" /></div><div class="bio"><h3>Robbie MacKay</h3><h4>Developer</h4></div></li>
+				<li id="face_a3"><div class="face"><img src="{{ STATIC_URL }}img/faces/stewart.jpg" alt="" /></div><div class="bio"><h3>Stewart Houten</h3><h4>Systems Administrator</h4></div></li>
+				<li id="face_as3"><div class="face"><img src="{{ STATIC_URL }}img/faces/wes.jpg" alt="" /></div><div class="bio"><h3>Wes West</h3><h4>Designer</h4></div></li>
+				<li id="face_b3"><div class="face"><img src="{{ STATIC_URL }}img/faces/nick.jpg" alt="" /></div><div class="bio"><h3>Nick Lee</h3><h4>Designer</h4></div></li>
+				<li id="face_c4"><div class="face"><img src="{{ STATIC_URL }}img/faces/alice.jpg" alt="" /></div><div class="bio"><h3>Alice Watanabe</h3><h4>Project Manager</h4></div></li>
+				<li id="face_cs4"><div class="face"><img src="{{ STATIC_URL }}img/faces/victoria.jpg" alt="" /></div><div class="bio"><h3>Victoria Chan</h3><h4>Developer</h4></div></li>
+				<li id="face_d4"><div class="face"><img src="{{ STATIC_URL }}img/faces/susan.jpg" alt="" /></div><div class="bio"><h3>Susan Harrison</h3><h4>Administrator</h4></div></li>
+				<li id="face_ds4"><div class="face"><img src="{{ STATIC_URL }}img/faces/sally.jpg" alt="" /></div><div class="bio"><h3>Sally Edgington</h3><h4>Project Manager</h4></div></li>
+				<li id="face_e4"><div class="face"><img src="{{ STATIC_URL }}img/faces/helen.jpg" alt="" /></div><div class="bio"><h3>Helen Warren</h3><h4>Senior Developer</h4></div></li>
+				<li id="face_f4"><div class="face"><img src="{{ STATIC_URL }}img/faces/rob.jpg" alt="" /></div><div class="bio"><h3>Rob Salmon</h3><h4>Director of Digital Marketing</h4></div></li>
+				<li id="face_fs4"><div class="face"><img src="{{ STATIC_URL }}img/faces/joe.jpg" alt="" /></div><div class="bio"><h3>Joe Wass</h3><h4>Developer</h4></div></li>
+				<li id="face_g4"><div class="face"><img src="{{ STATIC_URL }}img/faces/matthew.jpg" alt="" /></div><div class="bio"><h3>Matthew Westcott</h3><h4>Senior Developer</h4></div></li>
+				<li id="face_woof"><div class="face"><img src="{{ STATIC_URL }}img/faces/stanley.jpg" alt="" /></div><div class="bio"><h3>Stanley</h3><h4>Just this dog, y'know?</h4></div></li>
 			</ul>
 		</div>
 

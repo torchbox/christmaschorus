@@ -117,6 +117,8 @@ function ChorusUi(controller) {
 		$('li a', this).click(function() {
 			if (controller.isPlaying) controller.stopPlayback();
 			
+			var code = this.href.match(/\/(\w+)\/$/)[1];
+			location.hash = code;
 			$.getJSON(this.href, function(response) {
 				controller.loadSong(response);
 				controller.startPlayback();
@@ -133,6 +135,15 @@ function ChorusUi(controller) {
 	$('a#share_facebook').click(function() {
 		window.open(this.href, '_blank', 'width=550,height=450');
 		return false;
+	})
+	
+	controller.onLoadSong.bind(function(songWithMeta) {
+		if (songWithMeta.code) {
+			var twitterUrl = 'https://twitter.com/share?url=' + encodeURIComponent('http://sing.torchbox.com/#' + songWithMeta.code);
+			var facebookUrl = 'http://www.facebook.com/sharer.php?u=' + encodeURIComponent('http://sing.torchbox.com/#' + songWithMeta.code);
+			$('a#share_twitter').attr('href', twitterUrl);
+			$('a#share_facebook').attr('href', facebookUrl);
+		}
 	})
 	
 	return self;

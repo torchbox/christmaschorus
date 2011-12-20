@@ -47,6 +47,13 @@ function ChorusFaces(controller) {
 			lastMouseNote = controller.registerNoteOn(noteName);
 			return false; /* disable dragging */
 		});
+		
+		var bio = $('.bio', this);
+		$(this).hover(function() {
+			bio.show();
+		}, function() {
+			bio.hide();
+		})
 	})
 	
 	$(document).mouseup(function() {
