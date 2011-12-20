@@ -21,6 +21,7 @@ def home(request):
 		'songs_by_torchbox': Song.by_torchbox(),
 		'songs_by_others': Song.by_others(),
 		'full_url': settings.PUBLIC_ROOT_URL + '/',
+		'editor_enabled': settings.SONG_EDITOR_ENABLED,
 	})
 
 def create_song(request):
@@ -38,6 +39,7 @@ def song(request, code):
 		'songs_by_torchbox': Song.by_torchbox(),
 		'songs_by_others': Song.by_others(),
 		'full_url': settings.PUBLIC_ROOT_URL + song.get_absolute_url(),
+		'editor_enabled': settings.SONG_EDITOR_ENABLED,
 	})
 
 def vote(request, code):
