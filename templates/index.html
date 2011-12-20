@@ -1,48 +1,48 @@
 <!DOCTYPE HTML>
 <html>
-	<head>
-		{% load compress %}
-		<title>The Torchbox Christmas Choir!</title>
-		{% compress js %}
-		<script src="{{ STATIC_URL }}js/jquery-1.7.1.min.js"></script>
-		<script src="{{ STATIC_URL }}js/swfobject.js"></script>
-		<script src="{{ STATIC_URL }}js/ample.js"></script>
-		<script>
-			Ample.swfPath = "{{ STATIC_URL }}swf/mp3manager.swf";
-		</script>
-		<script src="{{ STATIC_URL }}lib/colorbox/jquery.colorbox.js"></script>
-		<script src="{{ STATIC_URL }}js/jquery.drag.js"></script>
-		<script src="{{ STATIC_URL }}js/json2.js"></script>
-		<script src="{{ STATIC_URL }}js/chorus.js"></script>
-		<script src="{{ STATIC_URL }}js/audio.js"></script>
-		<script src="{{ STATIC_URL }}js/keyboard.js"></script>
-		<script src="{{ STATIC_URL }}js/faces.js"></script>
-		{% if editor_enabled %}<script src="{{ STATIC_URL }}js/staffs.js"></script>{% endif %}
-		<script src="{{ STATIC_URL }}js/ui.js"></script>
-		{% endcompress %}
-		<script>
-			$(function() {
-				var chorus = ChorusController({{ song.notes_json|safe }});
-				var audio = ChorusAudio(chorus);
-				var keyboard = ChorusKeyboard(chorus);
-				var faces = ChorusFaces(chorus);
-				{% if editor_enabled %}var staffs = ChorusStaffs(chorus);{% endif %}
-				var ui = ChorusUi(chorus);
-
-                $("#faq a").colorbox({inline: true, href:"#faq-text"});
-
-				if (location.hash) {
-					var code = location.hash.replace(/^#/,'');
-					$.getJSON('/'+code, function(response) {
-						chorus.loadSong(response);
-					})
-				}
-			})
-		</script>
+    <head>
+        {% load compress %}
+        <title>The Torchbox Christmas Choir!</title>
 		{% compress css %}
 		<link rel="stylesheet" href="{{ STATIC_URL }}lib/colorbox/colorbox.css" />
 		<link rel="stylesheet" href="{{ STATIC_URL }}css/card.css" />
 		{% endcompress %}
+        {% compress js %}
+        <script src="{{ STATIC_URL }}js/jquery-1.7.1.min.js"></script>
+        <script src="{{ STATIC_URL }}js/swfobject.js"></script>
+        <script src="{{ STATIC_URL }}js/ample.js"></script>
+        <script>
+            Ample.swfPath = "{{ STATIC_URL }}swf/mp3manager.swf";
+        </script>
+        <script src="{{ STATIC_URL }}lib/colorbox/jquery.colorbox.js"></script>
+        <script src="{{ STATIC_URL }}js/jquery.drag.js"></script>
+        <script src="{{ STATIC_URL }}js/json2.js"></script>
+        <script src="{{ STATIC_URL }}js/chorus.js"></script>
+        <script src="{{ STATIC_URL }}js/audio.js"></script>
+        <script src="{{ STATIC_URL }}js/keyboard.js"></script>
+        <script src="{{ STATIC_URL }}js/faces.js"></script>
+        {% if editor_enabled %}<script src="{{ STATIC_URL }}js/staffs.js"></script>{% endif %}
+        <script src="{{ STATIC_URL }}js/ui.js"></script>
+        {% endcompress %}
+        <script>
+            $(function() {
+                var chorus = ChorusController({{ song.notes_json|safe }});
+                var audio = ChorusAudio(chorus);
+                var keyboard = ChorusKeyboard(chorus);
+                var faces = ChorusFaces(chorus);
+                {% if editor_enabled %}var staffs = ChorusStaffs(chorus);{% endif %}
+                var ui = ChorusUi(chorus);
+
+                $("#faq a").colorbox({inline: true, href:"#faq-text"});
+
+                if (location.hash) {
+                    var code = location.hash.replace(/^#/,'');
+                    $.getJSON('/'+code, function(response) {
+                        chorus.loadSong(response);
+                    })
+                }
+            })
+        </script>
         <link rel="shortcut icon" href="{{ STATIC_URL }}img/Sing_Torchbox_favicons_16x16.ico" />
 	</head>
 	<body>
