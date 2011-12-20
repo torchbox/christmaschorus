@@ -110,7 +110,7 @@
 			}, false)
 			if (soundSpec.volume) audioElem.volume = soundSpec.volume;
 			
-			audioElem.addEventListener('canplaythrough', function() {
+			audioElem.addEventListener('loadedmetadata', function() {
 				if (!hasReturned) {
 					hasReturned = true;
 					onSuccess({
