@@ -116,10 +116,10 @@ a {
 #work_for_us_ah_go_on a {
 	position: absolute;
 	top: 0;
-	right: 0;
+	left: 0;
 	width: 130px;
 	height: 130px;
-	background-image: url('../img/were_hiring.png');
+	background: url('../img/were-hiring-left.png') no-repeat;
 	text-indent: -5000px;
 }
 #work_for_us_ah_go_on a:active {
