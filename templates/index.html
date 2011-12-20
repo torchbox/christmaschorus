@@ -3,10 +3,23 @@
     <head>
         {% load compress %}
         <title>The Torchbox Christmas Choir!</title>
+
+        <meta name="description" content="Happy Christmas from everyone at Torchbox! This is our 2011 Christmas card to clients & friends. Choose your favourite Christmas carol and we'll sing it to you." />
+        <meta property="og:title" content="The Torchbox Christmas Choir!" />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="http://sing.torchbox.com/static/img/tbx.png" />
+        <meta property="og:url" content="http://sing.torchbox.com/" />
+        <meta property="og:site_name" content="The Torchbox Christmas Choir!" />
+        <meta property="fb:admins" content="119055258140264" />
+        <meta property="og:description" content="Happy Christmas from everyone at Torchbox! This is our 2011 Christmas card to clients & friends. Choose your favourite Christmas carol and we'll sing it to you." />
+
+
 		{% compress css %}
 		<link rel="stylesheet" href="{{ STATIC_URL }}lib/colorbox/colorbox.css" />
 		<link rel="stylesheet" href="{{ STATIC_URL }}css/card.css" />
 		{% endcompress %}
+
+
         {% compress js %}
         <script src="{{ STATIC_URL }}js/jquery-1.7.1.min.js"></script>
         <script src="{{ STATIC_URL }}js/swfobject.js"></script>
@@ -44,12 +57,12 @@
             })
         </script>
         <link rel="shortcut icon" href="{{ STATIC_URL }}img/Sing_Torchbox_favicons_16x16.ico" />
-        
+
 		<script type="text/javascript">
 			var _gaq = _gaq || [];
 			_gaq.push(['_setAccount', 'UA-112981-44']);
 			_gaq.push(['_trackPageview']);
-			
+
 			(function() {
 				var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
 				ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
