@@ -32,6 +32,14 @@ class Song(models.Model):
 	def score(self):
 		return self.votes.all().aggregate(Sum('score'))['score__sum'] or 0
 	
+	@property
+	def votes_string(self):
+		score = self.score
+		if score == 1:
+			return "(1 vote)"
+		else:
+			return "(%s votes)" % score
+	
 	@staticmethod
 	def latest():
 		return Song.objects.order_by('-created_at')[:10].annotate(vote_score = Sum('votes__score'))

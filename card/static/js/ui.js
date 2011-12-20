@@ -55,31 +55,6 @@ $(function() {
 		hideEditor();
 	})
 	
-	$('#songsheet .songs').each(function() {
-		var songSelector = this;
-		var isOpen = false;
-		
-		function openSelector() {
-			$('ul', songSelector).slideDown('fast');
-			isOpen = true;
-		}
-		function closeSelector() {
-			$('ul', songSelector).hide();
-			isOpen = false;
-		}
-		
-		$('ul', songSelector).hide();
-		$('h2', songSelector).css('cursor', 'pointer');
-		$(document).click(function(event) {
-			if ($.contains(songSelector, event.target) && !isOpen) {
-				openSelector();
-			} else {
-				closeSelector();
-			}
-		})
-		
-	})
-	
 	$('#vote_controls form').each(function() {
 		var form = this;
 		$(form).submit(function() {
@@ -112,6 +87,41 @@ function ChorusUi(controller) {
 	controller.onStartPlayback.bind(function() {
 		$('#play').val('Stop');
 		$('#playback').val('Stop');
+	})
+	
+	$('#songsheet .songs').each(function() {
+		var songSelector = this;
+		var isOpen = false;
+		
+		function openSelector() {
+			$('ul', songSelector).slideDown('fast');
+			isOpen = true;
+		}
+		function closeSelector() {
+			$('ul', songSelector).hide();
+			isOpen = false;
+		}
+		
+		$('ul', songSelector).hide();
+		$('h2', songSelector).css('cursor', 'pointer');
+		$(document).click(function(event) {
+			if ($.contains(songSelector, event.target) && !isOpen) {
+				openSelector();
+			} else {
+				closeSelector();
+			}
+		})
+		
+		$('li a', this).click(function() {
+			if (controller.isPlaying) controller.stopPlayback();
+			
+			$.getJSON(this.href, function(response) {
+				controller.loadSong(response);
+				controller.startPlayback();
+			})
+			closeSelector();
+			return false;
+		})
 	})
 	
 	$('a#share_twitter').click(function() {
