@@ -276,14 +276,20 @@ ul#singers li#face_woof img {height: 100%;}
 	width: 100%;
 }
 #current_song h3 {
-	font-weight: normal;
+	padding-top: 40px;
+	font-weight: bold;
 	font-size: 18pt;
-	padding-top: 20px;
 	margin: 0;
+	display:inline-block;
 }
 #current_song h3 .votes {
 	font-size: 10pt;
 	color: #5e5e5e;
+	font-weight:normal;
+}
+
+#play {
+	display:inline-block;
 }
 
 #current_song #vote_controls {
@@ -312,6 +318,7 @@ ul#singers li#face_woof img {height: 100%;}
 	-o-transition: all .3s linear;
 	-moz-transition: all .3s linear;
 	-webkit-transition: all .3s linear;
+	font-weight:bold;
 }
 #current_song #vote_controls form#vote_down a {
 	background-image: url('../img/hate.png');
@@ -320,6 +327,7 @@ ul#singers li#face_woof img {height: 100%;}
 	-o-transition: all .3s linear;
 	-moz-transition: all .3s linear;
 	-webkit-transition: all .3s linear;
+	font-weight:bold;
 }
 
 #current_song #vote_controls form#vote_up a:hover,
