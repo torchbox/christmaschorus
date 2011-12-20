@@ -11,7 +11,7 @@ function ChorusKeyboard(controller) {
 		81: 'e3', 87: 'f3', 51: 'fs3', 69: 'g3', 52: 'gs3', 82: 'a3', 53: 'as3', 84: 'b3',
 		89: 'c4', 55: 'cs4', 85: 'd4', 56: 'ds4', 73: 'e4', 79: 'f4', 48: 'fs4', 80: 'g4',
 		
-		32: 'woof', 65: 'bell'
+		32: 'woof', 65: 'bell', 76: 'clap'
 	}
 	
 	$(document).keydown(function(e) {
