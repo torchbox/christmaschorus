@@ -117,6 +117,8 @@ function ChorusUi(controller) {
 		$('li a', this).click(function() {
 			if (controller.isPlaying) controller.stopPlayback();
 			
+			var code = this.href.match(/\/(\w+)\/$/)[1];
+			location.hash = code;
 			$.getJSON(this.href, function(response) {
 				controller.loadSong(response);
 				controller.startPlayback();
