@@ -7,6 +7,7 @@ body {
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
+    font-family:arial, sans-serif;
 }
 
 .loading {
@@ -37,37 +38,35 @@ body {
 
 #title {
 	width: 860px;
-	margin: auto;
+	margin: 15px auto 10px auto;
+    position:relative;
 }
 #title h1 {
 	padding: 0;
 	margin: 0;
-	width: 716px;
-	height: 60px;
 	line-height: 60px;
 	text-indent: -5000px;
-	background-image: url('../img/title.png');
-	float: left;
+    background: url('../img/title.png') no-repeat center;
 }
 #title #share_twitter {
-	float:left;
+	position: absolute;
 	width: 37px;
 	height: 37px;
 	line-height: 60px;
 	text-indent: -5000px;
 	background-image: url('../img/twitter_share.png');
-	margin-left: 40px;
-	margin-top: 11px;
+    top: 15px;
+    right: 30px;
 }
 #title #share_facebook {
-	float:left;
-	width: 37px;
-	height: 37px;
-	line-height: 60px;
-	text-indent: -5000px;
-	background-image: url('../img/facebook_share.png');
-	margin-left: 5px;
-	margin-top: 11px;
+    position: absolute;
+    width: 37px;
+    height: 37px;
+    line-height: 60px;
+    text-indent: -5000px;
+    background-image: url('../img/facebook_share.png');
+    top: 15px;
+    right: -10px;
 }
 
 #work_for_us_ah_go_on a {
@@ -85,7 +84,7 @@ body {
 
 #songsheet {
 	width: 600px;
-	margin: auto;
+	margin: 0 auto 20px auto;
 }
 
 #songsheet .songs {
