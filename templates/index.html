@@ -28,6 +28,8 @@
 				var faces = ChorusFaces(chorus);
 				{% if editor_enabled %}var staffs = ChorusStaffs(chorus);{% endif %}
 				var ui = ChorusUi(chorus);
+
+                $("#faq a").colorbox({inline: true, href:"#faq-text"});
 			})
 		</script>
 		{% compress css %}
@@ -77,6 +79,10 @@
 					{% endfor %}
 				</ul>
 			</div>
+
+            <div id="faq">
+                <a href="#">FAQ</a>
+            </div>
 			<div style="clear: both;"></div>
 		</div>
 		<div id="choir">
@@ -201,6 +207,53 @@
 					<input type="submit" value="Share it!" />
 			</div>
 			<div id="loading_popup"></div>
-		</div>
-	</body>
+
+
+            <div id="faq-text">
+                <h1>FAQs</h1>
+                <ul>
+                    <li>
+                        <div class="question">
+                            It doesn't work!
+                        </div>
+                        <div class="answer">
+                            Sorry. It turns out that triggering multiple audio samples simultaneously is pretty hard for some browsers to cope with. It works well on recent versions of Chrome and Safari on OS X or Windows, and seems pretty solid on IE. Support on Linux is variable, but we're working on it. In general you probably need a computer that's less than three years old. No iOS support yet, we're afraid.
+                        </div>
+                    </li>
+                    <li>
+                        <div class="question">
+                            I'm on the latest Chrome on 16 core Mac Pro, and it still doesn't work!
+                        </div>
+                        <div class="answer">
+                            Sound support falls back to Flash (from HTML5) in some cases; you may have a Flashblocker or Adblocker which is preventing Flash from working. If you're sure it should be working, please email us at christmas@torchbox.com with the details, and we'll try to work it out
+                        </div>
+                    </li>
+                    <li>
+                        <div class="question">
+                            How did you make this?
+                        </div>
+                        <div class="answer">
+                            We recorded every person singing three different durations of each note (on a Rode NT1A with an Apogee Duet), and sliced them up in Logic Pro, using a teeny bit of Melodyne for the odd tuning fix. The audio was converted into MP3 and OGG files, and we built a Javascript player which triggers and holds the relevant sample based on note and duration. The song data is stored as JSON, and we wrote a midi to JSON convertor in Ruby to help us create new arrangements. The site runs on a small Django VM.
+                        </div>
+                    </li>
+                    <li>
+                        <div class="question">
+                            How can I add a song?
+                        </div>
+                        <div class="answer">
+                            You can play us in real time, using the mouse or keyboard. We've almost finished writing a multi-track recording tool, but it's not quite ready for prime time yet. For now, <a href="mailto:sing@torchbox.com">email us</a> a midi file, and we'll convert and add it for you. <Here's> an example file which uses the full range of the choir; anything outside this range won't get played.
+                        </div>
+                    </li>
+                    <li>
+                        <div class="question">
+                            Who are you?
+                        </div>
+                        <div class="answer">
+                            We're a UK-based digital agency, working for people who make the world a better place. <a href="http://www.torchbox.com/about/jobs">We're hiring</a>!
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </body>
 </html>
