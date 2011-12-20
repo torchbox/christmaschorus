@@ -4,6 +4,7 @@ from card.forms import *
 from django.http import HttpResponse, HttpResponseRedirect
 import datetime
 from django.conf import settings
+from django.utils import simplejson
 
 def home(request):
 	form = CreateSongForm()
@@ -31,18 +32,27 @@ def create_song(request):
 
 def song(request, code):
 	song = get_object_or_404(Song, code = code)
-	form = CreateSongForm()
-	return render(request, 'index.html', {
-		'song': song,
-		'title': song.title,
-		'form': form,
-		'songs_by_torchbox': Song.by_torchbox(),
-		'songs_by_others': Song.by_others(),
-		# for now just share the site root, rather than specific songs
-		#'share_url': settings.PUBLIC_ROOT_URL + song.get_absolute_url(),
-		'share_url': settings.PUBLIC_ROOT_URL +'/',
-		'editor_enabled': settings.SONG_EDITOR_ENABLED,
-	})
+	if request.is_ajax():
+		song_data = {
+			'title': song.title,
+			'note_data': simplejson.loads(song.notes_json), # there must be a better way to inject this into the json output...
+			'votes_string': song.votes_string,
+			'code': song.code,
+		}
+		return HttpResponse(simplejson.dumps(song_data), mimetype="text/javascript")
+	else:
+		form = CreateSongForm()
+		return render(request, 'index.html', {
+			'song': song,
+			'title': song.title,
+			'form': form,
+			'songs_by_torchbox': Song.by_torchbox(),
+			'songs_by_others': Song.by_others(),
+			# for now just share the site root, rather than specific songs
+			#'share_url': settings.PUBLIC_ROOT_URL + song.get_absolute_url(),
+			'share_url': settings.PUBLIC_ROOT_URL +'/',
+			'editor_enabled': settings.SONG_EDITOR_ENABLED,
+		})
 
 def vote(request, code):
 	song = get_object_or_404(Song, code = code)
@@ -60,9 +70,6 @@ def vote(request, code):
 		vote.score = request.POST['score']
 		vote.save()
 	if request.is_ajax():
-		if song.score == 1:
-			return HttpResponse("(1 vote)")
-		else:
-			return HttpResponse("(%s votes)" % song.score)
+		return HttpResponse(song.votes_string)
 	else:
 		return HttpResponseRedirect(song.get_absolute_url())

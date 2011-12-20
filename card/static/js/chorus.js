@@ -164,9 +164,18 @@
 		
 		self.song = Song(songData);
 		
-		self.loadSong = function(songData) {
-			self.song.load(songData);
+		self.loadSong = function(songWithMeta) {
+			self.song.load(songWithMeta.note_data);
+			$('#current_song h3 .title').text(songWithMeta.title);
+			$('#current_song h3 .votes').text(songWithMeta.votes_string);
+			if (songWithMeta.code) {
+				$('#vote_controls form').attr('action', '/' + songWithMeta.code + '/vote/');
+				$('#vote_controls').show();
+			} else {
+				$('#vote_controls').hide();
+			}
 		}
+		window.loadSong = self.loadSong;
 		
 		var currentRecordingTrack = null;
 		var recordingStartTime = null;

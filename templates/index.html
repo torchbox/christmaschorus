@@ -114,7 +114,7 @@
 
 		<div id="current_song">
 			<h3>
-				{{ song.title }}
+				<span class="title">{{ song.title }}</span>
 				{% with song.score as score %}
 					<span class="votes">({{ score }} vote{{ score|pluralize }})</span>
 				{% endwith %}
