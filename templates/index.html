@@ -28,6 +28,12 @@
 				var faces = ChorusFaces(chorus);
 				{% if editor_enabled %}var staffs = ChorusStaffs(chorus);{% endif %}
 				var ui = ChorusUi(chorus);
+				if (location.hash) {
+					var code = location.hash.replace(/^#/,'');
+					$.getJSON('/'+code, function(response) {
+						chorus.loadSong(response);
+					})
+				}
 			})
 		</script>
 		{% compress css %}
