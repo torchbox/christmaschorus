@@ -1,6 +1,6 @@
 body {
 	color: white;
-	background: url(../img/stars.png) black center no-repeat fixed;
+	background: url(../img/stars.png) black top no-repeat fixed;
 	padding: 0;
 	margin: 0;
     -webkit-background-size: cover;
@@ -58,9 +58,10 @@ a {
 	height: 37px;
 	line-height: 60px;
 	text-indent: -5000px;
-	background-image: url('../img/twitter_share.png');
+	background: url('../img/icon-twitter.png') no-repeat center;
     top: 15px;
-    right: 30px;
+    right: 10px;
+    opacity: .5;
 }
 #title #share_facebook {
     position: absolute;
@@ -68,9 +69,28 @@ a {
     height: 37px;
     line-height: 60px;
     text-indent: -5000px;
-    background-image: url('../img/facebook_share.png');
+    background: url('../img/icon-fb.png') no-repeat center;
     top: 15px;
-    right: -10px;
+    right: -30px;
+    opacity: .5;
+}
+
+#title #share_email {
+    position: absolute;
+    width: 37px;
+    height: 37px;
+    line-height: 60px;
+    text-indent: -5000px;
+    background: url('../img/icon-email.png') no-repeat center;
+    top: 15px;
+    right: -70px;
+    opacity: .5;
+}
+
+#title #share_twitter:hover,
+#title #share_facebook:hover,
+#title #share_email:hover {
+    opacity: 1;
 }
 
 #work_for_us_ah_go_on a {
@@ -185,6 +205,10 @@ ul#singers li img {
 	position: absolute;
 	left: -20%;
 	width: auto;
+}
+
+ul#singers li img:hover {
+    cursor:pointer;
 }
 
 li#face_e2 {left: 10%; top: 75%;}
