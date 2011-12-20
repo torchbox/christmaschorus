@@ -39,8 +39,8 @@ function ChorusAudio(controller) {
 	
 	for (var note in VALID_NOTE_NAMES) {
 		samples[note] = {};
-		if (note == 'woof') {
-			loadSample('woof', 1);
+		if (note == 'woof' || note == 'bell') {
+			loadSample(note, 1);
 		} else {
 			for (var len = 1; len <= 3; len++) {
 				loadSample(note, len);
@@ -49,7 +49,7 @@ function ChorusAudio(controller) {
 	}
 	
 	function sampleNumberForNote(note) {
-		if (note.noteName == 'woof') {
+		if (note.noteName == 'woof' || note.noteName == 'bell') {
 			return 1;
 		} else {
 			if (note.duration < 200) {

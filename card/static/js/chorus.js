@@ -7,7 +7,7 @@
 		'c4':1, 'cs4':1, 'd4':1, 'ds4':1, 'e4':1,
 		'f4':1, 'fs4':1, 'g4':1,
 		
-		'woof':1
+		'woof':1, 'bell':1
 	};
 	
 	function Event() {
