@@ -139,7 +139,7 @@ function ChorusUi(controller) {
 
 	controller.onLoadSong.bind(function(songWithMeta) {
 		if (songWithMeta.code) {
-			var twitterUrl = 'https://twitter.com/share?url=' + encodeURIComponent('http://sing.torchbox.com/#' + songWithMeta.code) + '&text=' + encodeURIComponent("Happy Christmas from everyone at @Torchbox! Choose your favourite Christmas carol and we'll sing it to you. #tbxmas");
+			var twitterUrl = 'https://twitter.com/share?url=' + encodeURIComponent('http://sing.torchbox.com/#' + songWithMeta.code) + '&text=' + encodeURIComponent("Happy Christmas from everyone at @torchbox! Choose your favourite carol and we'll sing it to you.");
 			var facebookUrl = 'http://www.facebook.com/sharer.php?u=' + encodeURIComponent('http://sing.torchbox.com/#' + songWithMeta.code);
             var emailUrl = 'mailto:?Subject=The Torchbox Christmas Choir!&body=' + encodeURIComponent('http://sing.torchbox.com/#' + songWithMeta.code);
 			$('a#share_twitter').attr('href', twitterUrl);
