@@ -3,11 +3,11 @@ body {
 	background: url(../img/stars.png) black top no-repeat fixed;
 	padding: 0;
 	margin: 0;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-    font-family:arial, sans-serif;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	font-family:arial, sans-serif;
 }
 
 a {
@@ -51,14 +51,14 @@ a {
 #title {
 	width: 860px;
 	margin: 15px auto 10px auto;
-    position:relative;
+	position:relative;
 }
 #title h1 {
 	padding: 0;
 	margin: 0;
 	line-height: 60px;
 	text-indent: -5000px;
-    background: url('../img/title.png') no-repeat center;
+	background: url('../img/title.png') no-repeat center;
 }
 #title #share_twitter {
 	position: absolute;
@@ -67,38 +67,50 @@ a {
 	line-height: 60px;
 	text-indent: -5000px;
 	background: url('../img/icon-twitter.png') no-repeat center;
-    top: 15px;
-    right: 10px;
-    opacity: .5;
+	top: 15px;
+	right: 10px;
+	opacity: .5;
+	transition: all .3s linear;
+	-o-transition: all .3s linear;
+	-moz-transition: all .3s linear;
+	-webkit-transition: all .3s linear;
 }
 #title #share_facebook {
-    position: absolute;
-    width: 37px;
-    height: 37px;
-    line-height: 60px;
-    text-indent: -5000px;
-    background: url('../img/icon-fb.png') no-repeat center;
-    top: 15px;
-    right: -30px;
-    opacity: .5;
+	position: absolute;
+	width: 37px;
+	height: 37px;
+	line-height: 60px;
+	text-indent: -5000px;
+	background: url('../img/icon-fb.png') no-repeat center;
+	top: 15px;
+	right: -30px;
+	opacity: .5;
+	transition: all .3s linear;
+	-o-transition: all .3s linear;
+	-moz-transition: all .3s linear;
+	-webkit-transition: all .3s linear;
 }
 
 #title #share_email {
-    position: absolute;
-    width: 37px;
-    height: 37px;
-    line-height: 60px;
-    text-indent: -5000px;
-    background: url('../img/icon-email.png') no-repeat center;
-    top: 15px;
-    right: -70px;
-    opacity: .5;
+	position: absolute;
+	width: 37px;
+	height: 37px;
+	line-height: 60px;
+	text-indent: -5000px;
+	background: url('../img/icon-email.png') no-repeat center;
+	top: 15px;
+	right: -70px;
+	opacity: .5;
+	transition: all .3s linear;
+	-o-transition: all .3s linear;
+	-moz-transition: all .3s linear;
+	-webkit-transition: all .3s linear;
 }
 
 #title #share_twitter:hover,
 #title #share_facebook:hover,
 #title #share_email:hover {
-    opacity: 1;
+	opacity: 1;
 }
 
 #work_for_us_ah_go_on a {
@@ -132,6 +144,11 @@ a {
 	border-radius: 4px;
 }
 
+#songsheet .songs:hover,
+#songsheet .songs:hover ul {
+	border-color:#7e7e7e;
+}
+
 #songsheet .songs h2 {
 	margin: 0;
 	padding: 0;
@@ -140,7 +157,7 @@ a {
 	font-weight: normal;
 	font-size: 12pt;
 	line-height: 30px;
-	background-image: url('../img/chevron_down.png');
+	background-image: url('../img/arrow-down.png');
 	background-repeat: no-repeat;
 	background-position: right center;
 }
@@ -216,7 +233,7 @@ ul#singers li img {
 }
 
 ul#singers li img:hover {
-    cursor:pointer;
+	cursor:pointer;
 }
 
 li#face_e2 {left: 10%; top: 75%;}
@@ -271,6 +288,7 @@ ul#singers li#face_woof img {height: 100%;}
 
 #current_song #vote_controls {
 	height: 24px;
+	margin: auto auto 20px auto;
 }
 #current_song #vote_controls form {
 	display: inline;
@@ -289,9 +307,24 @@ ul#singers li#face_woof img {height: 100%;}
 }
 #current_song #vote_controls form#vote_up a {
 	background-image: url('../img/love.png');
+	opacity:.8;
+	transition: all .3s linear;
+	-o-transition: all .3s linear;
+	-moz-transition: all .3s linear;
+	-webkit-transition: all .3s linear;
 }
 #current_song #vote_controls form#vote_down a {
 	background-image: url('../img/hate.png');
+	opacity:.8;
+	transition: all .3s linear;
+	-o-transition: all .3s linear;
+	-moz-transition: all .3s linear;
+	-webkit-transition: all .3s linear;
+}
+
+#current_song #vote_controls form#vote_up a:hover,
+#current_song #vote_controls form#vote_down a:hover {
+	opacity:1;
 }
 
 #current_song h2 {
