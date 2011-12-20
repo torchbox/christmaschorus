@@ -250,9 +250,9 @@ ul#singers li img:hover {
 }
 ul#singers li .bio {
 	position: absolute;
-	height: 73px;
+	height: 60px;
 	width: 192px;
-	bottom: -62px;
+	bottom: -49px;
 	left: 50%;
 	margin-left: -100px;
 	padding-left: 4px;
@@ -270,14 +270,14 @@ ul#singers li .bio h3 {
 	text-align: center;
 	margin: 0;
 	padding-top: 10px;
-	font-size: 12pt;
+	font-size: 10pt;
 	font-weight: bold;
 }
 ul#singers li .bio h4 {
 	text-align: center;
 	margin: 0;
 	padding-top: 4px;
-	font-size: 12pt;
+	font-size: 10pt;
 	font-weight: normal;
 }
 
