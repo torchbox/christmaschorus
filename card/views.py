@@ -9,9 +9,12 @@ from django.utils import simplejson
 def home(request):
 	form = CreateSongForm()
 	
-	# choose a random Torchbox song
 	try:
-		song = Song.objects.filter(is_by_torchbox=True).order_by('?')[0]
+		# choose a random Torchbox song
+		#song = Song.objects.filter(is_by_torchbox=True).order_by('?')[0]
+		
+		# choose We Wish You A Merry Christmas
+		song = Song.objects.filter(code='9md8vr')[0]
 	except IndexError:
 		song = Song(notes_json = '[[]]')
 	
