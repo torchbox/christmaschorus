@@ -1,8 +1,12 @@
 body {
 	color: white;
-	background-color: black;
+	background: url(../img/stars.png) black center no-repeat fixed;
 	padding: 0;
 	margin: 0;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
 .loading {
