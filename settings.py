@@ -11,7 +11,7 @@ sys.path.append(ROOT_DIR)
 sys.path.append(os.path.join(ROOT_DIR, "lib"))
 
 ADMINS = (
-    # ('Your Name', 'your_email@example.com'),
+    ('Matthew Westcott', 'matthew@torchbox.com'),
 )
 
 MANAGERS = ADMINS
