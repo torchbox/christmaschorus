@@ -2,14 +2,15 @@ function ChorusAudio(controller) {
 	var self = {};
 	
 	var samples = {};
-	samplesToLoad = 0;
-	samplesLoaded = 0;
+	var samplesToLoad = 0;
+	var samplesLoaded = 0;
 	
-	loadingProgress = $('<span></span>');
-	loadingPopup = $('<div class="loading">Loading... </div>').append(loadingProgress, '<div class="loading_bar"></div>');
-	loadingBarProgress = $('<div class="progress"></div>');
+	var loadingProgress = $('<span></span>');
+	var loadingPopup = $('<div class="loading">Loading... </div>').append(loadingProgress, '<div class="loading_bar"></div>');
+	var loadingBarProgress = $('<div class="progress"></div>');
 	loadingPopup.find('.loading_bar').append(loadingBarProgress);
-	$('body').append(loadingPopup);
+	var loadingOverlay = $('<div class="loading_overlay"></div>');
+	$('body').append(loadingOverlay, loadingPopup);
 	
 	function loadSample(note, len) {
 		var sampleName = note + '_' + len;
@@ -23,6 +24,7 @@ function ChorusAudio(controller) {
 				samplesLoaded++;
 				if (samplesLoaded == samplesToLoad) {
 					loadingPopup.remove();
+					loadingOverlay.remove();
 				} else {
 					var progress = samplesLoaded * 100 / samplesToLoad;
 					loadingProgress.text(Math.round(progress) + '%');
