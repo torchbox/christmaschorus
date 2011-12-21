@@ -27,11 +27,11 @@ function ChorusStaffs(controller) {
 	
 	function Staff(track) {
 		var staffLi = $('<li></li>');
-		var recordButton = $('<a href="javascript:void(0)" class="record_button">Record</a>');
+		var recordButton = $('<button class="record_button">Record</button>');
 		staffLi.insertBefore('#add_track_staff');
 		staffLi.append($('<div class="staff_controls"></div>').append(recordButton));
 		recordButton.click(function() {
-			track.onRequestRecord.trigger(track);
+			controller.recordTrack(track);
 		})
 		var staff = $('<div class="staff_viewport">\
 			<div class="staff">\

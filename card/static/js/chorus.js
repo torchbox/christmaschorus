@@ -49,21 +49,13 @@
 			self.tracks = [];
 			for (var i = 0; i < songData.length; i++) {
 				self.tracks[i] = Track(songData[i]);
-				self.tracks[i].onRequestRecord.bind(function(tr) {
-					self.onRequestRecord.trigger(tr);
-				})
 			}
 			self.onLoad.trigger();
 		}
 		
-		self.onRequestRecord = Event();
-		
 		self.addTrack = function() {
 			var track = Track([]);
 			self.tracks.push(track);
-			track.onRequestRecord.bind(function(tr) {
-				self.onRequestRecord.trigger(tr);
-			})
 			self.onAddTrack.trigger(track);
 		}
 		
@@ -101,7 +93,6 @@
 	Track = function(notes) {
 		var self = {};
 		
-		self.onRequestRecord = Event();
 		self.onAddNote = Event();
 		self.onClear = Event();
 		
@@ -183,7 +174,7 @@
 		var recordingStartTime = null;
 		self.isPlaying = false;
 		
-		self.song.onRequestRecord.bind(function(track) {
+		self.recordTrack = function(track) {
 			if (currentRecordingTrack == track) {
 				/* stop recording */
 				currentRecordingTrack = null;
@@ -209,7 +200,7 @@
 				self.isPlaying = true;
 				/* TODO: change label to 'Stop recording' */
 			}
-		})
+		}
 		
 		noteTimeouts = [];
 		

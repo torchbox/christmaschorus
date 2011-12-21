@@ -557,13 +557,20 @@ ul#singers li#face_woof img {height: 100%;}
 	width: 10%;
 	height: 80px;
 }
-#staffs li .staff_controls a.record_button {
+#staffs li .staff_controls .record_button {
 	float: right;
 	width: 74px;
 	height: 41px;
 	text-indent: -5000px;
+	background: none;
+	border: none;
+	cursor: pointer;
 	background-image: url('../img/record.png');
 	margin: 10px;
+	opacity: 0.4;
+}
+#staffs li .staff_controls .record_button:hover {
+	opacity: 1;
 }
 
 #add_track {
