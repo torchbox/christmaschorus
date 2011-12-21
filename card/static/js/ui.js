@@ -73,6 +73,7 @@ function ChorusUi(controller) {
 
 	function showEditor() {
 		if (existingSongIsLoaded) {
+			controller.stopPlayback();
 			controller.loadSong({
 				'note_data': [[]],
 				'title': 'New song',
@@ -87,6 +88,7 @@ function ChorusUi(controller) {
 		setChoirSize(true);
 	}
 	function hideEditor() {
+		controller.stopRecording();
 		$('#editor').animate({'bottom': '-244px'}, function() {
 			$('#editor').hide();
 			$('#current_song').show();

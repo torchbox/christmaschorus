@@ -208,9 +208,7 @@
 				currentRecordingTrack.stopRecording();
 				currentRecordingTrack = null;
 				$('#id_notes_json').val(JSON.stringify(self.song.getData()));
-				cancelNoteTimeouts();
-				self.isPlaying = false;
-				self.onStopPlayback.trigger();
+				self.stopPlayback();
 			}
 		}
 		
