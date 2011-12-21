@@ -31,8 +31,20 @@ function ChorusStaffs(controller) {
 		staffLi.insertBefore('#add_track_staff');
 		staffLi.append($('<div class="staff_controls"></div>').append(recordButton));
 		recordButton.click(function() {
-			controller.recordTrack(track);
+			if (track.isRecording) {
+				controller.stopRecording();
+			} else {
+				controller.recordTrack(track);
+			}
 		})
+		
+		track.onStartRecording.bind(function() {
+			recordButton.text('Stop').addClass('recording');
+		})
+		track.onStopRecording.bind(function() {
+			recordButton.text('Record').removeClass('recording');
+		})
+		
 		var staff = $('<div class="staff_viewport">\
 			<div class="staff">\
 				<div class="staff_bg"></div>\
