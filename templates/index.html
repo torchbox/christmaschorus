@@ -168,19 +168,20 @@
                 </h3>
             </div>
 			<div id="vote_controls">
-				{% if song.code %}
-					<form id="vote_up" action="{% url vote song.code %}" method="POST">
-						{% csrf_token %}
-						<input type="hidden" name="score" value="1" />
-						<input type="submit" value="Oh yes" />
-					</form>
-					<form id="vote_down" action="{% url vote song.code %}" method="POST">
-						{% csrf_token %}
-						<input type="hidden" name="score" value="-1" />
-						<input type="submit" value="Oh no" />
-					</form>
-				{% endif %}
+				<form id="vote_up" action="{% url vote song.code %}" method="POST">
+					{% csrf_token %}
+					<input type="hidden" name="score" value="1" />
+					<input type="submit" value="Oh yes" />
+				</form>
+				<form id="vote_down" action="{% url vote song.code %}" method="POST">
+					{% csrf_token %}
+					<input type="hidden" name="score" value="-1" />
+					<input type="submit" value="Oh no" />
+				</form>
 			</div>
+			{% if not song.code %}
+				<script>$('#vote_controls').css({'visibility': 'hidden'});</script>
+			{% endif %}
 			{% if editor_enabled %}
 				<h2>Record your carol</h2>
 			{% endif %}

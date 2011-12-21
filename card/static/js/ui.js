@@ -15,35 +15,37 @@ function fitChoirInDimensions(availableWidth, availableHeight, animate) {
 	}
 }
 
-function setChoirSize(animate) {
-	if (editorActive) {
-		var availableHeight = $(window).height() - $('#title').height() - $('#editor').height();
-	} else {
-		var availableHeight = $(window).height() - $('#title').height() - $('#songsheet').height() - $('#current_song').height();
-	}
-	availableHeight -= 30; /* enforce margin */
-	var availableWidth = $(window).width();
-	fitChoirInDimensions(availableWidth, availableHeight, animate);
-}
-
-function showEditor() {
-	$('#current_song').hide();
-	$('#editor').show().animate({'bottom': '0px'});
-	$('#songsheet').slideUp();
-	editorActive = true;
-	setChoirSize(true);
-}
-function hideEditor() {
-	$('#editor').animate({'bottom': '-244px'}, function() {
-		$('#editor').hide();
-		$('#current_song').show();
-	});
-	$('#songsheet').slideDown();
-	editorActive = false;
-	setChoirSize(true);
-}
-
 $(function() {
+	var playerFurnitureHeight = $('#title').height() + $('#songsheet').height() + $('#current_song').height();
+	var editorFurnitureHeight = $('#title').height() + $('#editor').height() + 30;
+	function setChoirSize(animate) {
+		if (editorActive) {
+			var availableHeight = $(window).height() - editorFurnitureHeight;
+		} else {
+			var availableHeight = $(window).height() - playerFurnitureHeight;
+		}
+		availableHeight -= 30; /* enforce margin */
+		var availableWidth = $(window).width();
+		fitChoirInDimensions(availableWidth, availableHeight, animate);
+	}
+	
+	function showEditor() {
+		$('#current_song').hide();
+		$('#editor').show().animate({'bottom': '0px'});
+		$('#songsheet').slideUp();
+		editorActive = true;
+		setChoirSize(true);
+	}
+	function hideEditor() {
+		$('#editor').animate({'bottom': '-244px'}, function() {
+			$('#editor').hide();
+			$('#current_song').show();
+		});
+		$('#songsheet').slideDown();
+		editorActive = false;
+		setChoirSize(true);
+	}
+
 	setChoirSize();
 	$(window).resize(function() {setChoirSize()});
 	setTimeout(function() {setChoirSize()}, 1000);
@@ -145,6 +147,7 @@ function ChorusUi(controller) {
 			$('a#share_twitter').attr('href', twitterUrl);
 			$('a#share_facebook').attr('href', facebookUrl);
             $('a#share_email').attr('href', emailUrl);
+			setChoirSize();
 		}
 	})
 

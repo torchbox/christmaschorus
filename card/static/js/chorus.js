@@ -171,9 +171,9 @@
 			$('#current_song h3 .votes').text(songWithMeta.votes_string);
 			if (songWithMeta.code) {
 				$('#vote_controls form').attr('action', '/' + songWithMeta.code + '/vote/');
-				$('#vote_controls').show();
+				$('#vote_controls').css({'visibility': 'visible'});
 			} else {
-				$('#vote_controls').hide();
+				$('#vote_controls').css({'visibility': 'hidden'});
 			}
 			self.onLoadSong.trigger(songWithMeta);
 		}
