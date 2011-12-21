@@ -18,7 +18,7 @@ function fitChoirInDimensions(availableWidth, availableHeight, animate) {
 $(function() {
 	var playerFurnitureHeight = $('#title').height() + $('#songsheet').height() + $('#current_song').height();
 	var editorFurnitureHeight = $('#title').height() + $('#editor').height() + 30;
-	function setChoirSize(animate) {
+	window.setChoirSize = function(animate) {
 		if (editorActive) {
 			var availableHeight = $(window).height() - editorFurnitureHeight;
 		} else {
@@ -147,7 +147,7 @@ function ChorusUi(controller) {
 			$('a#share_twitter').attr('href', twitterUrl);
 			$('a#share_facebook').attr('href', facebookUrl);
             $('a#share_email').attr('href', emailUrl);
-			setChoirSize();
+			if (window.setChoirSize) setChoirSize();
 		}
 	})
 
