@@ -29,33 +29,9 @@ $(function() {
 		fitChoirInDimensions(availableWidth, availableHeight, animate);
 	}
 	
-	function showEditor() {
-		$('#current_song').hide();
-		$('#editor').show().animate({'bottom': '0px'});
-		$('#songsheet').slideUp();
-		editorActive = true;
-		setChoirSize(true);
-	}
-	function hideEditor() {
-		$('#editor').animate({'bottom': '-244px'}, function() {
-			$('#editor').hide();
-			$('#current_song').show();
-		});
-		$('#songsheet').slideDown();
-		editorActive = false;
-		setChoirSize(true);
-	}
-
 	setChoirSize();
 	$(window).resize(function() {setChoirSize()});
 	setTimeout(function() {setChoirSize()}, 1000);
-
-	$('#current_song h2').css({'cursor': 'pointer'}).click(function() {
-		showEditor();
-	})
-	$('#editor_close').css({'cursor': 'pointer'}).click(function() {
-		hideEditor();
-	})
 
 	$('#vote_controls form').each(function() {
 		var form = this;
@@ -93,6 +69,40 @@ function ChorusUi(controller) {
 		$('#playback').text('Playing').addClass('playing');
 	})
 
+	var existingSongIsLoaded = true; /* as opposed to one they're creating */
+
+	function showEditor() {
+		if (existingSongIsLoaded) {
+			controller.loadSong({
+				'note_data': [[]],
+				'title': 'New song',
+				'votes_string': ''
+			});
+			existingSongIsLoaded = false;
+		}
+		$('#current_song').hide();
+		$('#editor').show().animate({'bottom': '0px'});
+		$('#songsheet').slideUp();
+		editorActive = true;
+		setChoirSize(true);
+	}
+	function hideEditor() {
+		$('#editor').animate({'bottom': '-244px'}, function() {
+			$('#editor').hide();
+			$('#current_song').show();
+		});
+		$('#songsheet').slideDown();
+		editorActive = false;
+		setChoirSize(true);
+	}
+	
+	$('#current_song h2').css({'cursor': 'pointer'}).click(function() {
+		showEditor();
+	})
+	$('#editor_close').css({'cursor': 'pointer'}).click(function() {
+		hideEditor();
+	})
+
 	$('#songsheet .songs').each(function() {
 		var songSelector = this;
 		var isOpen = false;
@@ -123,6 +133,7 @@ function ChorusUi(controller) {
 			location.hash = code;
 			$.getJSON(this.href, function(response) {
 				controller.loadSong(response);
+				existingSongIsLoaded = true;
 				controller.startPlayback();
 			})
 			closeSelector();
