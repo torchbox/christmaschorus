@@ -7,10 +7,16 @@ function ChorusStaffs(controller) {
 		$('#staffs ul.notes').css({'left': x});
 	}
 	
+	$('#staffs').append('<li id="add_track_staff"><div class="staff_controls"></div><div class="staff_viewport">\
+			<div class="staff">\
+				<div class="staff_bg"><button id="add_track">Add another part</button></div>\
+			</div>\
+		</div></li>');
+	
 	function Staff(track) {
 		var staffLi = $('<li></li>');
 		var recordButton = $('<a href="javascript:void(0)" class="record_button">Record</a>');
-		$('#staffs').append(staffLi);
+		staffLi.insertBefore('#add_track_staff');
 		staffLi.append($('<div class="staff_controls"></div>').append(recordButton));
 		recordButton.click(function() {
 			track.onRequestRecord.trigger(track);
@@ -46,7 +52,7 @@ function ChorusStaffs(controller) {
 	}
 	
 	function loadSong() {
-		$('#staffs').empty();
+		$('#staffs li:not(#add_track_staff)').remove();
 		for (var i = 0; i < controller.song.tracks.length; i++) {
 			Staff(controller.song.tracks[i]);
 		}

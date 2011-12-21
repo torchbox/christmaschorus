@@ -541,6 +541,7 @@ ul#singers li#face_woof img {height: 100%;}
 #staffs li .staff_controls {
 	float: left;
 	width: 10%;
+	height: 80px;
 }
 #staffs li .staff_controls a.record_button {
 	float: right;
@@ -549,6 +550,24 @@ ul#singers li#face_woof img {height: 100%;}
 	text-indent: -5000px;
 	background-image: url('../img/record.png');
 	margin: 10px;
+}
+
+#add_track {
+	position: absolute;
+	left: 50%;
+	margin-left: -89px;
+	margin-top: -1px;
+	width: 178px;
+	height: 36px;
+	text-indent: -5000px;
+	border: 0;
+	background: none;
+	background-image: url('../img/add-part.png');
+	cursor: pointer;
+	opacity: 0.8;
+}
+#add_track:hover {
+	opacity: 1;
 }
 
 .staff_viewport {
