@@ -513,10 +513,20 @@ ul#singers li#face_woof img {height: 100%;}
 	width: 119px;
 	height: 36px;
 	background: none;
-	background-image: url('../img/playback_btn.png');
+	background-image: url('../img/playback-playing.png');
+	background-position: bottom;
 	border: none;
 	cursor: pointer;
+	opacity: 0.7;
 }
+#playback:hover {
+	opacity: 1;
+}
+#playback.playing {
+	background-position: top;
+	opacity: 1;
+}
+
 #save {
 	text-indent: -5000px;
 	width: 77px;
@@ -525,6 +535,10 @@ ul#singers li#face_woof img {height: 100%;}
 	background-image: url('../img/save_btn.png');
 	border: none;
 	cursor: pointer;
+	opacity: 0.7;
+}
+#save:hover {
+	opacity: 1;
 }
 
 #staffs {

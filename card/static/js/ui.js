@@ -85,12 +85,12 @@ function ChorusUi(controller) {
 	controller.onStopPlayback.bind(function() {
 		$('#play').val('Play');
 		$('#current_song').removeClass('playing');
-		$('#playback').val('Playback');
+		$('#playback').text('Playback').removeClass('playing');
 	})
 	controller.onStartPlayback.bind(function() {
 		$('#play').val('Stop');
 		$('#current_song').addClass('playing');
-		$('#playback').val('Stop');
+		$('#playback').text('Playing').addClass('playing');
 	})
 
 	$('#songsheet .songs').each(function() {
