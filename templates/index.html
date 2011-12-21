@@ -234,20 +234,23 @@
 		<div id="torchbox"><a href="http://www.torchbox.com/">Site by Torchbox</a></div>
 
 		<div class="popups">
-			<div id="save_popup">
+			<div id="save_popup" class="popup-text">
+				<h1>Name your carol</h1>
 				<form action="{% url create_song %}" method="post">
 					{% csrf_token %}
-					<p>Enter a title for your song:</p>
-
-					<table>
-						{{ form }}
-					</table>
-					<input type="submit" value="Share it!" />
+					{{ form.title }}
+					{% for hidden_field in form.hidden_fields %}
+						{{ hidden_field }}
+					{% endfor %}
+					<div style="text-align: center;">
+						<button id="save_submit" type="submit">Save</button>
+					</div>
+				</form>
 			</div>
 			<div id="loading_popup"></div>
 
 
-            <div id="faq-text">
+            <div id="faq-text" class="popup-text">
                 <h1>FAQs</h1>
                 <ul>
                     <li>

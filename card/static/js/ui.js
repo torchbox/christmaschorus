@@ -168,7 +168,14 @@ function ChorusUi(controller) {
 	$(document).bind('cbox_open', function() { controller.keyboardActive = false; })
 	$(document).bind('cbox_closed', function() { controller.keyboardActive = true; })
 	
-	$('#save').colorbox({'inline': true, 'href': '#save_popup'});
+	$('#save').colorbox({
+		'inline': true, 'href': '#save_popup',
+		'onComplete': function() {
+			$('#id_title').addClass('placeholder').val('Enter a name here').one('focus', function() {
+				$(this).removeClass('placeholder').val('');
+			});
+		}
+	});
 	
 	$('#add_track').click(function() {
 		controller.song.addTrack();
