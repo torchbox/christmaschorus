@@ -1,6 +1,7 @@
 from django.db import models
 from django.db.models import Sum
 import random
+from django.utils import simplejson
 
 class Song(models.Model):
 	title = models.CharField(max_length=255)
@@ -39,6 +40,14 @@ class Song(models.Model):
 			return "(1 vote)"
 		else:
 			return "(%s votes)" % score
+	
+	def as_json_data(self):
+		return{
+			'title': self.title,
+			'note_data': simplejson.loads(self.notes_json), # there must be a better way to inject this into the json output...
+			'votes_string': self.votes_string,
+			'code': self.code,
+		}
 	
 	@staticmethod
 	def latest():

@@ -790,10 +790,10 @@ ul#piano li.active {
 	display: none;
 }
 
-#save_popup {
+#save_popup, #share_popup {
 	text-align: center;
 }
-#save_popup h1 {
+#save_popup h1, #share_popup h1 {
 	margin-bottom: 10px;
 	padding-bottom: 0;
 }
@@ -816,4 +816,11 @@ ul#piano li.active {
 	background-image: url('../img/save_submit.png');
 	text-indent: -5000px;
 	margin-top: 20px;
+}
+#share_popup h2 a {
+	text-decoration: none;
+	color: #e32a2a;
+}
+#share_popup h2 a:hover {
+	color: #851919;
 }

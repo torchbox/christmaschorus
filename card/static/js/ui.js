@@ -154,12 +154,14 @@ function ChorusUi(controller) {
 
 	controller.onLoadSong.bind(function(songWithMeta) {
 		if (songWithMeta.code) {
-			var twitterUrl = 'https://twitter.com/share?url=' + encodeURIComponent('http://sing.torchbox.com/#' + songWithMeta.code) + '&text=' + encodeURIComponent("Happy Christmas from everyone at @torchbox! Choose your favourite carol and we'll sing it to you.");
-			var facebookUrl = 'http://www.facebook.com/sharer.php?u=' + encodeURIComponent('http://sing.torchbox.com/#' + songWithMeta.code);
-            var emailUrl = 'mailto:?Subject=The Torchbox Christmas Choir!&body=' + encodeURIComponent('http://sing.torchbox.com/#' + songWithMeta.code);
+			var shareUrl = 'http://sing.torchbox.com/#' + songWithMeta.code
+			var twitterUrl = 'https://twitter.com/share?url=' + encodeURIComponent(shareUrl) + '&text=' + encodeURIComponent("Happy Christmas from everyone at @torchbox! Choose your favourite carol and we'll sing it to you.");
+			var facebookUrl = 'http://www.facebook.com/sharer.php?u=' + encodeURIComponent(shareUrl);
+            var emailUrl = 'mailto:?Subject=The Torchbox Christmas Choir!&body=' + encodeURIComponent(shareUrl);
 			$('a#share_twitter').attr('href', twitterUrl);
 			$('a#share_facebook').attr('href', facebookUrl);
             $('a#share_email').attr('href', emailUrl);
+            $('#share_popup h2 a').attr('href', shareUrl).text('sing.torchbox.com/#' + songWithMeta.code);
 			if (window.setChoirSize) setChoirSize();
 		}
 	})
@@ -176,6 +178,15 @@ function ChorusUi(controller) {
 			});
 		}
 	});
+	
+	$('#save_popup form').submit(function() {
+		$.post(this.action, $(this).serialize(), function(response) {
+			controller.loadSong(response);
+			location.hash = response.code;
+			$.colorbox({'inline': true, 'href': '#share_popup'});
+		}, 'json')
+		return false;
+	})
 	
 	$('#add_track').click(function() {
 		controller.song.addTrack();
