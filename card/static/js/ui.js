@@ -148,5 +148,15 @@ function ChorusUi(controller) {
 		}
 	})
 
+	/* Disable playing by keyboard while lightbox is open */
+	$(document).bind('cbox_open', function() { controller.keyboardActive = false; })
+	$(document).bind('cbox_closed', function() { controller.keyboardActive = true; })
+	
+	$('#save').colorbox({'inline': true, 'href': '#save_popup'});
+	
+	$('#add_track').click(function() {
+		controller.song.addTrack();
+	});
+	
 	return self;
 };

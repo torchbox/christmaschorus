@@ -285,16 +285,6 @@
 			self.onStopNote.trigger(note);
 		}
 		
-		/* Disable playing by keyboard while lightbox is open */
-		$(document).bind('cbox_open', function() { self.keyboardActive = false; })
-		$(document).bind('cbox_closed', function() { self.keyboardActive = true; })
-		
-		$('#save').colorbox({'inline': true, 'href': '#save_popup'});
-		
-		$('#add_track').click(function() {
-			self.song.addTrack();
-		});
-		
 		return self;
 	}
 })();
