@@ -38,8 +38,8 @@
         <script src="{{ STATIC_URL }}js/ui.js"></script>
         {% endcompress %}
         <script>
+            var chorus = ChorusController({{ song.notes_json|safe }});
             $(function() {
-                var chorus = ChorusController({{ song.notes_json|safe }});
                 var audio = ChorusAudio(chorus);
                 var keyboard = ChorusKeyboard(chorus);
                 var faces = ChorusFaces(chorus);
@@ -68,6 +68,11 @@
 				ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
 				var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
 			})();
+			chorus.onLoadSong.bind(function(songWithMeta) {
+				if (songWithMeta.code) {
+					_gaq.push(['_trackPageview', '/'+songWithMeta.code+'/']);
+				}
+			});
 		</script>
 	</head>
 	<body>
