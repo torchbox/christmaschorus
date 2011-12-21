@@ -2,16 +2,28 @@ function ChorusStaffs(controller) {
 	var self = {};
 	
 	var initialDragX;
+	function addDragBehaviour(staff) {
+		staff.drag(function() {
+			initialDragX = parseInt($('ul.notes', this).css('left'));
+		}, function(e) {
+			setStaffPosition(initialDragX + e.offsetX);
+		}, function() {
+		})
+	}
+	
 	function setStaffPosition(x) {
 		x = Math.min(0, x);
 		$('#staffs ul.notes').css({'left': x});
 	}
 	
-	$('#staffs').append('<li id="add_track_staff"><div class="staff_controls"></div><div class="staff_viewport">\
-			<div class="staff">\
-				<div class="staff_bg"><button id="add_track">Add another part</button></div>\
-			</div>\
-		</div></li>');
+	var addStaff = $('<li id="add_track_staff"><div class="staff_controls"></div><div class="staff_viewport">\
+		<div class="staff">\
+			<div class="staff_bg"><button id="add_track">Add another part</button></div>\
+			<ul class="notes"></ul>\
+		</div>\
+	</div></li>')
+	$('#staffs').append(addStaff);
+	addDragBehaviour(addStaff);
 	
 	function Staff(track) {
 		var staffLi = $('<li></li>');
@@ -29,12 +41,7 @@ function ChorusStaffs(controller) {
 		</div>');
 		staffLi.append(staff);
 		setStaffPosition(0);
-		staff.drag(function() {
-			initialDragX = parseInt($('ul.notes', this).css('left'));
-		}, function(e) {
-			setStaffPosition(initialDragX + e.offsetX);
-		}, function() {
-		})
+		addDragBehaviour(staff);
 		
 		function addNote(note) {
 			var noteLi = $('<li></li>').addClass(note.noteName);
