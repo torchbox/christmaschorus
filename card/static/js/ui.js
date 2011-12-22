@@ -160,14 +160,16 @@ function ChorusUi(controller) {
 		if (songWithMeta.code) {
 			var shareUrl = 'http://sing.torchbox.com/#' + songWithMeta.code
 			var twitterUrl = 'https://twitter.com/share?url=' + encodeURIComponent(shareUrl) + '&text=' + encodeURIComponent("Happy Christmas from everyone at @torchbox! Choose your favourite carol and we'll sing it to you.");
+			var twitterMySongUrl = 'https://twitter.com/share?url=' + encodeURIComponent(shareUrl) + '&text=' + encodeURIComponent("I've made the @Torchbox #Christmas Choir sing a song for you!");
 			var facebookUrl = 'http://www.facebook.com/sharer.php?u=' + encodeURIComponent(shareUrl);
             var emailUrl = 'mailto:?Subject=The Torchbox Christmas Choir!&body=' + encodeURIComponent(shareUrl);
+            var emailMySongUrl = 'mailto:?Subject=The Torchbox Christmas Choir!&body=' + encodeURIComponent("I've made the Torchbox Christmas Choir sing a song for you! " + shareUrl);
 			$('a#share_twitter').attr('href', twitterUrl);
 			$('a#share_facebook').attr('href', facebookUrl);
             $('a#share_email').attr('href', emailUrl);
-			$('a#popup_share_twitter').attr('href', twitterUrl);
+			$('a#popup_share_twitter').attr('href', twitterMySongUrl);
 			$('a#popup_share_facebook').attr('href', facebookUrl);
-            $('a#popup_share_email').attr('href', emailUrl);
+            $('a#popup_share_email').attr('href', emailMySongUrl);
             $('#share_popup h2 a').attr('href', shareUrl).text('sing.torchbox.com/#' + songWithMeta.code);
 			if (window.setChoirSize) setChoirSize();
 		}
