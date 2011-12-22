@@ -1,6 +1,8 @@
 from django.db import models
 from django.db.models import Sum
 import random
+from django.utils import simplejson
+import datetime
 
 class Song(models.Model):
 	title = models.CharField(max_length=255)
@@ -12,14 +14,23 @@ class Song(models.Model):
 	# TODO: validate that notes_json is valid JSON
 	
 	def save(self, *args, **kwargs):
+		is_new = False
 		if not self.code:
 			while True:
 				code = ''.join(random.choice('BCDFGHJKLMNPQRSTVWXYZ0123456789bcdfghjklmnpqrstvwxyz') for x in range(6))
 				if not Song.objects.filter(code = code).count():
 					break
 			self.code = code
+			is_new = True
 		
-		return super(Song, self).save(*args, **kwargs)
+		result = super(Song, self).save(*args, **kwargs)
+		
+		if is_new:
+			# create a dummy zero vote so that the vote counts don't give a result of null (which places them
+			# at the top of the list when ordering by votes)
+			Vote.objects.create(song=self, score=0, vote_date=datetime.date.today(), ip_address='0.0.0.0')
+		
+		return result
 	
 	def __unicode__(self):
 		return self.title
@@ -40,6 +51,14 @@ class Song(models.Model):
 		else:
 			return "(%s votes)" % score
 	
+	def as_json_data(self):
+		return{
+			'title': self.title,
+			'note_data': simplejson.loads(self.notes_json), # there must be a better way to inject this into the json output...
+			'votes_string': self.votes_string,
+			'code': self.code,
+		}
+	
 	@staticmethod
 	def latest():
 		return Song.objects.order_by('-created_at')[:10].annotate(vote_score = Sum('votes__score'))
@@ -50,7 +69,7 @@ class Song(models.Model):
 	
 	@staticmethod
 	def by_others():
-		return Song.objects.annotate(vote_score = Sum('votes__score')).filter(is_by_torchbox=False).order_by('-vote_score')[:10]
+		return Song.objects.annotate(vote_score = Sum('votes__score')).filter(is_by_torchbox=False).order_by('-vote_score')[:100]
 
 class Vote(models.Model):
 	song = models.ForeignKey(Song, related_name = 'votes')

@@ -146,32 +146,32 @@ a {
 	color:#fff;
 }
 
-#faq-text {
+.popup-text {
 	color:#292929;
 	width:600px;
 	/*background:#e9e9e9;*/
 }
 
-#faq-text h1 {
+.popup-text h1 {
 	margin-top: 0;
 }
 
-#faq-text ul {
+.popup-text ul {
 	margin:0;
 	padding:0;
 }
 
-#faq-text li {
+.popup-text li {
 	list-style-type:none;
 	margin: 0 0 15px;
 	line-height: 1.5;
 }
 
-#faq-text li .question {
+.popup-text li .question {
 	font-weight:bold;
 }
 
-#faq-text li .answer {
+.popup-text li .answer {
 	font-size:12px;
 }
 
@@ -226,6 +226,8 @@ a {
 	padding-left: 10px;
 	padding-right: 10px;
 	padding-bottom: 5px;
+	max-height: 400px;
+	overflow-y: auto;
 }
 #songsheet .songs ul li {
 	border-top: 1px solid #3f3f3f;
@@ -459,7 +461,6 @@ ul#singers li#face_woof img {height: 100%;}
 	width: 352px;
 	background-color: #292929;
 	margin: auto;
-	margin-top: 30px;
 	line-height: 56px;
 	padding: 0;
 	background-image: url('../img/record_your_carol_btn.png');
@@ -514,10 +515,20 @@ ul#singers li#face_woof img {height: 100%;}
 	width: 119px;
 	height: 36px;
 	background: none;
-	background-image: url('../img/playback_btn.png');
+	background-image: url('../img/playback-playing.png');
+	background-position: bottom;
 	border: none;
 	cursor: pointer;
+	opacity: 0.7;
 }
+#playback:hover {
+	opacity: 1;
+}
+#playback.playing {
+	background-position: top;
+	opacity: 1;
+}
+
 #save {
 	text-indent: -5000px;
 	width: 77px;
@@ -526,14 +537,19 @@ ul#singers li#face_woof img {height: 100%;}
 	background-image: url('../img/save_btn.png');
 	border: none;
 	cursor: pointer;
+	opacity: 0.7;
+}
+#save:hover {
+	opacity: 1;
 }
 
 #staffs {
 	margin: 0;
 	padding: 0;
-	height: 130px;
+	height: 140px;
 	overflow: auto;
 	list-style-type: none;
+	outline: none;
 }
 
 #staffs li {
@@ -542,14 +558,48 @@ ul#singers li#face_woof img {height: 100%;}
 #staffs li .staff_controls {
 	float: left;
 	width: 10%;
+	height: 80px;
 }
-#staffs li .staff_controls a.record_button {
+#staffs li .staff_controls .record_button {
 	float: right;
 	width: 74px;
 	height: 41px;
 	text-indent: -5000px;
+	background: none;
+	border: none;
+	cursor: pointer;
 	background-image: url('../img/record.png');
 	margin: 10px;
+	opacity: 0.4;
+}
+#staffs li .staff_controls .record_button:hover {
+	opacity: 1;
+}
+#staffs li .staff_controls .record_button.click_me {
+	background-image: url('../img/record-pulsing.gif');
+	opacity: 1;
+}
+#staffs li .staff_controls .recording {
+	background-image: url('../img/stop-pulsing.gif');
+	opacity: 1;
+}
+
+#add_track {
+	position: absolute;
+	left: 50%;
+	margin-left: -89px;
+	margin-top: -1px;
+	width: 178px;
+	height: 36px;
+	text-indent: -5000px;
+	border: 0;
+	background: none;
+	background-image: url('../img/add-part.png');
+	cursor: pointer;
+	opacity: 0.8;
+}
+#add_track:hover {
+	opacity: 1;
 }
 
 .staff_viewport {
@@ -563,8 +613,12 @@ ul#singers li#face_woof img {height: 100%;}
 .staff .staff_bg {
 	width: 100%;
 	background-image: url('../img/staff.png');
+	border-left: 2px solid #7c7c7c;
 	margin-top: 13px;
 	height: 33px;
+}
+#add_track_staff .staff_bg {
+	opacity: 0.5;
 }
 .staff ul.notes {
 	position: absolute;
@@ -574,8 +628,13 @@ ul#singers li#face_woof img {height: 100%;}
 	margin: 0;
 	padding: 0;
 	background-image: url('../img/clef.png');
-	width: 26px;
-	height: 68px;
+	background-repeat: no-repeat;
+	background-position: 4px 12px;
+	width: 22px;
+	height: 63px;
+}
+#add_track_staff ul.notes {
+	opacity: 0.5;
 }
 .staff ul.notes li {
 	position: absolute;
@@ -737,3 +796,68 @@ ul#piano li.active {
 .popups {
 	display: none;
 }
+
+#save_popup, #share_popup {
+	text-align: center;
+}
+#save_popup h1, #share_popup h1 {
+	margin-bottom: 10px;
+	padding-bottom: 0;
+}
+#save_popup #id_title {
+	width: 550px;
+	font-size: 16pt;
+	border: 1px solid #9b9b9b;
+	padding: 5px;
+}
+#save_popup #id_title.placeholder {
+	text-align: center;
+	font-style: italic;
+	color: #333333;
+}
+#save_popup #save_submit {
+	width: 102px;
+	height: 45px;
+	background: none;
+	border: none;
+	background-image: url('../img/save_submit.png');
+	text-indent: -5000px;
+	margin-top: 20px;
+}
+#share_popup h2 a {
+	text-decoration: none;
+	color: #e32a2a;
+}
+#share_popup h2 a:hover {
+	color: #851919;
+}
+
+#popup_share_twitter {
+	display: inline-block;
+	width: 41px;
+	height: 41px;
+	text-indent: -5000px;
+	background-image: url('../img/twitter_black.png');
+	opacity: 0.6;
+	margin-right: 15px;
+}
+#popup_share_twitter:hover {opacity: 1;}
+#popup_share_facebook {
+	display: inline-block;
+	width: 41px;
+	height: 41px;
+	text-indent: -5000px;
+	background-image: url('../img/facebook_black.png');
+	opacity: 0.6;
+	margin-right: 15px;
+}
+#popup_share_facebook:hover {opacity: 1;}
+#popup_share_email {
+	display: inline-block;
+	width: 41px;
+	height: 41px;
+	text-indent: -5000px;
+	background-image: url('../img/email_black.png');
+	opacity: 0.6;
+}
+#popup_share_email:hover {opacity: 1;}

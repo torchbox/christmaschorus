@@ -49,21 +49,13 @@
 			self.tracks = [];
 			for (var i = 0; i < songData.length; i++) {
 				self.tracks[i] = Track(songData[i]);
-				self.tracks[i].onRequestRecord.bind(function(tr) {
-					self.onRequestRecord.trigger(tr);
-				})
 			}
 			self.onLoad.trigger();
 		}
 		
-		self.onRequestRecord = Event();
-		
 		self.addTrack = function() {
 			var track = Track([]);
 			self.tracks.push(track);
-			track.onRequestRecord.bind(function(tr) {
-				self.onRequestRecord.trigger(tr);
-			})
 			self.onAddTrack.trigger(track);
 		}
 		
@@ -101,9 +93,11 @@
 	Track = function(notes) {
 		var self = {};
 		
-		self.onRequestRecord = Event();
 		self.onAddNote = Event();
 		self.onClear = Event();
+		self.onStartRecording = Event();
+		self.onStopRecording = Event();
+		self.isRecording = false;
 		
 		/* validate note list */
 		var validNotes = [];
@@ -111,6 +105,16 @@
 			if (notes[i].noteName in VALID_NOTE_NAMES) validNotes.push(notes[i]);
 		}
 		notes = validNotes;
+		
+		/* called by the controller on start of recording; user code should call controller.recordTrack(track) instead */
+		self.startRecording = function() {
+			self.isRecording = true;
+			self.onStartRecording.trigger();
+		}
+		self.stopRecording = function() {
+			self.isRecording = false;
+			self.onStopRecording.trigger();
+		}
 		
 		self.addNote = function(note) {
 			if (!note.noteName in VALID_NOTE_NAMES) return;
@@ -171,9 +175,9 @@
 			$('#current_song h3 .votes').text(songWithMeta.votes_string);
 			if (songWithMeta.code) {
 				$('#vote_controls form').attr('action', '/' + songWithMeta.code + '/vote/');
-				$('#vote_controls').show();
+				$('#vote_controls').css({'visibility': 'visible'});
 			} else {
-				$('#vote_controls').hide();
+				$('#vote_controls').css({'visibility': 'hidden'});
 			}
 			self.onLoadSong.trigger(songWithMeta);
 		}
@@ -183,33 +187,30 @@
 		var recordingStartTime = null;
 		self.isPlaying = false;
 		
-		self.song.onRequestRecord.bind(function(track) {
-			if (currentRecordingTrack == track) {
-				/* stop recording */
+		self.recordTrack = function(track) {
+			self.stopRecording();
+			track.clear();
+			currentRecordingTrack = track;
+			track.startRecording();
+			if (self.song.trackCount() > 1) {
+				/* start timing and playing existing tracks immediately */
+				recordingStartTime = (new Date).getTime();
+				runPlayback();
+			} else {
+				recordingStartTime = null; /* start counting time on next note */
+				self.onStartPlayback.trigger(); /* but tell listeners that playback has started (so relevant buttons change to 'stop') */
+			}
+			self.isPlaying = true;
+		}
+		
+		self.stopRecording = function() {
+			if (currentRecordingTrack) {
+				currentRecordingTrack.stopRecording();
 				currentRecordingTrack = null;
 				$('#id_notes_json').val(JSON.stringify(self.song.getData()));
-				cancelNoteTimeouts();
-				self.isPlaying = false;
-				self.onStopPlayback.trigger();
-				/* TODO: change label to 'Record' */
-			} else {
-				if (currentRecordingTrack) {
-					/* TODO: stop the active recording of another track */
-				}
-				track.clear();
-				currentRecordingTrack = track;
-				if (self.song.trackCount() > 1) {
-					/* start timing and playing existing tracks immediately */
-					recordingStartTime = (new Date).getTime();
-					self.startPlayback();
-				} else {
-					recordingStartTime = null; /* start counting time on next note */
-					self.onStartPlayback.trigger();
-				}
-				self.isPlaying = true;
-				/* TODO: change label to 'Stop recording' */
+				self.stopPlayback();
 			}
-		})
+		}
 		
 		noteTimeouts = [];
 		
@@ -220,6 +221,11 @@
 		}
 		
 		self.startPlayback = function() {
+			self.stopRecording();
+			runPlayback();
+		}
+		
+		runPlayback = function() {
 			function getPlayCallbackForNote(note) {
 				return function() {
 					playNote(note)

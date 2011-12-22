@@ -31,18 +31,15 @@ def home(request):
 def create_song(request):
 	form = CreateSongForm(request.POST)
 	song = form.save()
-	return HttpResponseRedirect(song.get_absolute_url())
+	if request.is_ajax():
+		return HttpResponse(simplejson.dumps(song.as_json_data()), mimetype="text/javascript")
+	else:
+		return HttpResponseRedirect(song.get_absolute_url())
 
 def song(request, code):
 	song = get_object_or_404(Song, code = code)
 	if request.is_ajax():
-		song_data = {
-			'title': song.title,
-			'note_data': simplejson.loads(song.notes_json), # there must be a better way to inject this into the json output...
-			'votes_string': song.votes_string,
-			'code': song.code,
-		}
-		return HttpResponse(simplejson.dumps(song_data), mimetype="text/javascript")
+		return HttpResponse(simplejson.dumps(song.as_json_data()), mimetype="text/javascript")
 	else:
 		form = CreateSongForm()
 		return render(request, 'index.html', {

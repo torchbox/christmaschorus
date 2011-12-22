@@ -17,8 +17,8 @@
 		{% compress css %}
 		<link rel="stylesheet" href="{{ STATIC_URL }}lib/colorbox/colorbox.css" />
 		<link rel="stylesheet" href="{{ STATIC_URL }}css/card.css" />
+		<link rel="stylesheet" href="{{ STATIC_URL }}lib/jscrollpane/jquery.jscrollpane.css" />
 		{% endcompress %}
-
 
         {% compress js %}
         <script src="{{ STATIC_URL }}js/jquery-1.7.1.min.js"></script>
@@ -36,6 +36,8 @@
         <script src="{{ STATIC_URL }}js/faces.js"></script>
         {% if editor_enabled %}<script src="{{ STATIC_URL }}js/staffs.js"></script>{% endif %}
         <script src="{{ STATIC_URL }}js/ui.js"></script>
+        <script src="{{ STATIC_URL }}js/jquery.mousewheel.js"></script>
+        <script src="{{ STATIC_URL }}lib/jscrollpane/jquery.jscrollpane.js"></script>
         {% endcompress %}
         <script>
             var chorus = ChorusController({{ song.notes_json|safe }});
@@ -79,9 +81,7 @@
 		<div id="title">
 			<h1>The Torchbox Christmas Choir!</h1>
 			<a id="share_twitter" href="https://twitter.com/share?url={{ share_url|urlencode }}&text={{ "Happy Christmas from everyone at @torchbox! Choose your favourite carol and we'll sing it to you."|urlencode }}" target="_blank">Share on Twitter</a>
-			<!-- TODO: add share text -->
 			<a id="share_facebook" href="http://www.facebook.com/sharer.php?u={{ share_url|urlencode }}" target="_blank">Share on Facebook</a>
-
 			<a id="share_email" href="mailto:?Subject=The Torchbox Christmas Choir!&body={{ share_url|urlencode }}">Share by email</a>
 			<div style="clear: both;"></div>
 		</div>
@@ -168,19 +168,20 @@
                 </h3>
             </div>
 			<div id="vote_controls">
-				{% if song.code %}
-					<form id="vote_up" action="{% url vote song.code %}" method="POST">
-						{% csrf_token %}
-						<input type="hidden" name="score" value="1" />
-						<input type="submit" value="Oh yes" />
-					</form>
-					<form id="vote_down" action="{% url vote song.code %}" method="POST">
-						{% csrf_token %}
-						<input type="hidden" name="score" value="-1" />
-						<input type="submit" value="Oh no" />
-					</form>
-				{% endif %}
+				<form id="vote_up" action="{% url vote song.code %}" method="POST">
+					{% csrf_token %}
+					<input type="hidden" name="score" value="1" />
+					<input type="submit" value="Oh yes" />
+				</form>
+				<form id="vote_down" action="{% url vote song.code %}" method="POST">
+					{% csrf_token %}
+					<input type="hidden" name="score" value="-1" />
+					<input type="submit" value="Oh no" />
+				</form>
 			</div>
+			{% if not song.code %}
+				<script>$('#vote_controls').css({'visibility': 'hidden'});</script>
+			{% endif %}
 			{% if editor_enabled %}
 				<h2>Record your carol</h2>
 			{% endif %}
@@ -194,8 +195,7 @@
 					<button id="save">Save</button>
 				</div>
 
-				<ul id="staffs"><li></li></ul>
-				<input type="button" id="add_track" value="Add another part" />
+				<ul id="staffs"></ul>
 
 				<ul id="piano">
 					<li id="piano_e2" class="white">Z</li>
@@ -234,20 +234,32 @@
 		<div id="torchbox"><a href="http://www.torchbox.com/">Site by Torchbox</a></div>
 
 		<div class="popups">
-			<div id="save_popup">
+			<div id="save_popup" class="popup-text">
+				<h1>Name your carol</h1>
 				<form action="{% url create_song %}" method="post">
 					{% csrf_token %}
-					<p>Enter a title for your song:</p>
-
-					<table>
-						{{ form }}
-					</table>
-					<input type="submit" value="Share it!" />
+					{{ form.title }}
+					{% for hidden_field in form.hidden_fields %}
+						{{ hidden_field }}
+					{% endfor %}
+					<div style="text-align: center;">
+						<button id="save_submit" type="submit">Save</button>
+					</div>
+				</form>
+			</div>
+			<div id="share_popup" class="popup-text">
+				<h1>Share your carol</h1>
+				<h2><a href="{{ share_url }}">{{ share_url }}</a></h2>
+				<div>
+					<a id="popup_share_twitter" href="https://twitter.com/share?url={{ share_url|urlencode }}&text={{ "Happy Christmas from everyone at @torchbox! Choose your favourite carol and we'll sing it to you."|urlencode }}" target="_blank">Share on Twitter</a>
+					<a id="popup_share_facebook" href="http://www.facebook.com/sharer.php?u={{ share_url|urlencode }}" target="_blank">Share on Facebook</a>
+					<a id="popup_share_email" href="mailto:?Subject=The Torchbox Christmas Choir!&body={{ share_url|urlencode }}">Share by email</a>
+				</div>
 			</div>
 			<div id="loading_popup"></div>
 
 
-            <div id="faq-text">
+            <div id="faq-text" class="popup-text">
                 <h1>FAQs</h1>
                 <ul>
                     <li>
@@ -279,7 +291,8 @@
                             How can I add a song?
                         </div>
                         <div class="answer">
-                            You can play us in real time, using the mouse or keyboard. We've almost finished writing a multi-track recording tool, but it's not quite ready for prime time yet. For now, <a href="mailto:sing@torchbox.com">email us</a> a midi file, and we'll convert and add it for you. <a href="http://christmascard.s3.amazonaws.com/walking-in-the-air.mid">Here's</a> an example file which uses the full range of the choir; anything outside this range won't get played.
+                            <p>You can play us in real time, using the mouse or keyboard. When you're ready to record a performance, head over to the 'Record your carol' panel where you can lay down as many parts as you like, and re-record each one until you're happy with how it sounds. Once you're done, click on Save and you'll be able to share your creation by Twitter, Facebook or email.</p>
+                            <p>For power users who need a bit more control, there's also the option of creating your song as MIDI file - <a href="mailto:sing@torchbox.com">email us</a> your file, and we'll convert and add it for you. <a href="http://christmascard.s3.amazonaws.com/walking-in-the-air.mid">Here's</a> an example file which uses the full range of the choir; anything outside this range won't get played.
                         </div>
                     </li>
                     <li>

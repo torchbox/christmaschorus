@@ -2,19 +2,50 @@ function ChorusStaffs(controller) {
 	var self = {};
 	
 	var initialDragX;
+	function addDragBehaviour(staff) {
+		staff.drag(function() {
+			initialDragX = parseInt($('ul.notes', this).css('left'));
+		}, function(e) {
+			setStaffPosition(initialDragX + e.offsetX);
+		}, function() {
+		})
+	}
+	
 	function setStaffPosition(x) {
 		x = Math.min(0, x);
 		$('#staffs ul.notes').css({'left': x});
 	}
 	
+	var addStaff = $('<li id="add_track_staff"><div class="staff_controls"></div><div class="staff_viewport">\
+		<div class="staff">\
+			<div class="staff_bg"><button id="add_track">Add another part</button></div>\
+			<ul class="notes"></ul>\
+		</div>\
+	</div></li>')
+	$('#staffs').append(addStaff);
+	addDragBehaviour(addStaff);
+	
 	function Staff(track) {
 		var staffLi = $('<li></li>');
-		var recordButton = $('<a href="javascript:void(0)" class="record_button">Record</a>');
-		$('#staffs').append(staffLi);
+		var recordButton = $('<button class="record_button">Record</button>');
+		staffLi.insertBefore('#add_track_staff');
 		staffLi.append($('<div class="staff_controls"></div>').append(recordButton));
+		if (editorActive) $('#staffs').jScrollPane();
 		recordButton.click(function() {
-			track.onRequestRecord.trigger(track);
+			if (track.isRecording) {
+				controller.stopRecording();
+			} else {
+				controller.recordTrack(track);
+			}
 		})
+		
+		track.onStartRecording.bind(function() {
+			recordButton.text('Stop').addClass('recording');
+		})
+		track.onStopRecording.bind(function() {
+			recordButton.text('Record').removeClass('recording');
+		})
+		
 		var staff = $('<div class="staff_viewport">\
 			<div class="staff">\
 				<div class="staff_bg"></div>\
@@ -23,12 +54,7 @@ function ChorusStaffs(controller) {
 		</div>');
 		staffLi.append(staff);
 		setStaffPosition(0);
-		staff.drag(function() {
-			initialDragX = parseInt($('ul.notes', this).css('left'));
-		}, function(e) {
-			setStaffPosition(initialDragX + e.offsetX);
-		}, function() {
-		})
+		addDragBehaviour(staff);
 		
 		function addNote(note) {
 			var noteLi = $('<li></li>').addClass(note.noteName);
@@ -46,7 +72,7 @@ function ChorusStaffs(controller) {
 	}
 	
 	function loadSong() {
-		$('#staffs').empty();
+		$('#staffs li:not(#add_track_staff)').remove();
 		for (var i = 0; i < controller.song.tracks.length; i++) {
 			Staff(controller.song.tracks[i]);
 		}
