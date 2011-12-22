@@ -575,6 +575,10 @@ ul#singers li#face_woof img {height: 100%;}
 #staffs li .staff_controls .record_button:hover {
 	opacity: 1;
 }
+#staffs li .staff_controls .record_button.click_me {
+	background-image: url('../img/record-pulsing.gif');
+	opacity: 1;
+}
 #staffs li .staff_controls .recording {
 	background-image: url('../img/stop-pulsing.gif');
 	opacity: 1;

@@ -82,7 +82,12 @@ function ChorusUi(controller) {
 			existingSongIsLoaded = false;
 		}
 		$('#current_song').hide();
-		$('#editor').show().animate({'bottom': '0px'});
+		$('#staffs .record_button:eq(0)').addClass('click_me');
+		$('#editor').show().animate({'bottom': '0px'}, function() {
+			setTimeout(function() {
+				$('#staffs .record_button:eq(0)').removeClass('click_me');
+			}, 1500);
+		});
 		$('#songsheet').slideUp();
 		editorActive = true;
 		setChoirSize(true);
