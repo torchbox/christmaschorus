@@ -2,6 +2,7 @@ from django.db import models
 from django.db.models import Sum
 import random
 from django.utils import simplejson
+import datetime
 
 class Song(models.Model):
 	title = models.CharField(max_length=255)
@@ -13,14 +14,23 @@ class Song(models.Model):
 	# TODO: validate that notes_json is valid JSON
 	
 	def save(self, *args, **kwargs):
+		is_new = False
 		if not self.code:
 			while True:
 				code = ''.join(random.choice('BCDFGHJKLMNPQRSTVWXYZ0123456789bcdfghjklmnpqrstvwxyz') for x in range(6))
 				if not Song.objects.filter(code = code).count():
 					break
 			self.code = code
+			is_new = True
 		
-		return super(Song, self).save(*args, **kwargs)
+		result = super(Song, self).save(*args, **kwargs)
+		
+		if is_new:
+			# create a dummy zero vote so that the vote counts don't give a result of null (which places them
+			# at the top of the list when ordering by votes)
+			Vote.objects.create(song=self, score=0, vote_date=datetime.date.today(), ip_address='0.0.0.0')
+		
+		return result
 	
 	def __unicode__(self):
 		return self.title
