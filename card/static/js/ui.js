@@ -143,11 +143,11 @@ function ChorusUi(controller) {
 		})
 	})
 
-	$('a#share_twitter').click(function() {
+	$('a#share_twitter,a#popup_share_twitter').click(function() {
 		window.open(this.href, '_blank', 'width=550,height=450');
 		return false;
 	})
-	$('a#share_facebook').click(function() {
+	$('a#share_facebook,a#popup_share_facebook').click(function() {
 		window.open(this.href, '_blank', 'width=550,height=450');
 		return false;
 	})
@@ -161,6 +161,9 @@ function ChorusUi(controller) {
 			$('a#share_twitter').attr('href', twitterUrl);
 			$('a#share_facebook').attr('href', facebookUrl);
             $('a#share_email').attr('href', emailUrl);
+			$('a#popup_share_twitter').attr('href', twitterUrl);
+			$('a#popup_share_facebook').attr('href', facebookUrl);
+            $('a#popup_share_email').attr('href', emailUrl);
             $('#share_popup h2 a').attr('href', shareUrl).text('sing.torchbox.com/#' + songWithMeta.code);
 			if (window.setChoirSize) setChoirSize();
 		}

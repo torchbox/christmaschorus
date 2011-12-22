@@ -824,3 +824,33 @@ ul#piano li.active {
 #share_popup h2 a:hover {
 	color: #851919;
 }
+
+#popup_share_twitter {
+	display: inline-block;
+	width: 41px;
+	height: 41px;
+	text-indent: -5000px;
+	background-image: url('../img/twitter_black.png');
+	opacity: 0.6;
+	margin-right: 15px;
+}
+#popup_share_twitter:hover {opacity: 1;}
+#popup_share_facebook {
+	display: inline-block;
+	width: 41px;
+	height: 41px;
+	text-indent: -5000px;
+	background-image: url('../img/facebook_black.png');
+	opacity: 0.6;
+	margin-right: 15px;
+}
+#popup_share_facebook:hover {opacity: 1;}
+#popup_share_email {
+	display: inline-block;
+	width: 41px;
+	height: 41px;
+	text-indent: -5000px;
+	background-image: url('../img/email_black.png');
+	opacity: 0.6;
+}
+#popup_share_email:hover {opacity: 1;}
