@@ -69,7 +69,7 @@ class Song(models.Model):
 	
 	@staticmethod
 	def by_others():
-		return Song.objects.annotate(vote_score = Sum('votes__score')).filter(is_by_torchbox=False).order_by('-vote_score')[:10]
+		return Song.objects.annotate(vote_score = Sum('votes__score')).filter(is_by_torchbox=False).order_by('-vote_score')[:100]
 
 class Vote(models.Model):
 	song = models.ForeignKey(Song, related_name = 'votes')

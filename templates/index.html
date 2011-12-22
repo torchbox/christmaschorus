@@ -17,8 +17,8 @@
 		{% compress css %}
 		<link rel="stylesheet" href="{{ STATIC_URL }}lib/colorbox/colorbox.css" />
 		<link rel="stylesheet" href="{{ STATIC_URL }}css/card.css" />
+		<link rel="stylesheet" href="{{ STATIC_URL }}lib/jscrollpane/jquery.jscrollpane.css" />
 		{% endcompress %}
-
 
         {% compress js %}
         <script src="{{ STATIC_URL }}js/jquery-1.7.1.min.js"></script>
@@ -36,6 +36,8 @@
         <script src="{{ STATIC_URL }}js/faces.js"></script>
         {% if editor_enabled %}<script src="{{ STATIC_URL }}js/staffs.js"></script>{% endif %}
         <script src="{{ STATIC_URL }}js/ui.js"></script>
+        <script src="{{ STATIC_URL }}js/jquery.mousewheel.js"></script>
+        <script src="{{ STATIC_URL }}lib/jscrollpane/jquery.jscrollpane.js"></script>
         {% endcompress %}
         <script>
             var chorus = ChorusController({{ song.notes_json|safe }});

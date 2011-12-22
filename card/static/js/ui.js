@@ -105,6 +105,8 @@ function ChorusUi(controller) {
 		hideEditor();
 	})
 
+	$('#songsheet .songs:eq(1) ul').jScrollPane();
+		
 	$('#songsheet .songs').each(function() {
 		var songSelector = this;
 		var isOpen = false;
@@ -124,7 +126,9 @@ function ChorusUi(controller) {
 			if ($.contains(songSelector, event.target) && !isOpen) {
 				openSelector();
 			} else {
-				closeSelector();
+				if (!$(event.target).hasClass('jspDrag')) { /* hack: prevent firefox from closing on dragging scrollbar. Why it thinks that's a click event, or that the scrollbar isn't in songSelector, is beyond me... */
+					closeSelector();
+				}
 			}
 		})
 
