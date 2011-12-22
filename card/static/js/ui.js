@@ -86,6 +86,7 @@ function ChorusUi(controller) {
 		$('#songsheet').slideUp();
 		editorActive = true;
 		setChoirSize(true);
+		$('#staffs').jScrollPane();
 	}
 	function hideEditor() {
 		controller.stopRecording();

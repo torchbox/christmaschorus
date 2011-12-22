@@ -30,6 +30,7 @@ function ChorusStaffs(controller) {
 		var recordButton = $('<button class="record_button">Record</button>');
 		staffLi.insertBefore('#add_track_staff');
 		staffLi.append($('<div class="staff_controls"></div>').append(recordButton));
+		if (editorActive) $('#staffs').jScrollPane();
 		recordButton.click(function() {
 			if (track.isRecording) {
 				controller.stopRecording();
