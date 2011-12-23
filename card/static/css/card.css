@@ -542,6 +542,13 @@ ul#singers li#face_woof img {height: 100%;}
 #save:hover {
 	opacity: 1;
 }
+#save.disabled {
+	opacity: 0.4;
+	cursor: default;
+}
+#save:hover.disabled {
+	opacity: 0.4;
+}
 
 #staffs {
 	margin: 0;

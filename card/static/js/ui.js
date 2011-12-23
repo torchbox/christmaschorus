@@ -80,6 +80,7 @@ function ChorusUi(controller) {
 				'votes_string': ''
 			});
 			existingSongIsLoaded = false;
+			$('#save').addClass('disabled');
 		}
 		$('#current_song').hide();
 		$('#staffs .record_button:eq(0)').addClass('click_me');
@@ -93,6 +94,7 @@ function ChorusUi(controller) {
 		setChoirSize(true);
 		$('#staffs').jScrollPane();
 	}
+	controller.onStopRecording.bind(function() {$('#save').removeClass('disabled');})
 	function hideEditor() {
 		controller.stopRecording();
 		$('#editor').animate({'bottom': '-244px'}, function() {
@@ -185,13 +187,15 @@ function ChorusUi(controller) {
 	$(document).bind('cbox_open', function() { controller.keyboardActive = false; })
 	$(document).bind('cbox_closed', function() { controller.keyboardActive = true; })
 	
-	$('#save').colorbox({
-		'inline': true, 'href': '#save_popup',
-		'onComplete': function() {
-			$('#id_title').addClass('placeholder').val('Enter a name here').one('focus', function() {
-				$(this).removeClass('placeholder').val('');
-			});
-		}
+	$('#save').click(function() {
+		if ($(this).is('.disabled')) return;
+		$.colorbox({'inline': true, 'href': '#save_popup',
+			'onComplete': function() {
+				$('#id_title').addClass('placeholder').val('Enter a name here').one('focus', function() {
+					$(this).removeClass('placeholder').val('');
+				});
+			}
+		})
 	});
 	
 	$('#save_popup form').submit(function() {

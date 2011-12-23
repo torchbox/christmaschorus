@@ -203,11 +203,13 @@
 			self.isPlaying = true;
 		}
 		
+		self.onStopRecording = Event();
 		self.stopRecording = function() {
 			if (currentRecordingTrack) {
 				currentRecordingTrack.stopRecording();
 				currentRecordingTrack = null;
 				$('#id_notes_json').val(JSON.stringify(self.song.getData()));
+				self.onStopRecording.trigger();
 				self.stopPlayback();
 			}
 		}
