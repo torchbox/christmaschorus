@@ -32,3 +32,7 @@ Song data is stored as a json field in the 'songs' table; each song comprises
 an array of tracks, where each track is an array of notes. A note has a 'time'
 and 'duration', both measured in milliseconds, and a 'noteName' - see the top
 of card/static/js/chorus.js for the recognised values.
+
+midi2json/midi2json.rb is a command-line script written in Ruby for converting
+Type 1 MIDI files into this format:
+  ruby midi2json.rb example.mid > example.json
