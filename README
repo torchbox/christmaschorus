@@ -1,0 +1,34 @@
+The Torchbox Christmas Choir - http://sing.torchbox.com/
+
+This is the 2011 Christmas card we sent to our clients and friends. Hear us
+perform your favourite carols, or create your own arrangements...
+
+
+Installation
+
+The site is built on Django and PostgreSQL.
+We recommend virtualenv / virtualenvwrapper to manage dependencies:
+http://pypi.python.org/pypi/virtualenv
+http://www.doughellmann.com/projects/virtualenvwrapper/
+
+pip install -r requirements.txt
+createdb -Upostgres christmaschorus
+cp local_settings.py.example local_settings.py
+  (edit settings in local_settings.py as required)
+./manage.py syncdb
+./manage.py migrate
+./manage.py runserver
+
+
+To replace the audio samples, you'll need to provide both .mp3 and .ogg
+versions to ensure cross-browser support - see data/encode_notes.py for the
+conversion steps we used (requires sox, lame and oggenc) - and update
+card/static/js/audio.js with the URLs to your files.
+
+
+Implementation notes
+
+Song data is stored as a json field in the 'songs' table; each song comprises
+an array of tracks, where each track is an array of notes. A note has a 'time'
+and 'duration', both measured in milliseconds, and a 'noteName' - see the top
+of card/static/js/chorus.js for the recognised values.
